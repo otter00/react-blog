@@ -1,8 +1,6 @@
 import React from "react";
-import './CustomButtonStyles.scss';
+import "./CustomButtonStyles.scss";
 
-export const CustomButton = () => {
-    return(
-        <button>amount</button>
-    )
-}
+export const CustomButton = ({ onClick }) => {
+  return <button onClick={onClick}>amount</button>;
+};

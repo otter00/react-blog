@@ -1,30 +1,26 @@
 import React from "react";
 import "./ArticlesPageStyles.scss";
 import { CustomButton } from "../../UI/CustomButton/CustomButton";
+import { posts } from "../../utils/articlesData";
+import { getAmountOfArticles } from "../../utils/getAmountOfArticles";
 
 export const ArticlesPage = () => {
+  const articlesArray = posts.map((item) => {
+    return (
+      <div key={item.id} className="post">
+        <h2>{item.title}</h2>
+        <p>{item.description}</p>
+      </div>
+    );
+  });
+
   return (
     <>
       <h1>Simple Blog</h1>
-      <div className="posts">
-        <div className="post">
-          <h2>Post 1</h2>
-          <p>paragraph</p>
-        </div>
-
-        <div className="post">
-          <h2>Post 2</h2>
-          <p>paragraph</p>
-        </div>
-
-        <div className="post">
-          <h2>Post 3</h2>
-          <p>paragraph</p>
-        </div>
-      </div>
+      <div className="posts">{articlesArray}</div>
 
       <div className="count">
-        <CustomButton />
+        <CustomButton onClick={() => getAmountOfArticles(posts)} />
       </div>
     </>
   );
