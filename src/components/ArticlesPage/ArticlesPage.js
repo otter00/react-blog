@@ -1,16 +1,18 @@
 import React from "react";
 import "./ArticlesPageStyles.scss";
-import { CustomButton } from "../../UI/CustomButton/CustomButton";
+//import { CustomButton } from "../../UI/CustomButton/CustomButton";
 import { posts } from "../../utils/articlesData";
-import { getAmountOfArticles } from "../../utils/getAmountOfArticles";
+//import { getAmountOfArticles } from "../../utils/getAmountOfArticles";
+import { ArticleItem } from "../ArticeItem/ArticleItem";
 
 export const ArticlesPage = () => {
   const articlesArray = posts.map((item) => {
     return (
-      <div key={item.id} className="post">
-        <h2>{item.title}</h2>
-        <p>{item.description}</p>
-      </div>
+      <ArticleItem
+        key={item.id}
+        title={item.title}
+        description={item.description}
+      />
     );
   });
 
@@ -19,9 +21,9 @@ export const ArticlesPage = () => {
       <h1>Simple Blog</h1>
       <div className="posts">{articlesArray}</div>
 
-      <div className="count">
+      {/* <div className="count">
         <CustomButton onClick={() => getAmountOfArticles(posts)} />
-      </div>
+      </div> */}
     </>
   );
 };
