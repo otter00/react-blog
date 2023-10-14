@@ -5,17 +5,20 @@
 @import url("https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800;900&display=swap");
 
 button {
-  padding: 4px 20px;
+  padding: 5px 20px;
   font-size: 16px;
   background-color: #393939;
   color: white;
   border-radius: 9999px;
-  cursor: pointer;
   transition-property: background-color, color;
   transition-duration: 200ms;
   transition-timing-function: ease-out;
+  height: 35px;
+  line-height: 1.5;
+  text-align: center;
 
   &:hover {
-    background-color: #393939;
+    background-color: #1890ff;
+    cursor: pointer;
   }
 }
