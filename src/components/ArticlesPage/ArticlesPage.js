@@ -10,7 +10,9 @@ export class ArticlesPage extends Component {
   // будет меняться отрисовка контента
   state = {
     showArticles: true,
-    blogArray: posts,
+    // если в локальном хранилище есть данные, берем их
+    // если данных нет, берем "чистый" массив
+    blogArray: JSON.parse(localStorage.getItem("blogArticles")) || posts,
   };
 
   likePost = (position) => {
@@ -24,6 +26,9 @@ export class ArticlesPage extends Component {
     this.setState({
       blogArray: tmp,
     });
+
+    // сохраняем массив с изменениями в локальное хранилище
+    localStorage.setItem("blogArticles", JSON.stringify(tmp));
   };
 
   // меняем булево состояние по клику на кнопку
