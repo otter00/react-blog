@@ -1,3 +1,10 @@
+/* general styles */
+@import "../../styles/vars.scss";
+
 h2 {
   color: #1890ff;
+}
+
+.post img {
+  width: 20px;
 }

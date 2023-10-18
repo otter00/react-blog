@@ -10,19 +10,21 @@ export class ArticlesPage extends Component {
   // будет меняться отрисовка контента
   state = {
     showArticles: true,
+    blogArray: posts,
   };
 
-  // проходимся по массиву постов и "кладём" их в компонент,
-  // складываем все полученные посты в массив
-  articlesArray = posts.map((item) => {
-    return (
-      <ArticleItem
-        key={item.id}
-        title={item.title}
-        description={item.description}
-      />
-    );
-  });
+  likePost = (position) => {
+    // сохраняем копию на массив статей в отдельную переменную
+    const tmp = [...this.state.blogArray];
+    // изменяем состояние
+    tmp[position].liked = !tmp[position].liked;
+    //console.log(tmp);
+
+    // передаем измененный временный массив в переменную для отрисовки
+    this.setState({
+      blogArray: tmp,
+    });
+  };
 
   // меняем булево состояние по клику на кнопку
   // асинхронный метод - может не успевать со сменой состояния => отрисовкой,
@@ -36,21 +38,36 @@ export class ArticlesPage extends Component {
   //   });
   // };
   toggleShowArticles = () => {
-    console.log("1");
+    //console.log("1");
     this.setState(({ showArticles }) => {
       return {
         showArticles: !showArticles,
       };
     });
-    console.log("2");
+    //console.log("2");
   };
 
   render() {
+    // проходимся по массиву постов и "кладём" их в компонент,
+    // складываем все полученные посты в массив
+    // вносим под рендер, чтобы при каждом изменении состояния изменения визуализировались
+    const articlesArray = this.state.blogArray.map((item, position) => {
+      return (
+        <ArticleItem
+          key={item.id}
+          title={item.title}
+          description={item.description}
+          liked={item.liked}
+          likePost={() => this.likePost(position)}
+        />
+      );
+    });
+
     return (
       <>
         <CustomButton
           onClick={this.toggleShowArticles}
-          className={'showArticlesButton'}
+          className={"showArticlesButton"}
           name={
             this.state.showArticles
               ? "Скрыть комментарии"
@@ -63,7 +80,7 @@ export class ArticlesPage extends Component {
             <h1>Simple Blog</h1>
 
             {/* выводим все полученные ранее посты в блок */}
-            <div className="posts">{this.articlesArray}</div>
+            <div className="posts">{articlesArray}</div>
           </>
         ) : null}
       </>
