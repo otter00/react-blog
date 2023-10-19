@@ -5,6 +5,13 @@ h2 {
   color: #1890ff;
 }
 
-.post img {
-  width: 20px;
+.post {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 10px 30px;
+  margin-bottom: 3vh;
+  background-color: white;
+  box-shadow: 0px 4px 12px 0px #00000026;
 }

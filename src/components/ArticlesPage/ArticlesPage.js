@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import "./ArticlesPageStyles.scss";
 import { CustomButton } from "../../UI/CustomButton/CustomButton";
 import { posts } from "../../utils/articlesData";
-//import { getAmountOfArticles } from "../../utils/getAmountOfArticles";
 import { ArticleItem } from "../ArticeItem/ArticleItem";
 
 export class ArticlesPage extends Component {
@@ -42,6 +41,7 @@ export class ArticlesPage extends Component {
   //     showArticles: !this.state.showArticles,
   //   });
   // };
+
   toggleShowArticles = () => {
     //console.log("1");
     this.setState(({ showArticles }) => {
@@ -50,6 +50,24 @@ export class ArticlesPage extends Component {
       };
     });
     //console.log("2");
+  };
+
+  handleDeleteArticle = (position) => {
+    // вызываем пользовательское модальное окно перед удалением
+    if (window.confirm(`Удалить ${this.state.blogArray[position].title}?`)) {
+      // копируем массив, чтобы при изменении переменной менялась именно копия,
+      // а не исходный массив
+      const beforeDeleteBlog = [...this.state.blogArray];
+      beforeDeleteBlog.splice(position, 1);
+      console.log(beforeDeleteBlog);
+
+      this.setState({
+        blogArray: beforeDeleteBlog,
+      });
+
+      // сохраняем изменения в локальное хранилище
+      localStorage.setItem("blogArticles", JSON.stringify(beforeDeleteBlog));
+    }
   };
 
   render() {
@@ -64,6 +82,7 @@ export class ArticlesPage extends Component {
           description={item.description}
           liked={item.liked}
           likePost={() => this.likePost(position)}
+          handleDeleteArticle={() => this.handleDeleteArticle(position)}
         />
       );
     });
@@ -91,10 +110,4 @@ export class ArticlesPage extends Component {
       </>
     );
   }
-}
-
-{
-  /* <div className="count">
-      <CustomButton onClick={() => getAmountOfArticles(posts)} />
-    </div> */
 }
