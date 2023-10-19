@@ -31,17 +31,6 @@ export class ArticlesPage extends Component {
   };
 
   // меняем булево состояние по клику на кнопку
-  // асинхронный метод - может не успевать со сменой состояния => отрисовкой,
-  // поэтому метод должен передавать коллбэк,
-  // также передаем состояние с деструктуризацией, как объект,
-  // чтобы обращаться напрямую, без state
-
-  // toggleShowArticles = () => {
-  //   this.setState({
-  //     showArticles: !this.state.showArticles,
-  //   });
-  // };
-
   toggleShowArticles = () => {
     //console.log("1");
     this.setState(({ showArticles }) => {
@@ -55,8 +44,7 @@ export class ArticlesPage extends Component {
   handleDeleteArticle = (position) => {
     // вызываем пользовательское модальное окно перед удалением
     if (window.confirm(`Удалить ${this.state.blogArray[position].title}?`)) {
-      // копируем массив, чтобы при изменении переменной менялась именно копия,
-      // а не исходный массив
+      // копируем массив
       const beforeDeleteBlog = [...this.state.blogArray];
       beforeDeleteBlog.splice(position, 1);
       console.log(beforeDeleteBlog);
