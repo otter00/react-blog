@@ -1,1 +1,19 @@
+$background-app-color: #ebeef3;
+$white-color: #fff;
+$black-color: #000;
+$unset-param: unset;
 
+@mixin flex_between {
+  display: flex;
+  justify-content: space-between;
+}
+
+@mixin flex_center {
+  display: flex;
+  justify-content: center;
+}
+
+@mixin flex_around {
+  display: flex;
+  justify-content: space-around;
+}

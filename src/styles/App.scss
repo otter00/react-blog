@@ -7,6 +7,11 @@
 /* fonts */
 @import url("https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800;900&display=swap");
 
+:root {
+  --h1-font-size: 32px;
+  --h2-font-size: 24px;
+}
+
 * {
   box-sizing: border-box;
 }
@@ -14,7 +19,7 @@
 body {
   margin: 0;
   font-family: "Nunito", sans-serif;
-  background-color: #ebeef3;
+  background-color: $background-app-color;
 }
 
 a {
@@ -22,10 +27,13 @@ a {
 }
 
 button {
-  outline: unset;
+  outline: $unset-param;
   border: none;
   font-family: "Poppins", sans-serif;
-  cursor: pointer;
+
+  &:hover {
+    cursor: pointer;
+  }
 }
 
 main {
@@ -40,9 +48,9 @@ h2 {
 
 h1 {
   text-align: center;
-  font-size: 32px;
+  font-size: --h1-font-size;
 }
 
 h2 {
-  font-size: 24px;
+  font-size: --h2-font-size;
 }

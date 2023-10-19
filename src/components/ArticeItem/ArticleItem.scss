@@ -1,17 +1,22 @@
 /* general styles */
 @import "../../styles/vars.scss";
 
+:root {
+  --article-title-color: #1890ff;
+  --post-margin-bottom: 3vh;
+  --post-paddings: 10px 30px;
+}
+
 h2 {
-  color: #1890ff;
+  color: var(--article-title-color);
 }
 
 .post {
-  display: flex;
-  justify-content: space-between;
+  @include flex_between;
   align-items: center;
 
-  padding: 10px 30px;
-  margin-bottom: 3vh;
-  background-color: white;
+  padding: var(--post-paddings);
+  margin-bottom: var(--post-margin-bottom);
+  background-color: $white-color;
   box-shadow: 0px 4px 12px 0px #00000026;
 }
