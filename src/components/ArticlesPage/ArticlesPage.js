@@ -50,6 +50,10 @@ export class ArticlesPage extends Component {
     this.setState({ showAddForm: true });
   };
 
+  handleHideAddForm = () => {
+    this.setState({ showAddForm: false });
+  };
+
   render() {
     // проходимся по массиву постов и "кладём" их в компонент,
     // складываем все полученные посты в массив
@@ -69,7 +73,9 @@ export class ArticlesPage extends Component {
 
     return (
       <>
-        {this.state.showAddForm ? <AddArticleForm /> : null}
+        {this.state.showAddForm ? (
+          <AddArticleForm handleHideAddForm={this.handleHideAddForm} />
+        ) : null}
 
         <>
           <h1>Simple Blog</h1>
@@ -77,7 +83,7 @@ export class ArticlesPage extends Component {
           <CustomButton
             onClick={this.handleShowAddForm}
             className={"showArticlesButton"}
-            name={"Добавить комментарий"}
+            name={"Добавить пост"}
           />
 
           {/* выводим все полученные ранее посты в блок */}

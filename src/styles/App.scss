@@ -54,3 +54,8 @@ h1 {
 h2 {
   font-size: --h2-font-size;
 }
+
+input, textarea {
+  outline: $unset-param;
+  border: 0;
+}
