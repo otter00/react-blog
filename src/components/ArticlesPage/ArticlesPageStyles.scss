@@ -4,31 +4,15 @@
 /* fonts */
 @import url("https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800;900&display=swap");
 
-:root {
-  --button-main-color: #393939;
-  --button-hover-color: #1890ff;
-}
-
 .showArticlesButton {
   display: flex;
-  margin: 0 auto;
+  margin: 15px auto;
+
+  @include general_button_styles;
 
   padding: 5px 20px;
-  font-size: 16px;
-  background-color: var(--button-main-color);
-  color: $white-color;
-  border-radius: 9999px;
-  transition-property: background-color, color;
-  transition-duration: 200ms;
-  transition-timing-function: ease-out;
   height: 35px;
   line-height: 1.5;
-  text-align: center;
-
-  &:hover {
-    background-color: var(--button-hover-color);
-    cursor: pointer;
-  }
 }
 
 .posts {

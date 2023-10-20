@@ -43,3 +43,42 @@
       this.setState({
         blogArray: beforeDeleteBlog,
       });
+
+                    *** THIRD ***
+
+  // в state
+  // объявляем состояние булевой переменной, в зависимости от которого
+  // будет меняться отрисовка контента
+      showArticles: true,
+
+
+  // // меняем булево состояние по клику на кнопку
+  // toggleShowArticles = () => {
+  //   //console.log("1");
+  //   this.setState(({ showArticles }) => {
+  //     return {
+  //       showArticles: !showArticles,
+  //     };
+  //   });
+  //   //console.log("2");
+  // };
+
+     <CustomButton
+          onClick={this.toggleShowArticles}
+          className={"showArticlesButton"}
+          name={
+            this.state.showArticles
+              ? "Скрыть комментарии"
+              : "Показать комментарии"
+          }
+    />
+
+    
+        {this.state.showArticles ? (
+          <>
+            <h1>Simple Blog</h1>
+
+            {/* выводим все полученные ранее посты в блок */}
+            <div className="posts">{articlesArray}</div>
+          </>
+        ) : null}

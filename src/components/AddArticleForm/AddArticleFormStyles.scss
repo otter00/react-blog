@@ -1,0 +1,59 @@
+/* general styles */
+@import "../../styles/vars.scss";
+
+.addArticleForm {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+
+  background-color: $white-color;
+  width: 300px;
+  padding: 20px;
+  text-align: center;
+  border-radius: 10px;
+
+  z-index: 100;
+
+  div + div {
+    margin-top: 10px;
+  }
+
+  input,
+  textarea,
+  button {
+    width: 100%;
+  }
+
+  input,
+  textarea::placeholder {
+    padding: 7px;
+  }
+
+  h2 {
+    margin: 0;
+    margin-bottom: 10px;
+    color: $black-color;
+  }
+}
+
+.addArticlesButton {
+  @include general_button_styles;
+
+  padding: 5px 20px;
+  height: 35px;
+  line-height: 1.5;
+}
+
+.formOverlay {
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+
+  background-color: rgba(1, 1, 1, 0.5);
+}

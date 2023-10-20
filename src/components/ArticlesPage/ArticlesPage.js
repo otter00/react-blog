@@ -3,12 +3,11 @@ import "./ArticlesPageStyles.scss";
 import { CustomButton } from "../../UI/CustomButton/CustomButton";
 import { posts } from "../../utils/articlesData";
 import { ArticleItem } from "../ArticeItem/ArticleItem";
+import { AddArticleForm } from "../AddArticleForm/AddArticleForm";
 
 export class ArticlesPage extends Component {
-  // объявляем состояние булевой переменной, в зависимости от которого
-  // будет меняться отрисовка контента
   state = {
-    showArticles: true,
+    showAddForm: false,
     // если в локальном хранилище есть данные, берем их
     // если данных нет, берем "чистый" массив
     blogArray: JSON.parse(localStorage.getItem("blogArticles")) || posts,
@@ -30,17 +29,6 @@ export class ArticlesPage extends Component {
     localStorage.setItem("blogArticles", JSON.stringify(tmp));
   };
 
-  // меняем булево состояние по клику на кнопку
-  toggleShowArticles = () => {
-    //console.log("1");
-    this.setState(({ showArticles }) => {
-      return {
-        showArticles: !showArticles,
-      };
-    });
-    //console.log("2");
-  };
-
   handleDeleteArticle = (position) => {
     // вызываем пользовательское модальное окно перед удалением
     if (window.confirm(`Удалить ${this.state.blogArray[position].title}?`)) {
@@ -56,6 +44,10 @@ export class ArticlesPage extends Component {
       // сохраняем изменения в локальное хранилище
       localStorage.setItem("blogArticles", JSON.stringify(beforeDeleteBlog));
     }
+  };
+
+  handleShowAddForm = () => {
+    this.setState({ showAddForm: true });
   };
 
   render() {
@@ -77,24 +69,20 @@ export class ArticlesPage extends Component {
 
     return (
       <>
-        <CustomButton
-          onClick={this.toggleShowArticles}
-          className={"showArticlesButton"}
-          name={
-            this.state.showArticles
-              ? "Скрыть комментарии"
-              : "Показать комментарии"
-          }
-        />
+        {this.state.showAddForm ? <AddArticleForm /> : null}
 
-        {this.state.showArticles ? (
-          <>
-            <h1>Simple Blog</h1>
+        <>
+          <h1>Simple Blog</h1>
 
-            {/* выводим все полученные ранее посты в блок */}
-            <div className="posts">{articlesArray}</div>
-          </>
-        ) : null}
+          <CustomButton
+            onClick={this.handleShowAddForm}
+            className={"showArticlesButton"}
+            name={"Добавить комментарий"}
+          />
+
+          {/* выводим все полученные ранее посты в блок */}
+          <div className="posts">{articlesArray}</div>
+        </>
       </>
     );
   }
