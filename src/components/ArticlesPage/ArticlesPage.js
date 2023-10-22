@@ -54,6 +54,25 @@ export class ArticlesPage extends Component {
     this.setState({ showAddForm: false });
   };
 
+  handleFormEscape = (event) => {
+    // скрываем форму, только если форма активна - state true
+    if (event.key === "Escape" && this.state.showAddForm) {
+      console.log("escape pressed");
+      this.handleHideAddForm();
+    }
+  };
+
+  // side effect - помещаются в данном этапе ЖЦ на первичной отрисовке
+  // сокрытие формы по клику на ESC
+  componentDidMount() {
+    window.addEventListener("keyup", this.handleFormEscape);
+  }
+  // очищаем обработчик события, использованный на шаге пнрвичной отрисовки
+  // на данном этапе форма скрылась = размонтировалась из разметки DOM
+  componentWillUnmount() {
+    window.removeEventListener("keyup", this.handleFormEscape);
+  }
+
   render() {
     // проходимся по массиву постов и "кладём" их в компонент,
     // складываем все полученные посты в массив
@@ -72,13 +91,13 @@ export class ArticlesPage extends Component {
     });
 
     return (
-      <>
+      <div className="articles__container">
         {this.state.showAddForm ? (
           <AddArticleForm handleHideAddForm={this.handleHideAddForm} />
         ) : null}
 
         <>
-          <h1>Simple Blog</h1>
+          <h1>Custom Blog</h1>
 
           <CustomButton
             onClick={this.handleShowAddForm}
@@ -89,7 +108,7 @@ export class ArticlesPage extends Component {
           {/* выводим все полученные ранее посты в блок */}
           <div className="posts">{articlesArray}</div>
         </>
-      </>
+      </div>
     );
   }
 }

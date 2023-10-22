@@ -23,7 +23,26 @@ export class AddArticleForm extends Component {
     // console.log(event.target.value);
   };
 
+  /* ЭТАПЫ ЖИЗНЕННОГО ЦИКЛА КОМПОНЕНТА */
+
+  // // отрисовка компонента в разметке - только 1 раз
+  // componentDidMount() {
+  //   console.log('Component Form was born!')
+  // }
+  // // регистрация всех изменений состояний
+  // // даже при вводе символов в инпут
+  // componentDidUpdate() {
+  //   console.log('Form was updated')
+  // }
+  // // размонтирование компонента из разметки
+  // componentWillUnmount() {
+  //   console.log('Form is gone away...')
+  // }
+
   render() {
+    // отрисовка, и только после - методы ЖЦ компонента формы
+    // срабатывает при каждом обновлении
+    console.log("render");
     return (
       <>
         <form action="" className="addArticleForm">
