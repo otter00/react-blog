@@ -24,6 +24,7 @@ export class AddArticleForm extends Component {
   };
 
   handleCreateArticle = (e) => {
+    // отмена события по умолчанию (отправки формы и перезагрузки страницы)
     e.preventDefault();
     const article = {
       id: this.props.blogArray.length + 1,
@@ -34,9 +35,12 @@ export class AddArticleForm extends Component {
 
     console.log(article);
     this.props.handleAddArticle(article);
+    this.props.handleHideAddForm();
   };
 
   /* ЭТАПЫ ЖИЗНЕННОГО ЦИКЛА КОМПОНЕНТА */
+
+  // ДЗ : обработать добавление поста на нажатие на enter
 
   // // отрисовка компонента в разметке - только 1 раз
   // componentDidMount() {
@@ -58,7 +62,7 @@ export class AddArticleForm extends Component {
     // console.log("render");
     return (
       <>
-        <form action="" className="addArticleForm">
+        <form onSubmit={this.handleCreateArticle} className="addArticleForm">
           <button
             className="closeAddFormBtn"
             onClick={this.props.handleHideAddForm}
@@ -73,6 +77,7 @@ export class AddArticleForm extends Component {
               placeholder="Заголовок поста"
               value={this.state.articleTitle}
               onChange={this.onChangeTitle}
+              required
             />
           </div>
           <div>
@@ -81,11 +86,13 @@ export class AddArticleForm extends Component {
               placeholder="Ваш текст"
               value={this.state.articleDescription}
               onChange={this.onChangeDescription}
+              required
             />
           </div>
           <div>
             <CustomButton
-              onClick={this.handleCreateArticle}
+              //onClick={this.handleCreateArticle}
+              type={"submit"}
               className={"addArticlesButton"}
               name={"Опубликовать пост"}
             />

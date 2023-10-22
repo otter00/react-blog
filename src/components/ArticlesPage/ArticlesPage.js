@@ -74,7 +74,7 @@ export class ArticlesPage extends Component {
       };
     });
 
-    this.handleHideAddForm();
+    //this.handleHideAddForm();
   };
 
   // side effect - помещаются в данном этапе ЖЦ на первичной отрисовке
@@ -111,7 +111,7 @@ export class ArticlesPage extends Component {
           <AddArticleForm
             blogArray={this.state.blogArray}
             handleAddArticle={this.handleAddArticle}
-            //handleHideAddForm={this.handleHideAddForm}
+            handleHideAddForm={this.handleHideAddForm}
           />
         ) : null}
 
