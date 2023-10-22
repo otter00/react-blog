@@ -62,6 +62,21 @@ export class ArticlesPage extends Component {
     }
   };
 
+  handleAddArticle = (article) => {
+    // асинхронный метод с коллбэком вместо объекта
+    this.setState((state) => {
+      const articlesList = [...state.blogArray];
+      articlesList.push(article);
+      // сохраняем изменения в локальное хранилище
+      localStorage.setItem("blogArticles", JSON.stringify(articlesList));
+      return {
+        blogArray: articlesList,
+      };
+    });
+
+    this.handleHideAddForm();
+  };
+
   // side effect - помещаются в данном этапе ЖЦ на первичной отрисовке
   // сокрытие формы по клику на ESC
   componentDidMount() {
@@ -93,7 +108,11 @@ export class ArticlesPage extends Component {
     return (
       <div className="articles__container">
         {this.state.showAddForm ? (
-          <AddArticleForm handleHideAddForm={this.handleHideAddForm} />
+          <AddArticleForm
+            blogArray={this.state.blogArray}
+            handleAddArticle={this.handleAddArticle}
+            //handleHideAddForm={this.handleHideAddForm}
+          />
         ) : null}
 
         <>

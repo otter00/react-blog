@@ -23,6 +23,19 @@ export class AddArticleForm extends Component {
     // console.log(event.target.value);
   };
 
+  handleCreateArticle = (e) => {
+    e.preventDefault();
+    const article = {
+      id: this.props.blogArray.length + 1,
+      title: this.state.articleTitle,
+      description: this.state.articleDescription,
+      liked: false,
+    };
+
+    console.log(article);
+    this.props.handleAddArticle(article);
+  };
+
   /* ЭТАПЫ ЖИЗНЕННОГО ЦИКЛА КОМПОНЕНТА */
 
   // // отрисовка компонента в разметке - только 1 раз
@@ -42,7 +55,7 @@ export class AddArticleForm extends Component {
   render() {
     // отрисовка, и только после - методы ЖЦ компонента формы
     // срабатывает при каждом обновлении
-    console.log("render");
+    // console.log("render");
     return (
       <>
         <form action="" className="addArticleForm">
@@ -72,14 +85,14 @@ export class AddArticleForm extends Component {
           </div>
           <div>
             <CustomButton
-              onClick={this.props.handleHideAddForm}
+              onClick={this.handleCreateArticle}
               className={"addArticlesButton"}
               name={"Опубликовать пост"}
             />
           </div>
         </form>
         <div
-          className="formOverlay"
+          className="form__overlay"
           onClick={this.props.handleHideAddForm}
         ></div>
       </>
