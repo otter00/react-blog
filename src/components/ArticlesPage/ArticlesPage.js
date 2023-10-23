@@ -13,6 +13,25 @@ export class ArticlesPage extends Component {
     // если в локальном хранилище есть данные, берем их
     // если данных нет, берем "чистый" массив
     //blogArray: JSON.parse(localStorage.getItem("blogArticles")) || posts,
+    isLoading: false,
+  };
+
+  fetchArticles = () => {
+    this.setState({
+      isLoading: true,
+    });
+
+    axios
+      .get(`https://5fb3db44b6601200168f7fba.mockapi.io/api/posts/`)
+      .then((response) => {
+        this.setState({
+          blogArray: response.data,
+          isLoading: false,
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   likePost = (position) => {
@@ -31,20 +50,33 @@ export class ArticlesPage extends Component {
     localStorage.setItem("blogArticles", JSON.stringify(tmp));
   };
 
-  handleDeleteArticle = (position) => {
+  handleDeleteArticle = (article) => {
     // вызываем пользовательское модальное окно перед удалением
-    if (window.confirm(`Удалить ${this.state.blogArray[position].title}?`)) {
-      // копируем массив
-      const beforeDeleteBlog = [...this.state.blogArray];
-      beforeDeleteBlog.splice(position, 1);
-      console.log(beforeDeleteBlog);
+    if (window.confirm(`Удалить ${article.title}?`)) {
+      axios
+        .delete(
+          `https://5fb3db44b6601200168f7fba.mockapi.io/api/posts/${article.id}`
+        )
+        .then((response) => {
+          console.log(`delete `, response.data);
+          this.fetchArticles();
+        })
+        .catch((err) => {
+          console.log(err);
+        });
 
-      this.setState({
-        blogArray: beforeDeleteBlog,
-      });
+      //if (window.confirm(`Удалить ${this.state.blogArray[position].title}?`)) {
+      // // копируем массив
+      // const beforeDeleteBlog = [...this.state.blogArray];
+      // beforeDeleteBlog.splice(position, 1);
+      // console.log(beforeDeleteBlog);
 
-      // сохраняем изменения в локальное хранилище
-      localStorage.setItem("blogArticles", JSON.stringify(beforeDeleteBlog));
+      // this.setState({
+      //   blogArray: beforeDeleteBlog,
+      // });
+
+      // // сохраняем изменения в локальное хранилище
+      // localStorage.setItem("blogArticles", JSON.stringify(beforeDeleteBlog));
     }
   };
 
@@ -82,17 +114,7 @@ export class ArticlesPage extends Component {
   // side effect - помещаются в данном этапе ЖЦ на первичной отрисовке
   // сокрытие формы по клику на ESC
   componentDidMount() {
-    axios
-      .get(`https://5fb3db44b6601200168f7fba.mockapi.io/api/posts/`)
-      .then((response) => {
-        this.setState({
-          blogArray: response.data,
-        });
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-
+    this.fetchArticles();
     window.addEventListener("keyup", this.handleFormEscape);
   }
   // очищаем обработчик события, использованный на шаге пнрвичной отрисовки
@@ -113,7 +135,7 @@ export class ArticlesPage extends Component {
           description={item.description}
           liked={item.liked}
           likePost={() => this.likePost(position)}
-          handleDeleteArticle={() => this.handleDeleteArticle(position)}
+          handleDeleteArticle={() => this.handleDeleteArticle(item)}
         />
       );
     });
@@ -141,6 +163,8 @@ export class ArticlesPage extends Component {
             className={"showArticlesButton"}
             name={"Добавить пост"}
           />
+
+          {this.state.isLoading && <h2>Loading...</h2>}
 
           {/* выводим все полученные ранее посты в блок */}
           <div className="posts">{articlesArray}</div>
