@@ -1,16 +1,18 @@
 import React, { Component } from "react";
 import "./ArticlesPageStyles.scss";
 import { CustomButton } from "../../UI/CustomButton/CustomButton";
-import { posts } from "../../utils/articlesData";
+// import { posts } from "../../utils/articlesData";
 import { ArticleItem } from "../ArticeItem/ArticleItem";
 import { AddArticleForm } from "../AddArticleForm/AddArticleForm";
+import axios from "axios";
 
 export class ArticlesPage extends Component {
   state = {
     showAddForm: false,
+    blogArray: [],
     // если в локальном хранилище есть данные, берем их
     // если данных нет, берем "чистый" массив
-    blogArray: JSON.parse(localStorage.getItem("blogArticles")) || posts,
+    //blogArray: JSON.parse(localStorage.getItem("blogArticles")) || posts,
   };
 
   likePost = (position) => {
@@ -80,6 +82,17 @@ export class ArticlesPage extends Component {
   // side effect - помещаются в данном этапе ЖЦ на первичной отрисовке
   // сокрытие формы по клику на ESC
   componentDidMount() {
+    axios
+      .get(`https://5fb3db44b6601200168f7fba.mockapi.io/api/posts/`)
+      .then((response) => {
+        this.setState({
+          blogArray: response.data,
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
     window.addEventListener("keyup", this.handleFormEscape);
   }
   // очищаем обработчик события, использованный на шаге пнрвичной отрисовки
@@ -105,15 +118,20 @@ export class ArticlesPage extends Component {
       );
     });
 
+    // сообщаем о загрузке данных, пока они не пришли с сервера
+    if (this.state.blogArray.length === 0) {
+      return <h1>Loading...</h1>;
+    }
+
     return (
       <div className="articles__container">
-        {this.state.showAddForm ? (
+        {this.state.showAddForm && (
           <AddArticleForm
             blogArray={this.state.blogArray}
             handleAddArticle={this.handleAddArticle}
             handleHideAddForm={this.handleHideAddForm}
           />
-        ) : null}
+        )}
 
         <>
           <h1>Custom Blog</h1>
