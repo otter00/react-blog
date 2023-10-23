@@ -22,8 +22,11 @@ export class ArticlesPage extends Component {
     });
 
     axios
-      .get(`https://5fb3db44b6601200168f7fba.mockapi.io/api/posts/`)
+      .get(
+        `https://6536ba1dbb226bb85dd28e56.mockapi.io/api/diploma_blog/articles/`
+      )
       .then((response) => {
+        console.log(response.data);
         this.setState({
           blogArray: response.data,
           isLoading: false,
@@ -55,7 +58,7 @@ export class ArticlesPage extends Component {
     if (window.confirm(`Удалить ${article.title}?`)) {
       axios
         .delete(
-          `https://5fb3db44b6601200168f7fba.mockapi.io/api/posts/${article.id}`
+          `https://6536ba1dbb226bb85dd28e56.mockapi.io/api/diploma_blog/articles/${article.id}`
         )
         .then((response) => {
           console.log(`delete `, response.data);
@@ -97,16 +100,29 @@ export class ArticlesPage extends Component {
   };
 
   handleAddArticle = (article) => {
-    // асинхронный метод с коллбэком вместо объекта
-    this.setState((state) => {
-      const articlesList = [...state.blogArray];
-      articlesList.push(article);
-      // сохраняем изменения в локальное хранилище
-      localStorage.setItem("blogArticles", JSON.stringify(articlesList));
-      return {
-        blogArray: articlesList,
-      };
-    });
+    axios
+      .post(
+        `https://6536ba1dbb226bb85dd28e56.mockapi.io/api/diploma_blog/articles/`,
+        article
+      )
+      .then((response) => {
+        console.log("article added ", response.data);
+        this.fetchArticles();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
+    // // асинхронный метод с коллбэком вместо объекта
+    // this.setState((state) => {
+    //   const articlesList = [...state.blogArray];
+    //   articlesList.push(article);
+    //   // сохраняем изменения в локальное хранилище
+    //   localStorage.setItem("blogArticles", JSON.stringify(articlesList));
+    //   return {
+    //     blogArray: articlesList,
+    //   };
+    // });
 
     //this.handleHideAddForm();
   };

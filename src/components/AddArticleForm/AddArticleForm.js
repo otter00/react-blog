@@ -27,7 +27,7 @@ export class AddArticleForm extends Component {
     // отмена события по умолчанию (отправки формы и перезагрузки страницы)
     e.preventDefault();
     const article = {
-      id: this.props.blogArray.length + 1,
+      //id: this.props.blogArray.length + 1,
       title: this.state.articleTitle,
       description: this.state.articleDescription,
       liked: false,
