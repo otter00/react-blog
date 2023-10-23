@@ -1,0 +1,40 @@
+  state = {
+    showAddForm: false,
+
+    // если в локальном хранилище есть данные, берем их
+    // если данных нет, берем "чистый" массив
+    //blogArray: JSON.parse(localStorage.getItem("blogArticles")) || posts,
+    isLoading: false,
+  };
+
+  handleDeleteArticle = (article) => {
+      //if (window.confirm(`Удалить ${this.state.blogArray[position].title}?`)) {
+      // // копируем массив
+      // const beforeDeleteBlog = [...this.state.blogArray];
+      // beforeDeleteBlog.splice(position, 1);
+      // console.log(beforeDeleteBlog);
+
+      // this.setState({
+      //   blogArray: beforeDeleteBlog,
+      // });
+
+      // // сохраняем изменения в локальное хранилище
+      // localStorage.setItem("blogArticles", JSON.stringify(beforeDeleteBlog));
+  }
+
+  handleAddArticle = (article) => {    
+    // // асинхронный метод с коллбэком вместо объекта
+    // this.setState((state) => {
+    //   const articlesList = [...state.blogArray];
+    //   articlesList.push(article);
+    //   // сохраняем изменения в локальное хранилище
+    //   localStorage.setItem("blogArticles", JSON.stringify(articlesList));
+    //   return {
+    //     blogArray: articlesList,
+    //   };
+    // });
+
+    //this.handleHideAddForm();
+  }
+
+  

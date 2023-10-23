@@ -9,24 +9,28 @@ import axios from "axios";
 export class ArticlesPage extends Component {
   state = {
     showAddForm: false,
+    // задаём чистый массив для данных с сервера
     blogArray: [],
-    // если в локальном хранилище есть данные, берем их
-    // если данных нет, берем "чистый" массив
-    //blogArray: JSON.parse(localStorage.getItem("blogArticles")) || posts,
+    // индикатор загрузчика
     isLoading: false,
   };
 
+  // получаем данные с сервера
   fetchArticles = () => {
+    // устанавливаем индикатор загрузки как true
     this.setState({
       isLoading: true,
     });
 
+    // получаем данные с API
     axios
       .get(
         `https://6536ba1dbb226bb85dd28e56.mockapi.io/api/diploma_blog/articles/`
       )
       .then((response) => {
         console.log(response.data);
+        // вносим данные в массив
+        // переключаем индикатор загрузки в false, так как загрузка завершена
         this.setState({
           blogArray: response.data,
           isLoading: false,
@@ -57,29 +61,18 @@ export class ArticlesPage extends Component {
     // вызываем пользовательское модальное окно перед удалением
     if (window.confirm(`Удалить ${article.title}?`)) {
       axios
+        // удаляем определённый пост по его id
         .delete(
           `https://6536ba1dbb226bb85dd28e56.mockapi.io/api/diploma_blog/articles/${article.id}`
         )
         .then((response) => {
+          // вызываем отрисовку массива после обновления данных на сервере
           console.log(`delete `, response.data);
           this.fetchArticles();
         })
         .catch((err) => {
           console.log(err);
         });
-
-      //if (window.confirm(`Удалить ${this.state.blogArray[position].title}?`)) {
-      // // копируем массив
-      // const beforeDeleteBlog = [...this.state.blogArray];
-      // beforeDeleteBlog.splice(position, 1);
-      // console.log(beforeDeleteBlog);
-
-      // this.setState({
-      //   blogArray: beforeDeleteBlog,
-      // });
-
-      // // сохраняем изменения в локальное хранилище
-      // localStorage.setItem("blogArticles", JSON.stringify(beforeDeleteBlog));
     }
   };
 
@@ -107,22 +100,12 @@ export class ArticlesPage extends Component {
       )
       .then((response) => {
         console.log("article added ", response.data);
+        // вызываем отрисовку массива после обновления данных на сервере
         this.fetchArticles();
       })
       .catch((err) => {
         console.log(err);
       });
-
-    // // асинхронный метод с коллбэком вместо объекта
-    // this.setState((state) => {
-    //   const articlesList = [...state.blogArray];
-    //   articlesList.push(article);
-    //   // сохраняем изменения в локальное хранилище
-    //   localStorage.setItem("blogArticles", JSON.stringify(articlesList));
-    //   return {
-    //     blogArray: articlesList,
-    //   };
-    // });
 
     //this.handleHideAddForm();
   };
