@@ -18,9 +18,9 @@ export class ArticlesPage extends Component {
   // получаем данные с сервера
   fetchArticles = () => {
     // устанавливаем индикатор загрузки как true
-    this.setState({
-      isLoading: true,
-    });
+    // this.setState({
+    //   isLoading: true,
+    // });
 
     // получаем данные с API
     axios
@@ -41,25 +41,44 @@ export class ArticlesPage extends Component {
       });
   };
 
-  likePost = (position) => {
-    // сохраняем копию на массив статей в отдельную переменную
-    const tmp = [...this.state.blogArray];
-    // изменяем состояние
-    tmp[position].liked = !tmp[position].liked;
-    //console.log(tmp);
+  likePost = (article) => {
+    const tmp = { ...article };
+    tmp.liked = !tmp.liked;
+    console.log(article.id);
 
-    // передаем измененный временный массив в переменную для отрисовки
-    this.setState({
-      blogArray: tmp,
-    });
+    axios
+      .put(
+        `https://6536ba1dbb226bb85dd28e56.mockapi.io/api/diploma_blog/articles/${article.id}`,
+        tmp
+      )
+      .then((response) => {
+        console.log("edited ", response.data);
+        this.fetchArticles();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
 
-    // сохраняем массив с изменениями в локальное хранилище
-    localStorage.setItem("blogArticles", JSON.stringify(tmp));
+    // // сохраняем копию на массив статей в отдельную переменную
+    // const tmp = [...this.state.blogArray];
+    // // изменяем состояние
+    // tmp[position].liked = !tmp[position].liked;
+    // //console.log(tmp);
+    // // передаем измененный временный массив в переменную для отрисовки
+    // this.setState({
+    //   blogArray: tmp,
+    // });
+    // // сохраняем массив с изменениями в локальное хранилище
+    // localStorage.setItem("blogArticles", JSON.stringify(tmp));
   };
 
   handleDeleteArticle = (article) => {
     // вызываем пользовательское модальное окно перед удалением
     if (window.confirm(`Удалить ${article.title}?`)) {
+      this.setState({
+        isLoading: true,
+      });
+
       axios
         // удаляем определённый пост по его id
         .delete(
@@ -93,6 +112,9 @@ export class ArticlesPage extends Component {
   };
 
   handleAddArticle = (article) => {
+    this.setState({
+      isLoading: true,
+    });
     axios
       .post(
         `https://6536ba1dbb226bb85dd28e56.mockapi.io/api/diploma_blog/articles/`,
@@ -133,7 +155,7 @@ export class ArticlesPage extends Component {
           title={item.title}
           description={item.description}
           liked={item.liked}
-          likePost={() => this.likePost(position)}
+          likePost={() => this.likePost(item)}
           handleDeleteArticle={() => this.handleDeleteArticle(item)}
         />
       );
