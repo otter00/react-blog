@@ -37,4 +37,16 @@
     //this.handleHideAddForm();
   }
 
-  
+    likePost = (position) => {
+    // // сохраняем копию на массив статей в отдельную переменную
+    // const tmp = [...this.state.blogArray];
+    // // изменяем состояние
+    // tmp[position].liked = !tmp[position].liked;
+    // //console.log(tmp);
+    // // передаем измененный временный массив в переменную для отрисовки
+    // this.setState({
+    //   blogArray: tmp,
+    // });
+    // // сохраняем массив с изменениями в локальное хранилище
+    // localStorage.setItem("blogArticles", JSON.stringify(tmp));
+    }

@@ -4,6 +4,7 @@ import { CustomButton } from "../../UI/CustomButton/CustomButton";
 // import { posts } from "../../utils/articlesData";
 import { ArticleItem } from "../ArticeItem/ArticleItem";
 import { AddArticleForm } from "../AddArticleForm/AddArticleForm";
+import LinearProgress from "@mui/material/LinearProgress";
 import axios from "axios";
 
 export class ArticlesPage extends Component {
@@ -58,18 +59,6 @@ export class ArticlesPage extends Component {
       .catch((err) => {
         console.log(err);
       });
-
-    // // сохраняем копию на массив статей в отдельную переменную
-    // const tmp = [...this.state.blogArray];
-    // // изменяем состояние
-    // tmp[position].liked = !tmp[position].liked;
-    // //console.log(tmp);
-    // // передаем измененный временный массив в переменную для отрисовки
-    // this.setState({
-    //   blogArray: tmp,
-    // });
-    // // сохраняем массив с изменениями в локальное хранилище
-    // localStorage.setItem("blogArticles", JSON.stringify(tmp));
   };
 
   handleDeleteArticle = (article) => {
@@ -148,7 +137,7 @@ export class ArticlesPage extends Component {
     // проходимся по массиву постов и "кладём" их в компонент,
     // складываем все полученные посты в массив
     // вносим под рендер, чтобы при каждом изменении состояния изменения визуализировались
-    const articlesArray = this.state.blogArray.map((item, position) => {
+    const articlesArray = this.state.blogArray.map((item) => {
       return (
         <ArticleItem
           key={item.id}
@@ -163,8 +152,14 @@ export class ArticlesPage extends Component {
 
     // сообщаем о загрузке данных, пока они не пришли с сервера
     if (this.state.blogArray.length === 0) {
-      return <h1>Loading...</h1>;
+      return (
+        <>
+          <h1>Loading...</h1>
+        </>
+      );
     }
+
+    const articlesOpacity = this.state.isLoading ? 0.5 : 1;
 
     return (
       <div className="articles__container">
@@ -185,10 +180,14 @@ export class ArticlesPage extends Component {
             name={"Добавить пост"}
           />
 
-          {this.state.isLoading && <h2>Loading...</h2>}
+          {this.state.isLoading && (
+            <LinearProgress style={{ zIndex: 2 }} className="posts__loader" />
+          )}
 
           {/* выводим все полученные ранее посты в блок */}
-          <div className="posts">{articlesArray}</div>
+          <div className="posts" style={{ opacity: articlesOpacity }}>
+            {articlesArray}
+          </div>
         </>
       </div>
     );
