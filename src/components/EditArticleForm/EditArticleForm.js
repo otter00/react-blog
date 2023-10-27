@@ -1,12 +1,14 @@
 import { Component } from "react";
 import { CustomButton } from "../../UI/CustomButton/CustomButton";
-import "./AddArticleFormStyles.scss";
 import CloseIcon from "@mui/icons-material/Close";
+import "../AddArticleForm/AddArticleFormStyles.scss";
 
-export class AddArticleForm extends Component {
+export class EditArticleForm extends Component {
+  // в зависимости от того, какой пост редактируем, получаем
+  // начальные данные этого поста и отображаем на форме
   state = {
-    articleTitle: "",
-    articleDescription: "",
+    articleTitle: this.props.selectedArticle.title,
+    articleDescription: this.props.selectedArticle.description,
   };
 
   onChangeTitle = (event) => {
@@ -23,61 +25,48 @@ export class AddArticleForm extends Component {
     // console.log(event.target.value);
   };
 
-  handleCreateArticle = (e) => {
+  handleEditArticle = (e) => {
     // отмена события по умолчанию (отправки формы и перезагрузки страницы)
     e.preventDefault();
     const article = {
-      //id: this.props.blogArray.length + 1,
+      id: this.props.selectedArticle.id,
       title: this.state.articleTitle,
       description: this.state.articleDescription,
-      liked: false,
+      liked: this.props.selectedArticle.liked,
     };
 
     console.log(article);
-    this.props.handleAddArticle(article);
-    this.props.handleHideAddForm();
+    this.props.handleEditArticle(article);
+    this.props.handleHideEditForm();
   };
 
   handleFormEscape = (event) => {
     // скрываем форму, только если форма активна - state true
     if (event.key === "Escape") {
       console.log("escape pressed");
-      this.props.handleHideAddForm();
+      this.props.handleHideEditForm();
     }
   };
 
-  /* ЭТАПЫ ЖИЗНЕННОГО ЦИКЛА КОМПОНЕНТА */
-
-  // ДЗ : обработать добавление поста на нажатие на enter
-
-  // // отрисовка компонента в разметке - только 1 раз
   componentDidMount() {
     window.addEventListener("keyup", this.handleFormEscape);
   }
-  // // регистрация всех изменений состояний
-  // // даже при вводе символов в инпут
-  // componentDidUpdate() {
-  //   console.log('Form was updated')
-  // }
-  // // размонтирование компонента из разметки
+
   componentWillUnmount() {
     window.removeEventListener("keyup", this.handleFormEscape);
   }
 
   render() {
-    // отрисовка, и только после - методы ЖЦ компонента формы
-    // срабатывает при каждом обновлении
-    // console.log("render");
     return (
       <>
-        <form onSubmit={this.handleCreateArticle} className="addArticleForm">
+        <form onSubmit={this.handleEditArticle} className="addArticleForm">
           <button
             className="closeFormBtn"
-            onClick={this.props.handleHideAddForm}
+            onClick={this.props.handleHideEditForm}
           >
             <CloseIcon />
           </button>
-          <h2>Создание поста</h2>
+          <h2>Изменение поста</h2>
           <div>
             <input
               type="text"
@@ -102,13 +91,13 @@ export class AddArticleForm extends Component {
               //onClick={this.handleCreateArticle}
               type={"submit"}
               className={"addArticlesButton"}
-              name={"Опубликовать пост"}
+              name={"Сохранить изменения"}
             />
           </div>
         </form>
         <div
           className="form__overlay"
-          onClick={this.props.handleHideAddForm}
+          onClick={this.props.handleHideEditForm}
         ></div>
       </>
     );

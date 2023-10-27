@@ -2,6 +2,7 @@ import React from "react";
 import "./ArticleItem.scss";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import DeleteIcon from "@mui/icons-material/Delete";
+import EditIcon from "@mui/icons-material/Edit";
 
 export const ArticleItem = ({
   title,
@@ -9,7 +10,14 @@ export const ArticleItem = ({
   liked,
   likePost,
   handleDeleteArticle,
+  handleEditArticle,
+  handleSelectArticle,
 }) => {
+  const showEditForm = () => {
+    handleSelectArticle();
+    handleEditArticle();
+  };
+
   // меняем цвет иконки в зависимости от состояния - лайкнута статья или нет
   const isLiked = liked ? "crimson" : "lightgrey";
 
@@ -26,9 +34,15 @@ export const ArticleItem = ({
         </div>
       </div>
 
-      <button className="delete__btn" onClick={handleDeleteArticle}>
-        <DeleteIcon />
-      </button>
+      <div className="functional__btns">
+        <button className="edit__btn" onClick={showEditForm}>
+          <EditIcon />
+        </button>
+
+        <button className="delete__btn" onClick={handleDeleteArticle}>
+          <DeleteIcon />
+        </button>
+      </div>
     </div>
   );
 };

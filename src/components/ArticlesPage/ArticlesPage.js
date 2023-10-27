@@ -6,14 +6,17 @@ import { ArticleItem } from "../ArticeItem/ArticleItem";
 import { AddArticleForm } from "../AddArticleForm/AddArticleForm";
 import LinearProgress from "@mui/material/LinearProgress";
 import axios from "axios";
+import { EditArticleForm } from "../EditArticleForm/EditArticleForm";
 
 export class ArticlesPage extends Component {
   state = {
     showAddForm: false,
+    showEditForm: false,
     // задаём чистый массив для данных с сервера
     blogArray: [],
     // индикатор загрузчика
     isLoading: false,
+    selectedArticle: [],
   };
 
   // получаем данные с сервера
@@ -92,12 +95,12 @@ export class ArticlesPage extends Component {
     this.setState({ showAddForm: false });
   };
 
-  handleFormEscape = (event) => {
-    // скрываем форму, только если форма активна - state true
-    if (event.key === "Escape" && this.state.showAddForm) {
-      console.log("escape pressed");
-      this.handleHideAddForm();
-    }
+  handleShowEditForm = () => {
+    this.setState({ showEditForm: true });
+  };
+
+  handleHideEditForm = () => {
+    this.setState({ showEditForm: false });
   };
 
   handleAddArticle = (article) => {
@@ -117,23 +120,41 @@ export class ArticlesPage extends Component {
       .catch((err) => {
         console.log(err);
       });
+  };
 
-    //this.handleHideAddForm();
+  handleEditArticle = (editedArticle) => {
+    this.setState({
+      isLoading: true,
+    });
+
+    axios
+      .put(
+        `https://6536ba1dbb226bb85dd28e56.mockapi.io/api/diploma_blog/articles/${editedArticle.id}`,
+        editedArticle
+      )
+      .then((response) => {
+        console.log("article edited ", response.data);
+        // вызываем отрисовку массива после обновления данных на сервере
+        this.fetchArticles();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  handleSelectArticle = (article) => {
+    this.setState({
+      selectedArticle: article,
+    });
   };
 
   // side effect - помещаются в данном этапе ЖЦ на первичной отрисовке
-  // сокрытие формы по клику на ESC
   componentDidMount() {
     this.fetchArticles();
-    window.addEventListener("keyup", this.handleFormEscape);
-  }
-  // очищаем обработчик события, использованный на шаге пнрвичной отрисовки
-  // на данном этапе форма скрылась = размонтировалась из разметки DOM
-  componentWillUnmount() {
-    window.removeEventListener("keyup", this.handleFormEscape);
   }
 
   render() {
+    console.log(this.state.selectedArticle);
     // проходимся по массиву постов и "кладём" их в компонент,
     // складываем все полученные посты в массив
     // вносим под рендер, чтобы при каждом изменении состояния изменения визуализировались
@@ -146,6 +167,8 @@ export class ArticlesPage extends Component {
           liked={item.liked}
           likePost={() => this.likePost(item)}
           handleDeleteArticle={() => this.handleDeleteArticle(item)}
+          handleEditArticle={this.handleShowEditForm}
+          handleSelectArticle={() => this.handleSelectArticle(item)}
         />
       );
     });
@@ -168,6 +191,15 @@ export class ArticlesPage extends Component {
             blogArray={this.state.blogArray}
             handleAddArticle={this.handleAddArticle}
             handleHideAddForm={this.handleHideAddForm}
+          />
+        )}
+
+        {this.state.showEditForm && (
+          <EditArticleForm
+            //blogArray={this.state.blogArray}
+            selectedArticle={this.state.selectedArticle}
+            handleEditArticle={this.handleEditArticle}
+            handleHideEditForm={this.handleHideEditForm}
           />
         )}
 

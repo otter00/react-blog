@@ -50,3 +50,15 @@
     // // сохраняем массив с изменениями в локальное хранилище
     // localStorage.setItem("blogArticles", JSON.stringify(tmp));
     }
+
+  // side effect - помещаются в данном этапе ЖЦ на первичной отрисовке
+  // сокрытие формы по клику на ESC
+  componentDidMount() {
+    this.fetchArticles();
+    window.addEventListener("keyup", this.handleFormEscape);
+  }
+  // очищаем обработчик события, использованный на шаге пнрвичной отрисовки
+  // на данном этапе форма скрылась = размонтировалась из разметки DOM
+  componentWillUnmount() {
+     window.removeEventListener("keyup", this.handleFormEscape);
+   }
