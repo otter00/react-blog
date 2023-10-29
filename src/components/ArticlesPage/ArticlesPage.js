@@ -7,6 +7,7 @@ import { AddArticleForm } from "../AddArticleForm/AddArticleForm";
 import LinearProgress from "@mui/material/LinearProgress";
 import axios from "axios";
 import { EditArticleForm } from "../EditArticleForm/EditArticleForm";
+import { customAPI } from "../../utils/articlesData";
 
 export class ArticlesPage extends Component {
   state = {
@@ -28,9 +29,7 @@ export class ArticlesPage extends Component {
 
     // получаем данные с API
     axios
-      .get(
-        `https://6536ba1dbb226bb85dd28e56.mockapi.io/api/diploma_blog/articles/`
-      )
+      .get(customAPI)
       .then((response) => {
         console.log(response.data);
         // вносим данные в массив
@@ -51,10 +50,7 @@ export class ArticlesPage extends Component {
     console.log(article.id);
 
     axios
-      .put(
-        `https://6536ba1dbb226bb85dd28e56.mockapi.io/api/diploma_blog/articles/${article.id}`,
-        tmp
-      )
+      .put(`${customAPI}${article.id}`, tmp)
       .then((response) => {
         console.log("edited ", response.data);
         this.fetchArticles();
@@ -73,9 +69,7 @@ export class ArticlesPage extends Component {
 
       axios
         // удаляем определённый пост по его id
-        .delete(
-          `https://6536ba1dbb226bb85dd28e56.mockapi.io/api/diploma_blog/articles/${article.id}`
-        )
+        .delete(`${customAPI}${article.id}`)
         .then((response) => {
           // вызываем отрисовку массива после обновления данных на сервере
           console.log(`delete `, response.data);
@@ -108,10 +102,7 @@ export class ArticlesPage extends Component {
       isLoading: true,
     });
     axios
-      .post(
-        `https://6536ba1dbb226bb85dd28e56.mockapi.io/api/diploma_blog/articles/`,
-        article
-      )
+      .post(customAPI, article)
       .then((response) => {
         console.log("article added ", response.data);
         // вызываем отрисовку массива после обновления данных на сервере
@@ -128,10 +119,7 @@ export class ArticlesPage extends Component {
     });
 
     axios
-      .put(
-        `https://6536ba1dbb226bb85dd28e56.mockapi.io/api/diploma_blog/articles/${editedArticle.id}`,
-        editedArticle
-      )
+      .put(`${customAPI}${editedArticle.id}`, editedArticle)
       .then((response) => {
         console.log("article edited ", response.data);
         // вызываем отрисовку массива после обновления данных на сервере
