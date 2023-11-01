@@ -3,17 +3,22 @@ import { Header } from "./components/Header/Header";
 import "./styles/App.scss";
 import { ArticlesPage } from "./components/ArticlesPage/ArticlesPage";
 import { Footer } from "./components/Footer/Footer";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 export function App() {
   return (
-    <div className="App">
-      <Header />
+    <Router>
+      <div className="App">
+        <Header />
 
-      <main>
-        <ArticlesPage />
-      </main>
+        <main>
+          <Routes>
+            <Route path="/" Component={ArticlesPage} />
+          </Routes>
+        </main>
 
-      <Footer year={new Date().getFullYear()} />
-    </div>
+        <Footer year={new Date().getFullYear()} />
+      </div>
+    </Router>
   );
 }
