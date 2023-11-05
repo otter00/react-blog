@@ -101,7 +101,7 @@ export class AddArticleForm extends Component {
             <CustomButton
               //onClick={this.handleCreateArticle}
               type={"submit"}
-              className={"addArticlesButton"}
+              className={"CustomButtonStyle"}
               name={"Опубликовать пост"}
             />
           </div>

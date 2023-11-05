@@ -55,7 +55,16 @@ h2 {
   font-size: --h2-font-size;
 }
 
-input, textarea {
+input,
+textarea {
   outline: $unset-param;
   border: 0;
+}
+
+.CustomButtonStyle {
+  @include general_button_styles;
+
+  padding: 5px 20px;
+  height: 35px;
+  line-height: 1.5;
 }
