@@ -90,7 +90,7 @@ export class EditArticleForm extends Component {
             <CustomButton
               //onClick={this.handleCreateArticle}
               type={"submit"}
-              className={"addArticlesButton"}
+              className={"CustomButtonStyle"}
               name={"Сохранить изменения"}
             />
           </div>

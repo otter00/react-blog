@@ -9,7 +9,7 @@ import { LoginPage } from "./components/LoginPage/LoginPage";
 export function App() {
   return (
     <Router>
-      <div className="App">
+      <div className="blog__container">
         <Header />
 
         <main>

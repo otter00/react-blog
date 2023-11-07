@@ -18,7 +18,12 @@ header {
   height: 50px;
   background-color: $white-color;
 
-  nav {
+  .header__nav {
+    width: 100%;
+    margin: 0 2%;
+    display: flex;
+    justify-content: space-between;
+
     a {
       color: $black-color;
       font-weight: 500;
@@ -28,8 +33,13 @@ header {
       display: inline-block;
       margin: 0 10px;
 
-      &:hover {
+      // &:hover {
+      //   color: var(--link-hover-color);
+      // }
+
+      &.active {
         color: var(--link-hover-color);
+        font-weight: 700;
       }
     }
   }

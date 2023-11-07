@@ -9,6 +9,7 @@ export const LoginPage = () => {
         <h2>Авторизация</h2>
         <div>
           <input
+            autocomplete="off"
             type="text"
             className="login-form__input"
             placeholder="Login"
@@ -19,6 +20,7 @@ export const LoginPage = () => {
 
         <div>
           <input
+            autocomplete="off"
             type="password"
             className="login-form__input"
             placeholder="Password"
