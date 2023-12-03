@@ -44,6 +44,15 @@ export class ArticlesPage extends Component {
       });
   };
 
+  // side effect - помещаются в данном этапе ЖЦ на первичной отрисовке
+  componentDidMount() {
+    this.fetchArticles();
+  }
+
+  componentWillUnmount() {
+    //
+  }
+
   likePost = (article) => {
     const tmp = { ...article };
     tmp.liked = !tmp.liked;
@@ -135,11 +144,6 @@ export class ArticlesPage extends Component {
       selectedArticle: article,
     });
   };
-
-  // side effect - помещаются в данном этапе ЖЦ на первичной отрисовке
-  componentDidMount() {
-    this.fetchArticles();
-  }
 
   render() {
     console.log(this.state.selectedArticle);

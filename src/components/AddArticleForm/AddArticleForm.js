@@ -92,6 +92,7 @@ export class AddArticleForm extends Component {
             <textarea
               name="articleDescription"
               placeholder="Ваш текст"
+              rows={7}
               value={this.state.articleDescription}
               onChange={this.onChangeDescription}
               required
