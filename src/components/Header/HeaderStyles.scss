@@ -22,14 +22,13 @@ header {
     width: 100%;
     margin: 0 2%;
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
 
     a {
       color: $black-color;
       font-weight: 500;
       transition: all 0.2s linear;
       font-size: var(--link-font-size);
-
       display: inline-block;
       margin: 0 10px;
 

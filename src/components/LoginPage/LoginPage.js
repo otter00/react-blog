@@ -2,13 +2,14 @@ import "./LoginPageStyles.scss";
 import { useNavigate } from "react-router-dom";
 import { CustomButton } from "../../UI/CustomButton/CustomButton";
 
-export const LoginPage = (props) => {
+export const LoginPage = ({ isLoggedIn, setIsLoggedIn }) => {
   let navigate = useNavigate();
-  console.log(props);
+  console.log(isLoggedIn);
 
   const handleLogin = (e) => {
     e.preventDefault();
     //console.log("hello");
+    setIsLoggedIn(true);
     navigate("/");
   };
 
