@@ -9,6 +9,7 @@ import axios from "axios";
 import { EditArticleForm } from "../EditArticleForm/EditArticleForm";
 import { customAPI } from "../../utils/articlesData";
 
+let source;
 export class ArticlesPage extends Component {
   state = {
     showAddForm: false,
@@ -22,14 +23,19 @@ export class ArticlesPage extends Component {
 
   // получаем данные с сервера
   fetchArticles = () => {
+    // запрос ушел, в переменную записывается токен отмены
+    source = axios.CancelToken.source();
+
     // устанавливаем индикатор загрузки как true
     // this.setState({
     //   isLoading: true,
     // });
 
+    let config = { canselToken: source.token };
+
     // получаем данные с API
     axios
-      .get(customAPI)
+      .get(customAPI, config)
       .then((response) => {
         console.log(response.data);
         // вносим данные в массив
@@ -48,9 +54,12 @@ export class ArticlesPage extends Component {
   componentDidMount() {
     this.fetchArticles();
   }
-
+  // при быстром переключении страниц запрос получения данных не успеет
+  // обработаться, => возникнет ошибка в консоли. Нужна отмена запроса
   componentWillUnmount() {
-    //
+    if (source) {
+      source.cancel("request cancelled");
+    }
   }
 
   likePost = (article) => {
