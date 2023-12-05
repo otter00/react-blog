@@ -22,19 +22,26 @@ header {
     width: 100%;
     margin: 0 2%;
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
+    align-items: center;
 
     a {
       color: $black-color;
       font-weight: 500;
       transition: all 0.2s linear;
       font-size: var(--link-font-size);
-      display: inline-block;
+      display: flex;
+      align-items: center;
       margin: 0 10px;
 
-      // &:hover {
-      //   color: var(--link-hover-color);
-      // }
+      & > * {
+        margin: 0 5px;
+      }
+
+      &:hover {
+        color: var(--link-hover-color);
+        font-weight: 700;
+      }
 
       &.active {
         color: var(--link-hover-color);

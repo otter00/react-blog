@@ -7,12 +7,20 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { LoginPage } from "./components/LoginPage/LoginPage";
 
 export function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
+  const [isLoggedIn, setIsLoggedIn] = useState(() => {
+    if (localStorage.getItem("isLoggedIn") === "true") return true;
+    return false;
+  });
+  const [userName, setUserName] = useState(localStorage.getItem("userName"));
 
   return (
     <Router>
       <div className="blog__container">
-        <HeaderElement isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
+        <HeaderElement
+          isLoggedIn={isLoggedIn}
+          setIsLoggedIn={setIsLoggedIn}
+          userName={userName}
+        />
 
         <main>
           <Routes>
@@ -25,6 +33,7 @@ export function App() {
                 <LoginPageElement
                   isLoggedIn={isLoggedIn}
                   setIsLoggedIn={setIsLoggedIn}
+                  setUserName={setUserName}
                 />
               }
               //render={() => <LoginPage />}
