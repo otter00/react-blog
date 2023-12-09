@@ -8,7 +8,7 @@ export const LoginPage = ({ isLoggedIn, setIsLoggedIn, setUserName }) => {
   console.log(isLoggedIn);
 
   const [logIn, setLogIn] = useState("");
-  const [passwrd, setPassword] = useState("");
+  const [password, setPassword] = useState("");
 
   const handleLogInChange = (e) => {
     setLogIn(e.target.value);

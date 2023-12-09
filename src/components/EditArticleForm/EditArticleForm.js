@@ -1,106 +1,119 @@
-import { Component } from "react";
+import { useEffect, useState } from "react";
 import { CustomButton } from "../../UI/CustomButton/CustomButton";
 import CloseIcon from "@mui/icons-material/Close";
 import "../AddArticleForm/AddArticleFormStyles.scss";
 
-export class EditArticleForm extends Component {
+export const EditArticleForm = (props) => {
   // в зависимости от того, какой пост редактируем, получаем
   // начальные данные этого поста и отображаем на форме
-  state = {
-    articleTitle: this.props.selectedArticle.title,
-    articleDescription: this.props.selectedArticle.description,
-  };
 
-  onChangeTitle = (event) => {
-    this.setState({
-      articleTitle: event.target.value,
-    });
+  // CLASS COMPONENT
+  // state = {
+  //   articleTitle: this.props.selectedArticle.title,
+  //   articleDescription: this.props.selectedArticle.description,
+  // };
+
+  // FUNCTIONAL COMPONENT
+  const [articleTitle, setArticleTitle] = useState(props.selectedArticle.title);
+  const [articleDescription, setArticleDescription] = useState(
+    props.selectedArticle.description
+  );
+
+  const onChangeTitle = (e) => {
+    // CLASS COMPONENT
+    // this.setState({
+    //   articleTitle: event.target.value,
+    // });
     // console.log(event.target.value);
+
+    // FUNCTIONAL COMPONENT
+    setArticleTitle(e.target.value);
   };
 
-  onChangeDescription = (event) => {
-    this.setState({
-      articleDescription: event.target.value,
-    });
+  const onChangeDescription = (e) => {
+    // this.setState({
+    //   articleDescription: event.target.value,
+    // });
     // console.log(event.target.value);
+
+    setArticleDescription(e.target.value);
   };
 
-  handleEditArticle = (e) => {
+  const handleEditArticle = (e) => {
     // отмена события по умолчанию (отправки формы и перезагрузки страницы)
     e.preventDefault();
     const article = {
-      id: this.props.selectedArticle.id,
-      title: this.state.articleTitle,
-      description: this.state.articleDescription,
-      liked: this.props.selectedArticle.liked,
+      id: props.selectedArticle.id,
+      title: articleTitle,
+      description: articleDescription,
+      liked: props.selectedArticle.liked,
     };
 
     console.log(article);
-    this.props.handleEditArticle(article);
-    this.props.handleHideEditForm();
+    props.handleEditArticle(article);
+    props.handleHideEditForm();
   };
 
-  handleFormEscape = (event) => {
-    // скрываем форму, только если форма активна - state true
-    if (event.key === "Escape") {
-      console.log("escape pressed");
-      this.props.handleHideEditForm();
-    }
-  };
+  // CLASS COMPONENT LIFECYCLE METHOD
+  // componentDidMount() {
+  //   window.addEventListener("keyup", this.handleFormEscape);
+  // }
 
-  componentDidMount() {
-    window.addEventListener("keyup", this.handleFormEscape);
-  }
+  // componentWillUnmount() {
+  //   window.removeEventListener("keyup", this.handleFormEscape);
+  // }
 
-  componentWillUnmount() {
-    window.removeEventListener("keyup", this.handleFormEscape);
-  }
+  // FUNCTIONAL COMPONENT LIFECYCLE METHOD
+  useEffect(() => {
+    const handleFormEscape = (event) => {
+      // скрываем форму, только если форма активна - state true
+      if (event.key === "Escape") {
+        console.log("escape pressed");
+        props.handleHideEditForm();
+      }
+    };
+    window.addEventListener("keyup", handleFormEscape);
 
-  render() {
-    return (
-      <>
-        <form onSubmit={this.handleEditArticle} className="addArticleForm">
-          <button
-            className="closeFormBtn"
-            onClick={this.props.handleHideEditForm}
-          >
-            <CloseIcon />
-          </button>
-          <h2>Изменение поста</h2>
-          <div>
-            <input
-              type="text"
-              name="articleTitle"
-              placeholder="Заголовок поста"
-              value={this.state.articleTitle}
-              onChange={this.onChangeTitle}
-              required
-            />
-          </div>
-          <div>
-            <textarea
-              name="articleDescription"
-              placeholder="Ваш текст"
-              rows={7}
-              value={this.state.articleDescription}
-              onChange={this.onChangeDescription}
-              required
-            />
-          </div>
-          <div>
-            <CustomButton
-              //onClick={this.handleCreateArticle}
-              type={"submit"}
-              className={"CustomButtonStyle"}
-              name={"Сохранить изменения"}
-            />
-          </div>
-        </form>
-        <div
-          className="form__overlay"
-          onClick={this.props.handleHideEditForm}
-        ></div>
-      </>
-    );
-  }
-}
+    return () => window.removeEventListener("keyup", this.handleFormEscape);
+  }, [props]);
+
+  return (
+    <>
+      <form onSubmit={handleEditArticle} className="addArticleForm">
+        <button className="closeFormBtn" onClick={props.handleHideEditForm}>
+          <CloseIcon />
+        </button>
+        <h2>Изменение поста</h2>
+        <div>
+          <input
+            type="text"
+            name="articleTitle"
+            placeholder="Заголовок поста"
+            value={articleTitle}
+            onChange={onChangeTitle}
+            required
+          />
+        </div>
+        <div>
+          <textarea
+            name="articleDescription"
+            placeholder="Ваш текст"
+            rows={7}
+            value={articleDescription}
+            onChange={onChangeDescription}
+            required
+          />
+        </div>
+        <div>
+          <CustomButton
+            //onClick={this.handleCreateArticle}
+            type={"submit"}
+            className={"CustomButtonStyle"}
+            name={"Сохранить изменения"}
+          />
+        </div>
+      </form>
+      <div className="form__overlay" onClick={props.handleHideEditForm}></div>
+    </>
+  );
+};
