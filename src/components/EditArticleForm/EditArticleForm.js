@@ -74,7 +74,7 @@ export const EditArticleForm = (props) => {
     };
     window.addEventListener("keyup", handleFormEscape);
 
-    return () => window.removeEventListener("keyup", this.handleFormEscape);
+    return () => window.removeEventListener("keyup", handleFormEscape);
   }, [props]);
 
   return (
