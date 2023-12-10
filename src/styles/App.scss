@@ -39,6 +39,17 @@ button {
 main {
   padding: 20px 20%;
   min-height: calc(100vh - 100px);
+
+  .page_404 {
+    font-size: 52px;
+    margin: 150px 0;
+    text-shadow: 0px 5px 10px rgba(0, 0, 0, 0.5);
+
+    &:hover {
+      text-decoration: underline;
+      cursor: pointer;
+    }
+  }
 }
 
 h1,

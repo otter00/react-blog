@@ -18,7 +18,7 @@ export function App() {
   });
   const [userName, setUserName] = useState(localStorage.getItem("userName"));
 
-  // 6:31
+  // 404 page not found handling
 
   return (
     <Router>
@@ -72,6 +72,8 @@ export function App() {
                 )
               }
             />
+
+            <Route path="/*" element={<NotFoundPage />} />
           </Routes>
         </main>
 
@@ -89,6 +91,10 @@ function LoginPageElement(props) {
   return <LoginPage {...props} />;
 }
 
-function ArticlesPageElement(props) {
+function ArticlesPageElement() {
   return <ArticlesPage />;
+}
+
+function NotFoundPage() {
+  return <h1 className="page_404">404 Not Found</h1>;
 }
