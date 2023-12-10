@@ -18,6 +18,8 @@ export function App() {
   });
   const [userName, setUserName] = useState(localStorage.getItem("userName"));
 
+  // 6:31
+
   return (
     <Router>
       <div className="blog__container">
@@ -29,25 +31,45 @@ export function App() {
 
         <main>
           <Routes>
-            <Route exact path="/" Component={ArticlesPage} />
+            {/* Условная маршрутизация */}
+            <Route
+              exact
+              path="/"
+              element={
+                isLoggedIn ? (
+                  <Navigate to="/blog" replace />
+                ) : (
+                  <Navigate to="/login" replace />
+                )
+              }
+            />
+
             <Route
               exact
               path="/login"
               element={
-                // isLoggedIn ? (
-                //   <Navigate to="/" replace />
-                // ) : (
-                //   <LoginPageElement
-                //     isLoggedIn={isLoggedIn}
-                //     setIsLoggedIn={setIsLoggedIn}
-                //     setUserName={setUserName}
-                //   />
-                // )
-                <LoginPageElement
-                  isLoggedIn={isLoggedIn}
-                  setIsLoggedIn={setIsLoggedIn}
-                  setUserName={setUserName}
-                />
+                isLoggedIn ? (
+                  <Navigate to="/blog" replace />
+                ) : (
+                  <LoginPageElement
+                    isLoggedIn={isLoggedIn}
+                    setIsLoggedIn={setIsLoggedIn}
+                    setUserName={setUserName}
+                  />
+                )
+              }
+            />
+
+            {/* Привязка маршрута /blog к компоненту */}
+            <Route
+              exact
+              path="/blog"
+              element={
+                isLoggedIn ? (
+                  <ArticlesPageElement />
+                ) : (
+                  <Navigate to="/login" replace />
+                )
               }
             />
           </Routes>
@@ -65,4 +87,8 @@ function HeaderElement(props) {
 
 function LoginPageElement(props) {
   return <LoginPage {...props} />;
+}
+
+function ArticlesPageElement(props) {
+  return <ArticlesPage />;
 }

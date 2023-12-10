@@ -4,29 +4,14 @@ import "./AddArticleFormStyles.scss";
 import CloseIcon from "@mui/icons-material/Close";
 
 export const AddArticleForm = (props) => {
-  // state = {
-  //   articleTitle: "",
-  //   articleDescription: "",
-  // };
-
   const [articleTitle, setArticleTitle] = useState("");
   const [articleDescription, setArticleDescription] = useState("");
 
   const onChangeTitle = (e) => {
-    // this.setState({
-    //   articleTitle: event.target.value,
-    // });
-    // console.log(event.target.value);
-
     setArticleTitle(e.target.value);
   };
 
   const onChangeDescription = (e) => {
-    // this.setState({
-    //   articleDescription: event.target.value,
-    // });
-    // console.log(event.target.value);
-
     setArticleDescription(e.target.value);
   };
 
@@ -34,7 +19,6 @@ export const AddArticleForm = (props) => {
     // отмена события по умолчанию (отправки формы и перезагрузки страницы)
     e.preventDefault();
     const article = {
-      //id: this.props.blogArray.length + 1,
       title: articleTitle,
       description: articleDescription,
       liked: false,
@@ -47,18 +31,10 @@ export const AddArticleForm = (props) => {
 
   /* ЭТАПЫ ЖИЗНЕННОГО ЦИКЛА КОМПОНЕНТА */
   // ДЗ : обработать добавление поста на нажатие на enter
-  // // отрисовка компонента в разметке - только 1 раз
-  // componentDidMount() {
-  //   window.addEventListener("keyup", this.handleFormEscape);
-  // }
-  // // // регистрация всех изменений состояний
-  // // // даже при вводе символов в инпут
-  // // componentDidUpdate() {
-  // //   console.log('Form was updated')
-  // // }
-  // // // размонтирование компонента из разметки
-  // componentWillUnmount() {
-  //   window.removeEventListener("keyup", this.handleFormEscape);
+  // регистрация всех изменений состояний
+  // даже при вводе символов в инпут
+  // componentDidUpdate() {
+  //   console.log('Form was updated')
   // }
 
   useEffect(() => {
@@ -69,8 +45,10 @@ export const AddArticleForm = (props) => {
         props.handleHideAddForm();
       }
     };
+    // отрисовка компонента в разметке - только 1 раз
     window.addEventListener("keyup", handleFormEscape);
 
+    // размонтирование компонента из разметки
     return () => window.removeEventListener("keyup", handleFormEscape);
   }, [props]);
 
