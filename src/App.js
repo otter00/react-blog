@@ -3,6 +3,7 @@ import { Header } from "./components/Header/Header";
 import "./styles/App.scss";
 import { ArticlesPage } from "./components/ArticlesPage/ArticlesPage";
 import { Footer } from "./components/Footer/Footer";
+import { PageNotFound } from "./UI/404NotFound/PageNotFound";
 import {
   BrowserRouter as Router,
   Routes,
@@ -10,24 +11,25 @@ import {
   Navigate,
 } from "react-router-dom";
 import { LoginPage } from "./components/LoginPage/LoginPage";
+import { PrivateRoute } from "./components/PrivateRoutes/PrivateRoutes";
+import { PublicRoute } from "./components/PublicRoutes/PublicRoutes";
+import { useAuth } from "./hooks/UseAuth";
 
 export function App() {
+  const isAuth = useAuth();
   const [isLoggedIn, setIsLoggedIn] = useState(() => {
-    if (localStorage.getItem("isLoggedIn") === "true") return true;
+    if (isAuth) return true;
     return false;
+
+    // if (localStorage.getItem("isLoggedIn") === "true") return true;
+    // return false;
   });
   const [userName, setUserName] = useState(localStorage.getItem("userName"));
-
-  // 404 page not found handling
 
   return (
     <Router>
       <div className="blog__container">
-        <HeaderElement
-          isLoggedIn={isLoggedIn}
-          setIsLoggedIn={setIsLoggedIn}
-          userName={userName}
-        />
+        <HeaderElement isLoggedIn={isLoggedIn} userName={userName} />
 
         <main>
           <Routes>
@@ -48,20 +50,44 @@ export function App() {
               exact
               path="/login"
               element={
-                isLoggedIn ? (
-                  <Navigate to="/blog" replace />
-                ) : (
+                <PublicRoute>
                   <LoginPageElement
-                    isLoggedIn={isLoggedIn}
+                    //isLoggedIn={isLoggedIn}
                     setIsLoggedIn={setIsLoggedIn}
                     setUserName={setUserName}
                   />
-                )
+                </PublicRoute>
               }
             />
 
             {/* Привязка маршрута /blog к компоненту */}
             <Route
+              exact
+              path="/blog"
+              element={
+                <PrivateRoute>
+                  <ArticlesPageElement />
+                </PrivateRoute>
+              }
+            />
+
+            {/* <Route
+              exact
+              path="/login"
+              element={
+                isLoggedIn ? (
+                  <Navigate to="/blog" replace />
+                ) : (
+                  <LoginPageElement
+                    setIsLoggedIn={setIsLoggedIn}
+                    setUserName={setUserName}
+                  />
+                )
+              }
+            /> */}
+
+            {/* Привязка маршрута /blog к компоненту */}
+            {/* <Route
               exact
               path="/blog"
               element={
@@ -71,9 +97,9 @@ export function App() {
                   <Navigate to="/login" replace />
                 )
               }
-            />
+            /> */}
 
-            <Route path="/*" element={<NotFoundPage />} />
+            <Route path="*" element={<PageNotFound />} />
           </Routes>
         </main>
 
@@ -95,6 +121,15 @@ function ArticlesPageElement() {
   return <ArticlesPage />;
 }
 
-function NotFoundPage() {
-  return <h1 className="page_404">404 Not Found</h1>;
+{
+  /* <PublicRoutes isLoggedIn={isLoggedIn} path="/login">
+              <LoginPageElement
+                setIsLoggedIn={setIsLoggedIn}
+                setUserName={setUserName}
+              />
+            </PublicRoutes>
+
+            <PrivateRoutes isLoggedIn={isLoggedIn} path="/blog">
+              <ArticlesPageElement />
+            </PrivateRoutes> */
 }

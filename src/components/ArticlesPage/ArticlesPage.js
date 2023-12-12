@@ -7,7 +7,7 @@ import { AddArticleForm } from "../AddArticleForm/AddArticleForm";
 import LinearProgress from "@mui/material/LinearProgress";
 import axios from "axios";
 import { EditArticleForm } from "../EditArticleForm/EditArticleForm";
-import { customAPI } from "../../utils/articlesData";
+import { customAPI } from "../../mocks/articlesData";
 
 let source;
 export class ArticlesPage extends Component {
