@@ -9,6 +9,7 @@ import {
   Routes,
   Route,
   Navigate,
+  useLocation,
 } from "react-router-dom";
 import { LoginPage } from "./components/LoginPage/LoginPage";
 import { PrivateRoute } from "./components/PrivateRoutes/PrivateRoutes";
@@ -99,7 +100,11 @@ export function App() {
               }
             /> */}
 
-            <Route path="*" element={<PageNotFound />} />
+            <Route exact path="/404" element={<PageNotFound />} />
+
+            {/* Привязка маршрута к элементу 404 - при непонятном запросе происходит
+            редирект к компоненту страницы ошибки (реализация - выше)*/}
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </main>
 
@@ -121,8 +126,14 @@ function ArticlesPageElement() {
   return <ArticlesPage />;
 }
 
-{
-  /* <PublicRoutes isLoggedIn={isLoggedIn} path="/login">
+function NotFound() {
+  // may catch the current location using the useLocation hook
+  const location = useLocation();
+  return <Navigate to="/404" state={{ from: location }} />;
+}
+
+<>
+  {/* <PublicRoutes isLoggedIn={isLoggedIn} path="/login">
               <LoginPageElement
                 setIsLoggedIn={setIsLoggedIn}
                 setUserName={setUserName}
@@ -131,5 +142,5 @@ function ArticlesPageElement() {
 
             <PrivateRoutes isLoggedIn={isLoggedIn} path="/blog">
               <ArticlesPageElement />
-            </PrivateRoutes> */
-}
+            </PrivateRoutes> */}
+</>;

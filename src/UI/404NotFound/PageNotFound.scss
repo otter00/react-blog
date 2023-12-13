@@ -1,10 +1,25 @@
 .page_404 {
-    font-size: 52px;
-    margin: 150px 0;
-    text-shadow: 0px 5px 10px rgba(0, 0, 0, 0.5);
+  margin: 150px 0;
+  text-shadow: 0px 5px 10px rgba(0, 0, 0, 0.5);
 
-    &:hover {
-      text-decoration: underline;
-      cursor: pointer;
-    }
+  span {
+    display: block;
+    margin: 30px 0;
   }
+
+  .info__title {
+    font-size: 52px;
+  }
+  .info__subtitle {
+    font-size: 36px;
+  }
+
+  button {
+    margin: 30px 0;
+  }
+
+  & > span:hover {
+    text-decoration: underline;
+    cursor: pointer;
+  }
+}
