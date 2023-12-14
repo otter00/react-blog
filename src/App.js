@@ -19,18 +19,27 @@ import { useAuth } from "./hooks/UseAuth";
 export function App() {
   const isAuth = useAuth();
   const [isLoggedIn, setIsLoggedIn] = useState(() => {
-    if (isAuth) return true;
+    if (isAuth) {
+      return true;
+    }
     return false;
 
     // if (localStorage.getItem("isLoggedIn") === "true") return true;
     // return false;
   });
   const [userName, setUserName] = useState(localStorage.getItem("userName"));
+  const [isOwner, setIsOwner] = useState(
+    localStorage.getItem("userName") === "admin" || false
+  );
 
   return (
     <Router>
       <div className="blog__container">
-        <HeaderElement isLoggedIn={isLoggedIn} userName={userName} />
+        <HeaderElement
+          isLoggedIn={isLoggedIn}
+          setIsLoggedIn={setIsLoggedIn}
+          userName={userName}
+        />
 
         <main>
           <Routes>
@@ -56,6 +65,7 @@ export function App() {
                     //isLoggedIn={isLoggedIn}
                     setIsLoggedIn={setIsLoggedIn}
                     setUserName={setUserName}
+                    setIsOwner={setIsOwner}
                   />
                 </PublicRoute>
               }
@@ -67,38 +77,10 @@ export function App() {
               path="/blog"
               element={
                 <PrivateRoute>
-                  <ArticlesPageElement />
+                  <ArticlesPageElement isOwner={isOwner} />
                 </PrivateRoute>
               }
             />
-
-            {/* <Route
-              exact
-              path="/login"
-              element={
-                isLoggedIn ? (
-                  <Navigate to="/blog" replace />
-                ) : (
-                  <LoginPageElement
-                    setIsLoggedIn={setIsLoggedIn}
-                    setUserName={setUserName}
-                  />
-                )
-              }
-            /> */}
-
-            {/* Привязка маршрута /blog к компоненту */}
-            {/* <Route
-              exact
-              path="/blog"
-              element={
-                isLoggedIn ? (
-                  <ArticlesPageElement />
-                ) : (
-                  <Navigate to="/login" replace />
-                )
-              }
-            /> */}
 
             <Route exact path="/404" element={<PageNotFound />} />
 
@@ -122,8 +104,8 @@ function LoginPageElement(props) {
   return <LoginPage {...props} />;
 }
 
-function ArticlesPageElement() {
-  return <ArticlesPage />;
+function ArticlesPageElement(props) {
+  return <ArticlesPage {...props} />;
 }
 
 function NotFound() {
@@ -144,3 +126,32 @@ function NotFound() {
               <ArticlesPageElement />
             </PrivateRoutes> */}
 </>;
+
+// OLD BUT GOLD
+//             {/* <Route
+//               exact
+//               path="/login"
+//               element={
+//                 isLoggedIn ? (
+//                   <Navigate to="/blog" replace />
+//                 ) : (
+//                   <LoginPageElement
+//                     setIsLoggedIn={setIsLoggedIn}
+//                     setUserName={setUserName}
+//                   />
+//                 )
+//               }
+//             /> */}
+
+//             {/* Привязка маршрута /blog к компоненту */}
+//             {/* <Route
+//               exact
+//               path="/blog"
+//               element={
+//                 isLoggedIn ? (
+//                   <ArticlesPageElement />
+//                 ) : (
+//                   <Navigate to="/login" replace />
+//                 )
+//               }
+//             /> */}

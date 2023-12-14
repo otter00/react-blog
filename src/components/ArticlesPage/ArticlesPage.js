@@ -1,7 +1,6 @@
-import React, { Component } from "react";
+import React, { useEffect, useState } from "react";
 import "./ArticlesPageStyles.scss";
 import { CustomButton } from "../../UI/CustomButton/CustomButton";
-// import { posts } from "../../utils/articlesData";
 import { ArticleItem } from "../ArticeItem/ArticleItem";
 import { AddArticleForm } from "../AddArticleForm/AddArticleForm";
 import LinearProgress from "@mui/material/LinearProgress";
@@ -10,29 +9,19 @@ import { EditArticleForm } from "../EditArticleForm/EditArticleForm";
 import { customAPI } from "../../mocks/articlesData";
 
 let source;
-export class ArticlesPage extends Component {
-  state = {
-    showAddForm: false,
-    showEditForm: false,
-    // задаём чистый массив для данных с сервера
-    blogArray: [],
-    // индикатор загрузчика
-    isLoading: false,
-    selectedArticle: [],
-  };
+
+export const ArticlesPage = ({ isOwner }) => {
+  const [showAddForm, setShowAddForm] = useState(false);
+  const [showEditForm, setShowEditForm] = useState(false);
+  const [blogArray, setBlogArray] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [selectedArticle, setSelectedArticle] = useState([]);
 
   // получаем данные с сервера
-  fetchArticles = () => {
+  const fetchArticles = () => {
     // запрос ушел, в переменную записывается токен отмены
     source = axios.CancelToken.source();
-
-    // устанавливаем индикатор загрузки как true
-    // this.setState({
-    //   isLoading: true,
-    // });
-
     let config = { canselToken: source.token };
-
     // получаем данные с API
     axios
       .get(customAPI, config)
@@ -40,10 +29,8 @@ export class ArticlesPage extends Component {
         console.log(response.data);
         // вносим данные в массив
         // переключаем индикатор загрузки в false, так как загрузка завершена
-        this.setState({
-          blogArray: response.data,
-          isLoading: false,
-        });
+        setBlogArray(response.data);
+        setIsLoading(false);
       })
       .catch((err) => {
         console.log(err);
@@ -51,18 +38,18 @@ export class ArticlesPage extends Component {
   };
 
   // side effect - помещаются в данном этапе ЖЦ на первичной отрисовке
-  componentDidMount() {
-    this.fetchArticles();
-  }
-  // при быстром переключении страниц запрос получения данных не успеет
-  // обработаться, => возникнет ошибка в консоли. Нужна отмена запроса
-  componentWillUnmount() {
-    if (source) {
-      source.cancel("request cancelled");
-    }
-  }
+  useEffect(() => {
+    fetchArticles();
+    return () => {
+      // при быстром переключении страниц запрос получения данных не успеет
+      // обработаться, => возникнет ошибка в консоли. Нужна отмена запроса
+      if (source) {
+        source.cancel("request cancelled");
+      }
+    };
+  }, []);
 
-  likePost = (article) => {
+  const likePost = (article) => {
     const tmp = { ...article };
     tmp.liked = !tmp.liked;
     console.log(article.id);
@@ -71,158 +58,153 @@ export class ArticlesPage extends Component {
       .put(`${customAPI}${article.id}`, tmp)
       .then((response) => {
         console.log("edited ", response.data);
-        this.fetchArticles();
+        fetchArticles();
       })
       .catch((err) => {
         console.log(err);
       });
   };
 
-  handleDeleteArticle = (article) => {
+  const handleDeleteArticle = (article) => {
     // вызываем пользовательское модальное окно перед удалением
     if (window.confirm(`Удалить ${article.title}?`)) {
-      this.setState({
-        isLoading: true,
-      });
-
-      axios
-        // удаляем определённый пост по его id
-        .delete(`${customAPI}${article.id}`)
-        .then((response) => {
-          // вызываем отрисовку массива после обновления данных на сервере
-          console.log(`delete `, response.data);
-          this.fetchArticles();
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+      setIsLoading(true);
     }
+
+    axios
+      // удаляем определённый пост по его id
+      .delete(`${customAPI}${article.id}`)
+      .then((response) => {
+        // вызываем отрисовку массива после обновления данных на сервере
+        console.log(`delete `, response.data);
+        fetchArticles();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
-  handleShowAddForm = () => {
-    this.setState({ showAddForm: true });
+  const handleShowAddForm = () => {
+    setShowAddForm(true);
   };
 
-  handleHideAddForm = () => {
-    this.setState({ showAddForm: false });
+  const handleHideAddForm = () => {
+    setShowAddForm(false);
   };
 
-  handleShowEditForm = () => {
-    this.setState({ showEditForm: true });
+  const handleShowEditForm = () => {
+    setShowEditForm(true);
   };
 
-  handleHideEditForm = () => {
-    this.setState({ showEditForm: false });
+  const handleHideEditForm = () => {
+    setShowEditForm(false);
   };
 
-  handleAddArticle = (article) => {
-    this.setState({
-      isLoading: true,
-    });
+  const handleAddArticle = (article) => {
+    setIsLoading(true);
+
     axios
       .post(customAPI, article)
       .then((response) => {
         console.log("article added ", response.data);
         // вызываем отрисовку массива после обновления данных на сервере
-        this.fetchArticles();
+        fetchArticles();
       })
       .catch((err) => {
         console.log(err);
       });
   };
 
-  handleEditArticle = (editedArticle) => {
-    this.setState({
-      isLoading: true,
-    });
+  const handleEditArticle = (editedArticle) => {
+    setIsLoading(true);
 
     axios
       .put(`${customAPI}${editedArticle.id}`, editedArticle)
       .then((response) => {
         console.log("article edited ", response.data);
         // вызываем отрисовку массива после обновления данных на сервере
-        this.fetchArticles();
+        fetchArticles();
       })
       .catch((err) => {
         console.log(err);
       });
   };
 
-  handleSelectArticle = (article) => {
-    this.setState({
-      selectedArticle: article,
-    });
+  const handleSelectArticle = (article) => {
+    setSelectedArticle(article);
   };
 
-  render() {
-    console.log(this.state.selectedArticle);
-    // проходимся по массиву постов и "кладём" их в компонент,
-    // складываем все полученные посты в массив
-    // вносим под рендер, чтобы при каждом изменении состояния изменения визуализировались
-    const articlesArray = this.state.blogArray.map((item) => {
-      return (
-        <ArticleItem
-          key={item.id}
-          title={item.title}
-          description={item.description}
-          liked={item.liked}
-          likePost={() => this.likePost(item)}
-          handleDeleteArticle={() => this.handleDeleteArticle(item)}
-          handleEditArticle={this.handleShowEditForm}
-          handleSelectArticle={() => this.handleSelectArticle(item)}
-        />
-      );
-    });
+  console.log(selectedArticle);
+  console.log(isOwner);
 
-    // сообщаем о загрузке данных, пока они не пришли с сервера
-    if (this.state.blogArray.length === 0) {
-      return (
-        <>
-          <h1>Loading...</h1>
-        </>
-      );
-    }
-
-    const articlesOpacity = this.state.isLoading ? 0.5 : 1;
-
+  // проходимся по массиву постов и "кладём" их в компонент,
+  // складываем все полученные посты в массив
+  // вносим под рендер, чтобы при каждом изменении состояния изменения визуализировались
+  const articlesArray = blogArray.map((item) => {
     return (
-      <div className="articles__container">
-        {this.state.showAddForm && (
-          <AddArticleForm
-            blogArray={this.state.blogArray}
-            handleAddArticle={this.handleAddArticle}
-            handleHideAddForm={this.handleHideAddForm}
-          />
-        )}
+      <ArticleItem
+        key={item.id}
+        title={item.title}
+        description={item.description}
+        liked={item.liked}
+        likePost={() => likePost(item)}
+        handleDeleteArticle={() => handleDeleteArticle(item)}
+        handleEditArticle={handleShowEditForm}
+        handleSelectArticle={() => handleSelectArticle(item)}
+        isOwner={isOwner}
+      />
+    );
+  });
 
-        {this.state.showEditForm && (
-          <EditArticleForm
-            //blogArray={this.state.blogArray}
-            selectedArticle={this.state.selectedArticle}
-            handleEditArticle={this.handleEditArticle}
-            handleHideEditForm={this.handleHideEditForm}
-          />
-        )}
+  // сообщаем о загрузке данных, пока они не пришли с сервера
+  if (blogArray.length === 0) {
+    return (
+      <>
+        <h1>Loading...</h1>
+      </>
+    );
+  }
 
-        <>
-          <h1>Custom Blog</h1>
+  const articlesOpacity = isLoading ? 0.5 : 1;
 
+  return (
+    <div className="articles__container">
+      {showAddForm && (
+        <AddArticleForm
+          blogArray={blogArray}
+          handleAddArticle={handleAddArticle}
+          handleHideAddForm={handleHideAddForm}
+        />
+      )}
+
+      {showEditForm && (
+        <EditArticleForm
+          selectedArticle={selectedArticle}
+          handleEditArticle={handleEditArticle}
+          handleHideEditForm={handleHideEditForm}
+        />
+      )}
+
+      <>
+        <h1>Custom Blog</h1>
+
+        {isOwner && (
           <CustomButton
-            onClick={this.handleShowAddForm}
+            onClick={handleShowAddForm}
             className={"showArticlesButton"}
             name={"Добавить пост"}
           />
+        )}
 
-          {this.state.isLoading && (
-            <LinearProgress style={{ zIndex: 2 }} className="posts__loader" />
-          )}
+        {isLoading && (
+          <LinearProgress style={{ zIndex: 2 }} className="posts__loader" />
+        )}
 
-          {/* выводим все полученные ранее посты в блок */}
-          <div className="posts" style={{ opacity: articlesOpacity }}>
-            {articlesArray}
-          </div>
-        </>
-      </div>
-    );
-  }
-}
+        {/* выводим все полученные ранее посты в блок */}
+        <div className="posts" style={{ opacity: articlesOpacity }}>
+          {articlesArray}
+        </div>
+      </>
+    </div>
+  );
+};

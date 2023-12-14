@@ -4,10 +4,11 @@ import { NavLink } from "react-router-dom";
 import LogoutIcon from "@mui/icons-material/Logout";
 
 export const Header = ({ isLoggedIn, setIsLoggedIn, userName }) => {
-  console.log(isLoggedIn);
+  //console.log(isLoggedIn);
 
   const handeLogOut = () => {
-    localStorage.setItem("isLoggedIn", false);
+    localStorage.removeItem("isLoggedIn");
+    localStorage.removeItem("userName");
     setIsLoggedIn(false);
   };
 

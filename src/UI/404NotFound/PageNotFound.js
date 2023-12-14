@@ -14,7 +14,7 @@ export const PageNotFound = () => {
     navigate("/blog");
   };
 
-  // if (!location.pathname) return <Navigate to="/blog" />;
+  // if (!location?.state?.from?.pathname) return <Navigate to="/blog" />;
 
   return (
     <>

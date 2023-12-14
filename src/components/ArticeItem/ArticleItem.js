@@ -12,11 +12,14 @@ export const ArticleItem = ({
   handleDeleteArticle,
   handleEditArticle,
   handleSelectArticle,
+  isOwner,
 }) => {
   const showEditForm = () => {
     handleSelectArticle();
     handleEditArticle();
   };
+
+  // console.log(isOwner);
 
   // меняем цвет иконки в зависимости от состояния - лайкнута статья или нет
   const isLiked = liked ? "crimson" : "lightgrey";
@@ -34,15 +37,17 @@ export const ArticleItem = ({
         </div>
       </div>
 
-      <div className="functional__btns">
-        <button className="edit__btn" onClick={showEditForm}>
-          <EditIcon />
-        </button>
+      {isOwner && (
+        <div className="functional__btns">
+          <button className="edit__btn" onClick={showEditForm}>
+            <EditIcon />
+          </button>
 
-        <button className="delete__btn" onClick={handleDeleteArticle}>
-          <DeleteIcon />
-        </button>
-      </div>
+          <button className="delete__btn" onClick={handleDeleteArticle}>
+            <DeleteIcon />
+          </button>
+        </div>
+      )}
     </div>
   );
 };

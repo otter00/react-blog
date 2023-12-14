@@ -3,9 +3,14 @@ import { useNavigate } from "react-router-dom";
 import { CustomButton } from "../../UI/CustomButton/CustomButton";
 import { useState } from "react";
 
-export const LoginPage = ({ isLoggedIn, setIsLoggedIn, setUserName }) => {
+export const LoginPage = ({
+  isLoggedIn,
+  setIsLoggedIn,
+  setUserName,
+  setIsOwner,
+}) => {
   let navigate = useNavigate();
-  console.log(isLoggedIn);
+  // console.log(isLoggedIn);
 
   const [logIn, setLogIn] = useState("");
   const [password, setPassword] = useState("");
@@ -23,6 +28,10 @@ export const LoginPage = ({ isLoggedIn, setIsLoggedIn, setUserName }) => {
 
     localStorage.setItem("isLoggedIn", true);
     localStorage.setItem("userName", logIn);
+
+    if (logIn === "admin" && password === "12345") {
+      setIsOwner(true);
+    }
 
     setUserName(logIn);
     //console.log("hello");
