@@ -3,13 +3,21 @@ import "./HeaderStyles.scss";
 import { NavLink } from "react-router-dom";
 import LogoutIcon from "@mui/icons-material/Logout";
 
-export const Header = ({ isLoggedIn, setIsLoggedIn, userName }) => {
+export const Header = ({
+  isLoggedIn,
+  setIsLoggedIn,
+  userName,
+  setIsOwner,
+  isOwner,
+}) => {
   //console.log(isLoggedIn);
+  console.log(isOwner);
 
   const handeLogOut = () => {
     localStorage.removeItem("isLoggedIn");
     localStorage.removeItem("userName");
     setIsLoggedIn(false);
+    setIsOwner(false);
   };
 
   return (

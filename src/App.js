@@ -29,13 +29,15 @@ export function App() {
   });
   const [userName, setUserName] = useState(localStorage.getItem("userName"));
   const [isOwner, setIsOwner] = useState(
-    localStorage.getItem("userName") === "admin" || false
+    localStorage.getItem("userName") === "admin"
   );
 
   return (
     <Router>
       <div className="blog__container">
         <HeaderElement
+        setIsOwner={setIsOwner}
+        isOwner={isOwner}
           isLoggedIn={isLoggedIn}
           setIsLoggedIn={setIsLoggedIn}
           userName={userName}

@@ -26,12 +26,16 @@ export const LoginPage = ({
   const handleLogin = (e) => {
     e.preventDefault();
 
+    if (logIn === "admin") {
+      if (password === "12345") setIsOwner(true);
+      else {
+        alert("wrong");
+        return false;
+      }
+    }
+
     localStorage.setItem("isLoggedIn", true);
     localStorage.setItem("userName", logIn);
-
-    if (logIn === "admin" && password === "12345") {
-      setIsOwner(true);
-    }
 
     setUserName(logIn);
     //console.log("hello");
