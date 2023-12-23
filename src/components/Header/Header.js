@@ -33,7 +33,7 @@ export const Header = ({
   </NavLink> */}
           <NavLink
             onClick={handeLogOut}
-            //activeClassName="link__active"
+            //className={({ isActive }) => [isActive ? "link__active" : ""]}
             exact
             to="/login"
           >

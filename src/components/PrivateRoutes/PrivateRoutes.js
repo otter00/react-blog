@@ -23,7 +23,8 @@ import { useAuth } from "../../hooks/UseAuth";
 export const PrivateRoute = ({ children }) => {
   const isAuth = useAuth();
 
-  // проверка авторизации, если флаг false, перекидываем по маршруту на страницу логина
+  // проверка авторизации, если флаг false, перекидываем по маршруту
+  // на страницу авторизации
   if (!isAuth) {
     return <Navigate to="/login" />;
   }

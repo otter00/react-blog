@@ -1,20 +1,17 @@
 import React from "react";
 import "./PageNotFound.scss";
-import { Navigate, useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { CustomButton } from "../CustomButton/CustomButton";
 
 export const PageNotFound = () => {
   const location = useLocation();
   // адрес пути, на котором находимся
   console.log(location);
-
   let navigate = useNavigate();
 
   const backToBlog = () => {
     navigate("/blog");
   };
-
-  // if (!location?.state?.from?.pathname) return <Navigate to="/blog" />;
 
   return (
     <>
@@ -33,3 +30,5 @@ export const PageNotFound = () => {
     </>
   );
 };
+
+// if (!location?.state?.from?.pathname) return <Navigate to="/blog" />;

@@ -26,7 +26,7 @@ export const LoginPage = ({
   const handleLogin = (e) => {
     e.preventDefault();
 
-    if (logIn === "admin") {
+    if (logIn === "Anastasia Ivleva") {
       if (password === "12345") setIsOwner(true);
       else {
         alert("wrong");
