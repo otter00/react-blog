@@ -27,7 +27,16 @@ export const ArticleItem = ({
   return (
     <div className="post">
       <div className="post__container">
-        <h2>{title}</h2>
+        <div className="post__header">
+          <img
+            src={`https://api.dicebear.com/7.x/pixel-art/svg?seed=${Math.round(
+              Math.random() * 15
+            )}`}
+            alt="avatar"
+          />
+          <h2>{title}</h2>
+        </div>
+
         <p>{description}</p>
         <div>
           <button onClick={likePost}>
