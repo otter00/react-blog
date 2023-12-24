@@ -153,6 +153,7 @@ export class ArticlesPage extends Component {
           title={item.title}
           description={item.description}
           liked={item.liked}
+          //avatar={item.avatar}
           likePost={() => this.likePost(item)}
           handleDeleteArticle={() => this.handleDeleteArticle(item)}
           handleEditArticle={this.handleShowEditForm}

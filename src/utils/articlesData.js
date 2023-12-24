@@ -1,4 +1,4 @@
-export const customAPI = `https://6536ba1dbb226bb85dd28e56.mockapi.io/api/diploma_blog/articles/`;
+export const customAPI = `https://658742f18ff2e26ee4e0a04e.mockapi.io/react_blog/articles/`;
 
 export const posts = [
   {
