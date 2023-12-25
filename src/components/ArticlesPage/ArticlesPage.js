@@ -46,8 +46,18 @@ export class ArticlesPage extends Component {
 
   likePost = (article) => {
     const tmp = { ...article };
+
+    if (tmp.liked === true && tmp.likeCount > 0) {
+      tmp.likeCount--;
+    }
+    if (tmp.liked === true && tmp.likeCount === 0) {
+      tmp.likeCount = 0;
+    } else {
+      tmp.likeCount++;
+    }
+
     tmp.liked = !tmp.liked;
-    tmp.likeCount++;
+
     console.log(article.title, article.likeCount);
 
     axios
