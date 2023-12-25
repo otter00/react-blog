@@ -51,6 +51,16 @@ export const ArticlesPage = ({ isOwner }) => {
 
   const likePost = (article) => {
     const tmp = { ...article };
+
+    if (tmp.liked === true && tmp.likeCount > 0) {
+      tmp.likeCount--;
+    }
+    if (tmp.liked === true && tmp.likeCount === 0) {
+      tmp.likeCount = 0;
+    } else {
+      tmp.likeCount++;
+    }
+
     tmp.liked = !tmp.liked;
     console.log(article.id);
 
@@ -147,6 +157,7 @@ export const ArticlesPage = ({ isOwner }) => {
         title={item.title}
         description={item.description}
         liked={item.liked}
+        likeCount={item.likeCount}
         likePost={() => likePost(item)}
         handleDeleteArticle={() => handleDeleteArticle(item)}
         handleEditArticle={handleShowEditForm}

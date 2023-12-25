@@ -9,6 +9,7 @@ export const ArticleItem = ({
   description,
   liked,
   likePost,
+  likeCount,
   handleDeleteArticle,
   handleEditArticle,
   handleSelectArticle,
@@ -39,8 +40,9 @@ export const ArticleItem = ({
 
         <p>{description}</p>
         <div>
-          <button onClick={likePost}>
+          <button className="like-post__btn" onClick={likePost}>
             <FavoriteIcon style={{ fill: isLiked }} />
+            {likeCount}
           </button>
           {liked}
         </div>
