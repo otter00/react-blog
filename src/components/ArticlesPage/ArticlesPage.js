@@ -47,7 +47,8 @@ export class ArticlesPage extends Component {
   likePost = (article) => {
     const tmp = { ...article };
     tmp.liked = !tmp.liked;
-    console.log(article.id);
+    tmp.likeCount++;
+    console.log(article.title, article.likeCount);
 
     axios
       .put(`${customAPI}${article.id}`, tmp)
@@ -153,6 +154,7 @@ export class ArticlesPage extends Component {
           title={item.title}
           description={item.description}
           liked={item.liked}
+          likeCount={item.likeCount}
           //avatar={item.avatar}
           likePost={() => this.likePost(item)}
           handleDeleteArticle={() => this.handleDeleteArticle(item)}
