@@ -49,9 +49,9 @@ export const ArticlesPage = ({ isOwner }) => {
     };
   }, []);
 
-  const likePost = (article) => {
-    const tmp = { ...article };
-
+  // отображение количества лайков
+  // связано с не/закрашенной иконкой
+  const handleLikeCount = (tmp) => {
     if (tmp.liked === true && tmp.likeCount > 0) {
       tmp.likeCount--;
     }
@@ -60,6 +60,12 @@ export const ArticlesPage = ({ isOwner }) => {
     } else {
       tmp.likeCount++;
     }
+  };
+
+  const likePost = (article) => {
+    const tmp = { ...article };
+
+    handleLikeCount(tmp);
 
     tmp.liked = !tmp.liked;
     console.log(article.id);
@@ -154,7 +160,7 @@ export const ArticlesPage = ({ isOwner }) => {
     return (
       <ArticleItem
         key={item.id}
-        id={item.id}
+        id={item.id} // id makes uniq avatar for each post
         title={item.title}
         description={item.description}
         liked={item.liked}
