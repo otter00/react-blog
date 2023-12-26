@@ -5,6 +5,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 
 export const ArticleItem = ({
+  id,
   title,
   description,
   liked,
@@ -20,6 +21,8 @@ export const ArticleItem = ({
     handleEditArticle();
   };
 
+  console.log(id);
+
   // console.log(isOwner);
 
   // меняем цвет иконки в зависимости от состояния - лайкнута статья или нет
@@ -30,9 +33,7 @@ export const ArticleItem = ({
       <div className="post__container">
         <div className="post__header">
           <img
-            src={`https://api.dicebear.com/7.x/pixel-art/svg?seed=${Math.round(
-              Math.random() * 15
-            )}`}
+            src={`https://api.dicebear.com/7.x/pixel-art/svg?seed=${id}`}
             alt="avatar"
           />
           <h2>{title}</h2>
