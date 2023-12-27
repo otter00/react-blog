@@ -22,6 +22,7 @@ export const AddArticleForm = (props) => {
       title: articleTitle,
       description: articleDescription,
       liked: false,
+      likeCount: 0,
     };
 
     console.log(article);
