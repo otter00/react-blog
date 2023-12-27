@@ -31,6 +31,7 @@ export class AddArticleForm extends Component {
       title: this.state.articleTitle,
       description: this.state.articleDescription,
       liked: false,
+      likeCount: 0,
     };
 
     console.log(article);
