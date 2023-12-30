@@ -163,7 +163,7 @@ export const ArticlesPage = ({ isOwner }) => {
         id={item.id} // id makes uniq avatar for each post
         title={item.title}
         description={item.description}
-        avatar={item.avatar}
+        avatarURL={item.avatarURL}
         liked={item.liked}
         likeCount={item.likeCount}
         likePost={() => likePost(item)}

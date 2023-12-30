@@ -23,6 +23,9 @@ export const AddArticleForm = (props) => {
       description: articleDescription,
       liked: false,
       likeCount: 0,
+      avatarURL: `https://api.dicebear.com/7.x/pixel-art/svg?seed=${
+        props.blogArray.length + 1
+      }`,
     };
 
     console.log(article);
