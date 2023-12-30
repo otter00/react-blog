@@ -8,6 +8,7 @@ export const ArticleItem = ({
   id,
   title,
   description,
+  avatar,
   liked,
   likePost,
   likeCount,
