@@ -32,6 +32,9 @@ export class AddArticleForm extends Component {
       description: this.state.articleDescription,
       liked: false,
       likeCount: 0,
+      avatarURL: `https://api.dicebear.com/7.x/pixel-art/svg?seed=${
+        this.props.blogArray.length + 1
+      }`,
     };
 
     console.log(article);

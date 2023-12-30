@@ -10,7 +10,7 @@ export const ArticleItem = ({
   description,
   liked,
   likeCount,
-  avatar,
+  avatarURL,
   likePost,
   handleDeleteArticle,
   handleEditArticle,
@@ -28,10 +28,7 @@ export const ArticleItem = ({
     <div className="post">
       <div className="post__container">
         <div className="post__header">
-          <img
-            src={`https://api.dicebear.com/7.x/pixel-art/svg?seed=${id}`}
-            alt="avatar"
-          />
+          <img src={avatarURL} alt="avatar" />
           <h2>{title}</h2>
         </div>
 
