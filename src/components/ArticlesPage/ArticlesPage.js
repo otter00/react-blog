@@ -7,7 +7,7 @@ import LinearProgress from "@mui/material/LinearProgress";
 import axios from "axios";
 import { EditArticleForm } from "../EditArticleForm/EditArticleForm";
 import { customAPI } from "../../mocks/articlesData";
-import Pagination from "./Pagination";
+import Pagination from "../PaginationComponent/Pagination";
 
 let source;
 
