@@ -7,6 +7,7 @@ import LinearProgress from "@mui/material/LinearProgress";
 import axios from "axios";
 import { EditArticleForm } from "../EditArticleForm/EditArticleForm";
 import { customAPI } from "../../mocks/articlesData";
+import Pagination from "./Pagination";
 
 let source;
 
@@ -16,6 +17,12 @@ export const ArticlesPage = ({ isOwner }) => {
   const [blogArray, setBlogArray] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [selectedArticle, setSelectedArticle] = useState([]);
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const [articlesPerPage] = useState(3);
+  const lastArticleIndex = currentPage * articlesPerPage;
+  const firstArticleIndex = lastArticleIndex - articlesPerPage;
+  const currentArticle = blogArray.slice(firstArticleIndex, lastArticleIndex);
 
   // получаем данные с сервера
   const fetchArticles = () => {
@@ -158,20 +165,22 @@ export const ArticlesPage = ({ isOwner }) => {
   // вносим под рендер, чтобы при каждом изменении состояния изменения визуализировались
   const articlesArray = blogArray.map((item) => {
     return (
-      <ArticleItem
-        key={item.id}
-        id={item.id} // id makes uniq avatar for each post
-        title={item.title}
-        description={item.description}
-        avatarURL={item.avatarURL}
-        liked={item.liked}
-        likeCount={item.likeCount}
-        likePost={() => likePost(item)}
-        handleDeleteArticle={() => handleDeleteArticle(item)}
-        handleEditArticle={handleShowEditForm}
-        handleSelectArticle={() => handleSelectArticle(item)}
-        isOwner={isOwner}
-      />
+      <>
+        <ArticleItem
+          key={item.id}
+          id={item.id} // id makes uniq avatar for each post
+          title={item.title}
+          description={item.description}
+          avatarURL={item.avatarURL}
+          liked={item.liked}
+          likeCount={item.likeCount}
+          likePost={() => likePost(item)}
+          handleDeleteArticle={() => handleDeleteArticle(item)}
+          handleEditArticle={handleShowEditForm}
+          handleSelectArticle={() => handleSelectArticle(item)}
+          isOwner={isOwner}
+        />
+      </>
     );
   });
 
@@ -224,6 +233,11 @@ export const ArticlesPage = ({ isOwner }) => {
           {articlesArray}
         </div>
       </>
+
+      <Pagination
+        articlesPerPage={articlesPerPage}
+        totalArticles={blogArray.length}
+      />
     </div>
   );
 };
