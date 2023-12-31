@@ -1,0 +1,30 @@
+@import "../../styles/vars.scss";
+
+.pagination__list {
+  @include flex-center;
+  gap: 7px;
+
+  .page-item {
+    font-size: 17px;
+    outline: 2px solid $pagination-color;
+    padding: 10px;
+    width: 40px;
+    align-items: center;
+
+    &:hover {
+      outline: 2px solid $button-hover-color;
+      transition-property: outline;
+      transition-duration: 0.3s;
+      cursor: pointer;
+    }
+
+    span {
+      color: $button-hover-color;
+      @include flex-center;
+    }
+  }
+
+  .active-page {
+    outline: 2px solid $button-hover-color;
+  }
+}

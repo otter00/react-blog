@@ -1,33 +1,34 @@
 import React from "react";
+import "./PaginationStyles.scss";
 
-const Pagination = ({ articlesPerPage, totalArticles }) => {
+const Pagination = ({
+  articlesPerPage,
+  totalArticles,
+  currentPage,
+  handlePaginate,
+}) => {
   const pageNumbers = [];
-
-  console.log(
-    `per page: ${articlesPerPage}, total: ${totalArticles}, array before: ${pageNumbers}`
-  );
 
   for (let i = 1; i <= Math.ceil(totalArticles / articlesPerPage); i++) {
     pageNumbers.push(i);
   }
-  console.log(`array after: ${pageNumbers}`);
 
   return (
     <div>
-      <ul className="pagination">
-        {" "}
-        {pageNumbers.map((number) => {
-          return (
-            <>
-              <li className="page-item" key={number}>
-                <a href="//" className="page-link">
-                  {number}
-                </a>
-              </li>
-            </>
-          );
-        })}
-      </ul>
+      <div className="pagination__list">
+        {pageNumbers.map((number) => (
+          <div
+            className={`page-item ${
+              number === currentPage ? "active-page" : ""
+            }`}
+            key={number}
+          >
+            <span className="page-link" onClick={() => handlePaginate(number)}>
+              {number}
+            </span>
+          </div>
+        ))}
+      </div>
     </div>
   );
 };

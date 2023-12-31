@@ -20,6 +20,7 @@ export const ArticlesPage = ({ isOwner }) => {
 
   const [currentPage, setCurrentPage] = useState(1);
   const [articlesPerPage] = useState(3);
+
   const lastArticleIndex = currentPage * articlesPerPage;
   const firstArticleIndex = lastArticleIndex - articlesPerPage;
   const currentArticle = blogArray.slice(firstArticleIndex, lastArticleIndex);
@@ -163,7 +164,7 @@ export const ArticlesPage = ({ isOwner }) => {
   // проходимся по массиву постов и "кладём" их в компонент,
   // складываем все полученные посты в массив
   // вносим под рендер, чтобы при каждом изменении состояния изменения визуализировались
-  const articlesArray = blogArray.map((item) => {
+  const articlesArray = currentArticle.map((item) => {
     return (
       <>
         <ArticleItem
@@ -194,6 +195,10 @@ export const ArticlesPage = ({ isOwner }) => {
   }
 
   const articlesOpacity = isLoading ? 0.5 : 1;
+
+  const handlePaginate = (newPaginate) => {
+    setCurrentPage(newPaginate);
+  };
 
   return (
     <div className="articles__container">
@@ -237,6 +242,8 @@ export const ArticlesPage = ({ isOwner }) => {
       <Pagination
         articlesPerPage={articlesPerPage}
         totalArticles={blogArray.length}
+        currentPage={currentPage}
+        handlePaginate={handlePaginate}
       />
     </div>
   );
