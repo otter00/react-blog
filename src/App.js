@@ -92,7 +92,9 @@ export function App() {
           </Routes>
         </main>
 
-        <Footer year={new Date().getFullYear()} />
+        {/* Футер пока закомментим, потому что по факту он нахрен не нужен
+        и был чисто как заглушка для фен-шуя */}
+        {/* <Footer year={new Date().getFullYear()} /> */}
       </div>
     </Router>
   );

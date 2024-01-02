@@ -20,6 +20,7 @@
 }
 
 .posts {
+  position: relative;
   // width: fit-content;
   margin: auto;
   display: flex;
@@ -28,4 +29,12 @@
 
 .count {
   text-align: center;
+}
+
+.pagination__container {
+  @include flex-center;
+
+  button {
+    color: $button-hover-color;
+  }
 }

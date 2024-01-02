@@ -8,6 +8,9 @@ import axios from "axios";
 import { EditArticleForm } from "../EditArticleForm/EditArticleForm";
 import { customAPI } from "../../mocks/articlesData";
 import Pagination from "../PaginationComponent/Pagination";
+import IconButton from "@mui/material/IconButton";
+import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
+import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 
 let source;
 
@@ -24,6 +27,14 @@ export const ArticlesPage = ({ isOwner }) => {
   const lastArticleIndex = currentPage * articlesPerPage;
   const firstArticleIndex = lastArticleIndex - articlesPerPage;
   const currentArticle = blogArray.slice(firstArticleIndex, lastArticleIndex);
+
+  const nextPaginate = () => {
+    setCurrentPage((prev) => prev + 1);
+  };
+
+  const prevPaginate = () => {
+    setCurrentPage((prev) => prev - 1);
+  };
 
   // получаем данные с сервера
   const fetchArticles = () => {
@@ -239,12 +250,22 @@ export const ArticlesPage = ({ isOwner }) => {
         </div>
       </>
 
-      <Pagination
-        articlesPerPage={articlesPerPage}
-        totalArticles={blogArray.length}
-        currentPage={currentPage}
-        handlePaginate={handlePaginate}
-      />
+      <section className="pagination__container">
+        <IconButton>
+          <ArrowBackIosNewIcon onClick={prevPaginate} />
+        </IconButton>
+
+        <Pagination
+          articlesPerPage={articlesPerPage}
+          totalArticles={blogArray.length}
+          currentPage={currentPage}
+          handlePaginate={handlePaginate}
+        />
+
+        <IconButton>
+          <ArrowForwardIosIcon onClick={nextPaginate} />
+        </IconButton>
+      </section>
     </div>
   );
 };
