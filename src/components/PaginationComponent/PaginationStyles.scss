@@ -1,4 +1,8 @@
+/* general styles */
 @import "../../styles/vars.scss";
+
+/* fonts */
+@import "../../styles/fonts.scss";
 
 .pagination__list {
   @include flex-center;

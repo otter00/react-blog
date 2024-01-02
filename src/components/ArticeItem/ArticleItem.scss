@@ -1,6 +1,9 @@
 /* general styles */
 @import "../../styles/vars.scss";
 
+/* fonts */
+@import "../../styles/fonts.scss";
+
 :root {
   --article-title-color: #1890ff;
   --post-margin-bottom: 3vh;

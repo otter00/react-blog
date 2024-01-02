@@ -24,7 +24,7 @@ export const Header = ({
     <header>
       {isLoggedIn ? (
         <nav className="header__nav">
-          <span>
+          <span className="header-nav__greeting">
             Welcome, <strong>{userName}</strong>
           </span>
           {/* Принцип SPA - переход по ссылкам без обновления страницы */}

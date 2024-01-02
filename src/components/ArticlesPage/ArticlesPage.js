@@ -9,8 +9,9 @@ import { EditArticleForm } from "../EditArticleForm/EditArticleForm";
 import { customAPI } from "../../mocks/articlesData";
 import Pagination from "../PaginationComponent/Pagination";
 import IconButton from "@mui/material/IconButton";
-import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
-import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+import NavigateBeforeIcon from "@mui/icons-material/NavigateBefore";
+import NavigateNextIcon from "@mui/icons-material/NavigateNext";
+import FeaterIcon from "../../icons/feather-icon.png";
 
 let source;
 
@@ -230,7 +231,10 @@ export const ArticlesPage = ({ isOwner }) => {
       )}
 
       <>
-        <h1>Custom Blog</h1>
+        <h1 className="articles-blog__title">
+          <img src={FeaterIcon} alt="write-icon" className="feater-icon" />
+          Custom Blog
+        </h1>
 
         {isOwner && (
           <CustomButton
@@ -252,7 +256,7 @@ export const ArticlesPage = ({ isOwner }) => {
 
       <section className="pagination__container">
         <IconButton>
-          <ArrowBackIosNewIcon onClick={prevPaginate} />
+          <NavigateBeforeIcon onClick={prevPaginate} />
         </IconButton>
 
         <Pagination
@@ -263,7 +267,7 @@ export const ArticlesPage = ({ isOwner }) => {
         />
 
         <IconButton>
-          <ArrowForwardIosIcon onClick={nextPaginate} />
+          <NavigateNextIcon onClick={nextPaginate} />
         </IconButton>
       </section>
     </div>

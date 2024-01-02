@@ -2,7 +2,11 @@
 @import "../../styles/vars.scss";
 
 /* fonts */
-@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800;900&display=swap");
+@import "../../styles/fonts.scss";
+
+:root {
+  --title-font-size: 38px;
+}
 
 .showArticlesButton {
   display: flex;
@@ -31,10 +35,22 @@
   text-align: center;
 }
 
-.pagination__container {
-  @include flex-center;
+.articles__container {
+  .articles-blog__title {
+    font-family: "Dancing Script", cursive;
+    font-size: var(--title-font-size);
+    margin: 15px 0;
 
-  button {
-    color: $button-hover-color;
+    .feater-icon {
+      margin: 0 7px;
+    }
+  }
+
+  .pagination__container {
+    @include flex-center;
+
+    button {
+      color: $button-hover-color;
+    }
   }
 }
