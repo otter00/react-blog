@@ -33,14 +33,11 @@ export const ArticleItem = ({
     <div className="post">
       <div className="post__container">
         <div className="post__header">
-          <img
-            src={avatarURL}
-            alt="avatar"
-          />
-          <h2>{title}</h2>
+          <img src={avatarURL} alt="avatar" />
+          <h2 className="post__title">{title}</h2>
         </div>
 
-        <p>{description}</p>
+        <p className="post__despription">{description}</p>
         <div>
           <button className="like-post__btn" onClick={likePost}>
             <FavoriteIcon style={{ fill: isLiked }} />

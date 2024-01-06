@@ -18,6 +18,8 @@ h2 {
   @include flex_between;
   align-items: center;
 
+  font-family: "Bad Script", cursive;
+
   padding: var(--post-paddings);
   margin-bottom: var(--post-margin-bottom);
   background-color: $white-color;
@@ -34,14 +36,19 @@ h2 {
     align-items: center;
     gap: 15px;
 
-    img,
-    h2 {
-      margin: 15px 0 10px 0;
-    }
     img {
+      margin: 15px 0 10px 0;
       width: 30px;
       height: 30px;
     }
+
+    .post__title {
+      margin: 15px 0 10px 0;
+    }
+  }
+
+  .post__despription {
+    font-size: 20px;
   }
 
   .functional__btns {
