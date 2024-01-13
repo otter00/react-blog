@@ -15,6 +15,7 @@ import { LoginPage } from "./components/LoginPage/LoginPage";
 import { PrivateRoute } from "./components/PrivateRoutes/PrivateRoutes";
 import { PublicRoute } from "./components/PublicRoutes/PublicRoutes";
 import { useAuth } from "./hooks/UseAuth";
+import { ArticleItem } from "./components/ArticeItem/ArticleItem";
 
 export function App() {
   const isAuth = useAuth();
@@ -70,6 +71,18 @@ export function App() {
                     setIsOwner={setIsOwner}
                   />
                 </PublicRoute>
+              }
+            />
+
+            {/* Пост в отдельной странице;
+            добавляем к пути динамический id, запрошенный пользователем */}
+            <Route
+              exact
+              path="/blog/:postId"
+              element={
+                <PrivateRoute>
+                  <ArticleItem isOwner={isOwner} />
+                </PrivateRoute>
               }
             />
 

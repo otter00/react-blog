@@ -12,6 +12,7 @@ import IconButton from "@mui/material/IconButton";
 import NavigateBeforeIcon from "@mui/icons-material/NavigateBefore";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import FeaterIcon from "../../icons/feather-icon.png";
+import { Link } from "react-router-dom";
 
 let source;
 
@@ -178,9 +179,8 @@ export const ArticlesPage = ({ isOwner }) => {
   // вносим под рендер, чтобы при каждом изменении состояния изменения визуализировались
   const articlesArray = currentArticle.map((item) => {
     return (
-      <>
+      <React.Fragment key={item.id}>
         <ArticleItem
-          key={item.id}
           id={item.id} // id makes uniq avatar for each post
           title={item.title}
           description={item.description}
@@ -193,7 +193,8 @@ export const ArticlesPage = ({ isOwner }) => {
           handleSelectArticle={() => handleSelectArticle(item)}
           isOwner={isOwner}
         />
-      </>
+        <Link to={`/blog/${item.id}`}>Подробнее...</Link>
+      </React.Fragment>
     );
   });
 
