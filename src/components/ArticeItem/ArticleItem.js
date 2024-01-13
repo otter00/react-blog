@@ -49,7 +49,11 @@ export const ArticleItem = ({
   }, [postId, setSinglePost]);
 
   // меняем цвет иконки в зависимости от состояния - лайкнута статья или нет
-  const isLiked = liked ? "brown" : "lightgrey";
+  let isLiked;
+
+  if (postId) {
+    isLiked = singlePost.liked ? "brown" : "lightgrey";
+  } else isLiked = liked ? "brown" : "lightgrey";
 
   return (
     <div className="post">
