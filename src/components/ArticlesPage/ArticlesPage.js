@@ -193,7 +193,7 @@ export const ArticlesPage = ({ isOwner }) => {
           handleSelectArticle={() => handleSelectArticle(item)}
           isOwner={isOwner}
         />
-        <Link to={`/blog/${item.id}`}>Подробнее...</Link>
+        {/* <Link to={`/blog/${item.id}`}>Подробнее...</Link> */}
       </React.Fragment>
     );
   });

@@ -3,6 +3,7 @@ import "./ArticleItem.scss";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
+import { Link } from "react-router-dom";
 
 export const ArticleItem = ({
   id,
@@ -38,12 +39,15 @@ export const ArticleItem = ({
         </div>
 
         <p className="post__despription">{description}</p>
-        <div>
+
+        <div className="subdescription__section">
           <button className="like-post__btn" onClick={likePost}>
             <FavoriteIcon style={{ fill: isLiked }} />
             {likeCount}
           </button>
           {liked}
+
+          <Link to={`/blog/${id}`}>Подробнее...</Link>
         </div>
       </div>
 
