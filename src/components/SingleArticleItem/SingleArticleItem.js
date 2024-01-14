@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import "../ArticeItem/ArticleItem.scss";
+import "./SingleArticleItemStyles.scss";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import { useParams } from "react-router-dom";
 import { customAPI } from "../../mocks/articlesData";
+import LinearProgress from "@mui/material/LinearProgress";
+import { CustomButton } from "../../UI/CustomButton/CustomButton";
 
 export const SingleArticleItem = ({
   likePost,
@@ -17,6 +20,12 @@ export const SingleArticleItem = ({
   const showEditForm = () => {
     handleSelectArticle();
     handleEditArticle();
+  };
+
+  let navigate = useNavigate();
+
+  const backToBlog = () => {
+    navigate("/blog");
   };
 
   // динамически отлавливаем id отдельного поста
@@ -41,35 +50,62 @@ export const SingleArticleItem = ({
 
   console.log(singlePost.id);
 
+  function isEmpty(obj) {
+    for (const prop in obj) {
+      if (Object.hasOwn(obj, prop)) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  console.log(isEmpty(singlePost));
+
+  if (isEmpty(singlePost)) {
+    return (
+      <>
+        <LinearProgress style={{ zIndex: 2 }} className="posts__loader" />
+      </>
+    );
+  }
+
   return (
-    <div className="post">
-      <div className="post__container">
-        <div className="post__header">
-          <img src={singlePost.avatarURL} alt="avatar" />
-          <h2 className="post__title">{singlePost.title}</h2>
+    <>
+      <div className="post">
+        <div className="post__container">
+          <div className="post__header">
+            <img src={singlePost.avatarURL} alt="avatar" />
+            <h2 className="post__title">{singlePost.title}</h2>
+          </div>
+
+          <p className="post__despription">{singlePost.description}</p>
+          <div>
+            <button className="like-post__btn" onClick={likePost}>
+              <FavoriteIcon style={{ fill: isLiked }} />
+              {singlePost.likeCount}
+            </button>
+            {singlePost.liked}
+          </div>
         </div>
 
-        <p className="post__despription">{singlePost.description}</p>
-        <div>
-          <button className="like-post__btn" onClick={likePost}>
-            <FavoriteIcon style={{ fill: isLiked }} />
-            {singlePost.likeCount}
-          </button>
-          {singlePost.liked}
-        </div>
+        {isOwner && (
+          <div className="functional__btns">
+            <button className="edit__btn" onClick={showEditForm}>
+              <EditIcon />
+            </button>
+
+            <button className="delete__btn" onClick={handleDeleteArticle}>
+              <DeleteIcon />
+            </button>
+          </div>
+        )}
       </div>
 
-      {isOwner && (
-        <div className="functional__btns">
-          <button className="edit__btn" onClick={showEditForm}>
-            <EditIcon />
-          </button>
-
-          <button className="delete__btn" onClick={handleDeleteArticle}>
-            <DeleteIcon />
-          </button>
-        </div>
-      )}
-    </div>
+      <CustomButton
+        className={["CustomButtonStyle", "back-blog__single-post"].join(" ")}
+        onClick={backToBlog}
+        name={"Back to blog"}
+      />
+    </>
   );
 };
