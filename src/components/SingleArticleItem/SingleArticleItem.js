@@ -9,19 +9,9 @@ import { useParams } from "react-router-dom";
 import { customAPI } from "../../mocks/articlesData";
 import LinearProgress from "@mui/material/LinearProgress";
 import { CustomButton } from "../../UI/CustomButton/CustomButton";
+import { EditArticleForm } from "../EditArticleForm/EditArticleForm";
 
-export const SingleArticleItem = ({
-  likePost,
-  handleDeleteArticle,
-  handleEditArticle,
-  handleSelectArticle,
-  isOwner,
-}) => {
-  const showEditForm = () => {
-    handleSelectArticle();
-    handleEditArticle();
-  };
-
+export const SingleArticleItem = ({ isOwner }) => {
   let navigate = useNavigate();
 
   const backToBlog = () => {
@@ -31,6 +21,107 @@ export const SingleArticleItem = ({
   // динамически отлавливаем id отдельного поста
   const { postId } = useParams();
   const [singlePost, setSinglePost] = useState({});
+  const [isLoading, setIsLoading] = useState(false);
+  const [selectedArticle, setSelectedArticle] = useState([]);
+  const [showEditForm, setShowEditForm] = useState(false);
+
+  // получаем данные с сервера
+  const fetchSingleArticle = (id) => {
+    // получаем данные с API
+    axios
+      .get(customAPI + id)
+      .then((response) => {
+        console.log(response.data);
+        // вносим данные в массив
+        // переключаем индикатор загрузки в false, так как загрузка завершена
+        setSinglePost(response.data);
+        setIsLoading(false);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  // side effect - помещаются в данном этапе ЖЦ на первичной отрисовке
+  useEffect(() => {
+    fetchSingleArticle(postId);
+  }, [postId]);
+
+  // отображение количества лайков
+  // связано с не/закрашенной иконкой
+  const handleLikeCount = (tmp) => {
+    if (tmp.liked === true && tmp.likeCount > 0) {
+      tmp.likeCount--;
+    }
+    if (tmp.liked === true && tmp.likeCount === 0) {
+      tmp.likeCount = 0;
+    } else {
+      tmp.likeCount++;
+    }
+  };
+
+  const likePost = () => {
+    const tmp = { ...singlePost };
+
+    handleLikeCount(tmp);
+
+    tmp.liked = !tmp.liked;
+
+    axios
+      .put(`${customAPI}${postId}`, tmp)
+      .then((response) => {
+        console.log("edited ", response.data);
+        fetchSingleArticle(postId);
+        setIsLoading(false);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const handleDeleteArticle = () => {
+    // вызываем пользовательское модальное окно перед удалением
+    if (window.confirm(`Удалить ${singlePost.title}?`)) {
+      setIsLoading(true);
+      axios
+        // удаляем определённый пост по его id
+        .delete(`${customAPI}${postId}`)
+        .then((response) => {
+          // вызываем отрисовку массива после обновления данных на сервере
+          console.log(`delete `, response.data);
+          setIsLoading(false);
+          navigate("/blog");
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  };
+
+  const handleEditArticle = (editedArticle) => {
+    setIsLoading(true);
+
+    axios
+      .put(`${customAPI}${postId}`, editedArticle)
+      .then((response) => {
+        console.log("article edited ", response.data);
+        // вызываем отрисовку массива после обновления данных на сервере
+        fetchSingleArticle(postId);
+        setIsLoading(false);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const handleShowEditForm = (article) => {
+    setShowEditForm(true);
+    setSelectedArticle(article);
+  };
+
+  const handleHideEditForm = () => {
+    setShowEditForm(false);
+  };
 
   // отрисовываем соответствующий пост по запрошенному в пути id
   useEffect(() => {
@@ -39,6 +130,7 @@ export const SingleArticleItem = ({
       .then((response) => {
         console.log(response.data);
         setSinglePost(response.data);
+        setIsLoading(false);
       })
       .catch((err) => {
         console.log(err);
@@ -69,10 +161,22 @@ export const SingleArticleItem = ({
     );
   }
 
+  const articlesOpacity = isLoading ? 0.5 : 1;
+
   return (
     <div className="single-post__section">
       <div className="single__post">
-        <div className="single-post__container">
+        {showEditForm && (
+          <EditArticleForm
+            selectedArticle={selectedArticle}
+            handleEditArticle={handleEditArticle}
+            handleHideEditForm={handleHideEditForm}
+          />
+        )}
+        <div
+          className="single-post__container"
+          style={{ opacity: articlesOpacity }}
+        >
           <div className="single-post__header">
             <img src={singlePost.avatarURL} alt="avatar" />
             <h2 className="single-post__title">{singlePost.title}</h2>
@@ -90,7 +194,10 @@ export const SingleArticleItem = ({
 
         {isOwner && (
           <div className="functional__btns">
-            <button className="edit__btn" onClick={showEditForm}>
+            <button
+              className="edit__btn"
+              onClick={() => handleShowEditForm(singlePost)}
+            >
               <EditIcon />
             </button>
 
@@ -106,6 +213,10 @@ export const SingleArticleItem = ({
         onClick={backToBlog}
         name={"Back to blog"}
       />
+
+      {isLoading && (
+        <LinearProgress style={{ zIndex: 2 }} className="posts__loader" />
+      )}
     </div>
   );
 };

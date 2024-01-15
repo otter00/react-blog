@@ -106,19 +106,18 @@ export const ArticlesPage = ({ isOwner }) => {
     // вызываем пользовательское модальное окно перед удалением
     if (window.confirm(`Удалить ${article.title}?`)) {
       setIsLoading(true);
+      axios
+        // удаляем определённый пост по его id
+        .delete(`${customAPI}${article.id}`)
+        .then((response) => {
+          // вызываем отрисовку массива после обновления данных на сервере
+          console.log(`delete `, response.data);
+          fetchArticles();
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     }
-
-    axios
-      // удаляем определённый пост по его id
-      .delete(`${customAPI}${article.id}`)
-      .then((response) => {
-        // вызываем отрисовку массива после обновления данных на сервере
-        console.log(`delete `, response.data);
-        fetchArticles();
-      })
-      .catch((err) => {
-        console.log(err);
-      });
   };
 
   const handleShowAddForm = () => {
