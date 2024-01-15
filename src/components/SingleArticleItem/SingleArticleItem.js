@@ -70,12 +70,12 @@ export const SingleArticleItem = ({
   }
 
   return (
-    <>
-      <div className="post">
-        <div className="post__container">
-          <div className="post__header">
+    <div className="single-post__section">
+      <div className="single__post">
+        <div className="single-post__container">
+          <div className="single-post__header">
             <img src={singlePost.avatarURL} alt="avatar" />
-            <h2 className="post__title">{singlePost.title}</h2>
+            <h2 className="single-post__title">{singlePost.title}</h2>
           </div>
 
           <p className="post__despription">{singlePost.description}</p>
@@ -102,10 +102,10 @@ export const SingleArticleItem = ({
       </div>
 
       <CustomButton
-        className={["CustomButtonStyle", "back-blog__single-post"].join(" ")}
+        className={"CustomButtonStyle"}
         onClick={backToBlog}
         name={"Back to blog"}
       />
-    </>
+    </div>
   );
 };

@@ -14,9 +14,10 @@ h2 {
   color: var(--article-title-color);
 }
 
-.post {
+.single__post {
   @include flex_between;
   align-items: center;
+  margin-top: 150px;
 
   font-family: "Bad Script", cursive;
 
@@ -31,7 +32,7 @@ h2 {
     gap: 5px;
   }
 
-  .post__header {
+  .single-post__header {
     display: flex;
     align-items: center;
     gap: 15px;
@@ -42,27 +43,20 @@ h2 {
       height: 30px;
     }
 
-    .post__title {
+    .single-post__title {
       margin: 15px 0 10px 0;
     }
   }
 
-  .post__despription {
+  .single-post__despription {
     font-size: 20px;
-  }
-
-  .subdescription__section {
-    display: inline-flex;
-    align-items: center;
-    gap: 5px;
   }
 
   .functional__btns {
     height: 80px;
   }
+}
 
-  .back-blog__single-post {
-    display: flex;
-    justify-content: center;
-  }
+.single-post__section > button {
+  margin: 0 42%;
 }
