@@ -13,22 +13,45 @@ import NavigateBeforeIcon from "@mui/icons-material/NavigateBefore";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import FeaterIcon from "../../icons/feather-icon.png";
 import { Link } from "react-router-dom";
+import { useFetchArticles } from "../../utils/getQueries";
 
 let source;
 
 export const ArticlesPage = ({ isOwner }) => {
+  const {
+    data: articles,
+    isLoading,
+    isFetching,
+    isError,
+    error,
+  } = useFetchArticles();
+  // 11:34
+
+  console.log(useFetchArticles());
+
   const [showAddForm, setShowAddForm] = useState(false);
   const [showEditForm, setShowEditForm] = useState(false);
   const [blogArray, setBlogArray] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
+  //const [isLoading, setIsLoading] = useState(false);
   const [selectedArticle, setSelectedArticle] = useState([]);
 
   const [currentPage, setCurrentPage] = useState(1);
   const [articlesPerPage] = useState(3);
 
+  // сообщаем о загрузке данных, пока они не пришли с сервера
+  if (isLoading) {
+    return (
+      <>
+        <h1>Loading...</h1>
+      </>
+    );
+  }
+
+  const articlesOpacity = isFetching ? 0.5 : 1;
+
   const lastArticleIndex = currentPage * articlesPerPage;
   const firstArticleIndex = lastArticleIndex - articlesPerPage;
-  const currentArticle = blogArray.slice(firstArticleIndex, lastArticleIndex);
+  const currentArticle = articles.slice(firstArticleIndex, lastArticleIndex);
 
   const nextPaginate = () => {
     setCurrentPage((prev) => prev + 1);
@@ -51,24 +74,24 @@ export const ArticlesPage = ({ isOwner }) => {
         // вносим данные в массив
         // переключаем индикатор загрузки в false, так как загрузка завершена
         setBlogArray(response.data);
-        setIsLoading(false);
+        //setIsLoading(false);
       })
       .catch((err) => {
         console.log(err);
       });
   };
 
-  // side effect - помещаются в данном этапе ЖЦ на первичной отрисовке
-  useEffect(() => {
-    fetchArticles();
-    return () => {
-      // при быстром переключении страниц запрос получения данных не успеет
-      // обработаться, => возникнет ошибка в консоли. Нужна отмена запроса
-      if (source) {
-        source.cancel("request cancelled");
-      }
-    };
-  }, []);
+  // // side effect - помещаются в данном этапе ЖЦ на первичной отрисовке
+  // useEffect(() => {
+  //   fetchArticles();
+  //   return () => {
+  //     // при быстром переключении страниц запрос получения данных не успеет
+  //     // обработаться, => возникнет ошибка в консоли. Нужна отмена запроса
+  //     if (source) {
+  //       source.cancel("request cancelled");
+  //     }
+  //   };
+  // }, []);
 
   // отображение количества лайков
   // связано с не/закрашенной иконкой
@@ -105,7 +128,7 @@ export const ArticlesPage = ({ isOwner }) => {
   const handleDeleteArticle = (article) => {
     // вызываем пользовательское модальное окно перед удалением
     if (window.confirm(`Удалить ${article.title}?`)) {
-      setIsLoading(true);
+      //setIsLoading(true);
       axios
         // удаляем определённый пост по его id
         .delete(`${customAPI}${article.id}`)
@@ -137,7 +160,7 @@ export const ArticlesPage = ({ isOwner }) => {
   };
 
   const handleAddArticle = (article) => {
-    setIsLoading(true);
+    //setIsLoading(true);
 
     axios
       .post(customAPI, article)
@@ -152,7 +175,7 @@ export const ArticlesPage = ({ isOwner }) => {
   };
 
   const handleEditArticle = (editedArticle) => {
-    setIsLoading(true);
+    //setIsLoading(true);
 
     axios
       .put(`${customAPI}${editedArticle.id}`, editedArticle)
@@ -196,17 +219,6 @@ export const ArticlesPage = ({ isOwner }) => {
       </React.Fragment>
     );
   });
-
-  // сообщаем о загрузке данных, пока они не пришли с сервера
-  if (blogArray.length === 0) {
-    return (
-      <>
-        <h1>Loading...</h1>
-      </>
-    );
-  }
-
-  const articlesOpacity = isLoading ? 0.5 : 1;
 
   const handlePaginate = (newPaginate) => {
     setCurrentPage(newPaginate);
@@ -261,7 +273,7 @@ export const ArticlesPage = ({ isOwner }) => {
 
         <Pagination
           articlesPerPage={articlesPerPage}
-          totalArticles={blogArray.length}
+          totalArticles={articles.length}
           currentPage={currentPage}
           handlePaginate={handlePaginate}
         />
