@@ -12,18 +12,18 @@ import { CustomButton } from "../../UI/CustomButton/CustomButton";
 import { EditArticleForm } from "../EditArticleForm/EditArticleForm";
 
 export const SingleArticleItem = ({ isOwner }) => {
-  let navigate = useNavigate();
-
-  const backToBlog = () => {
-    navigate("/blog");
-  };
-
   // динамически отлавливаем id отдельного поста
   const { postId } = useParams();
   const [singlePost, setSinglePost] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const [selectedArticle, setSelectedArticle] = useState([]);
   const [showEditForm, setShowEditForm] = useState(false);
+
+  const navigate = useNavigate();
+
+  const backToBlog = () => {
+    navigate("/blog");
+  };
 
   // получаем данные с сервера
   const fetchSingleArticle = (id) => {
@@ -182,7 +182,8 @@ export const SingleArticleItem = ({ isOwner }) => {
             <h2 className="single-post__title">{singlePost.title}</h2>
           </div>
 
-          <p className="single-post__despription">{singlePost.description}</p>
+          <p className="single-post__description">{singlePost.description}</p>
+
           <div>
             <button className="like-post__btn" onClick={likePost}>
               <FavoriteIcon style={{ fill: isLiked }} />

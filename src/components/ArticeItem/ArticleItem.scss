@@ -37,19 +37,27 @@ h2 {
     gap: 15px;
 
     img {
-      margin: 15px 0 10px 0;
+      margin: 15px 0 5px 0;
       width: 30px;
       height: 30px;
     }
 
     .post__title {
-      margin: 15px 0 10px 0;
+      margin: 15px 0 5px 0;
     }
   }
 
-  .post__despription {
+  .post__description {
     font-size: 20px;
+    padding: 3px 3px 0 3px;
+    overflow: hidden;
+    max-height: 3em; /* Например, ограничьте до трех строк */
+    transition: max-height 0.3s ease-in-out;
   }
+
+  // .post__description.expanded {
+  //   max-height: none;
+  // }
 
   .subdescription__section {
     display: inline-flex;

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./ArticleItem.scss";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -25,6 +25,14 @@ export const ArticleItem = ({
 
   console.log(id);
 
+  const [isDescriptionExpanded, setIsDescriptionExpanded] = useState(false);
+
+  const toggleDescription = () => {
+    setIsDescriptionExpanded(!isDescriptionExpanded);
+  };
+
+  const descriptionClass = isDescriptionExpanded ? "expanded" : "collapsed";
+
   // console.log(isOwner);
 
   // меняем цвет иконки в зависимости от состояния - лайкнута статья или нет
@@ -38,7 +46,13 @@ export const ArticleItem = ({
           <h2 className="post__title">{title}</h2>
         </div>
 
-        <p className="post__despription">{description}</p>
+        <p
+          // className={`post__description ${descriptionClass}`}
+          // onClick={toggleDescription}
+          className="post__description"
+        >
+          {description}
+        </p>
 
         <div className="subdescription__section">
           <button className="like-post__btn" onClick={likePost}>
