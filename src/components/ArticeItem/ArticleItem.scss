@@ -50,6 +50,7 @@ h2 {
   .post__description {
     font-size: 20px;
     padding: 3px 3px 0 3px;
+    margin: 15px 0;
     overflow: hidden;
     max-height: 3em; /* Например, ограничьте до трех строк */
     transition: max-height 0.3s ease-in-out;
