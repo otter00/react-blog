@@ -58,8 +58,9 @@ h2 {
   }
 
   .functional__btns {
+    display: inline-flex;
     height: 80px;
-    //display: flex;
+
     // flex-direction: column;
     // justify-content: space-between;
   }

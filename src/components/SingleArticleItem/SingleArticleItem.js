@@ -142,18 +142,18 @@ export const SingleArticleItem = ({ isOwner }) => {
 
   console.log(singlePost.id);
 
-  function isEmpty(obj) {
-    for (const prop in obj) {
-      if (Object.hasOwn(obj, prop)) {
-        return false;
-      }
-    }
-    return true;
-  }
+  // Проверка на пустоту объекта, но в целом костыль, так как пустой объект всегда undefined == false
+  // function isEmpty(obj) {
+  //   for (const prop in obj) {
+  //     if (Object.hasOwn(obj, prop)) {
+  //       return false;
+  //     }
+  //   }
+  //   return true;
+  // }
+  // console.log(isEmpty(singlePost));
 
-  console.log(isEmpty(singlePost));
-
-  if (isEmpty(singlePost)) {
+  if (!singlePost.title) {
     return (
       <>
         <LinearProgress style={{ zIndex: 2 }} className="posts__loader" />
@@ -182,7 +182,7 @@ export const SingleArticleItem = ({ isOwner }) => {
             <h2 className="single-post__title">{singlePost.title}</h2>
           </div>
 
-          <p className="post__despription">{singlePost.description}</p>
+          <p className="single-post__despription">{singlePost.description}</p>
           <div>
             <button className="like-post__btn" onClick={likePost}>
               <FavoriteIcon style={{ fill: isLiked }} />
