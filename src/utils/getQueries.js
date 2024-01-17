@@ -20,6 +20,24 @@ export const useFetchArticles = () => {
   );
 };
 
+export const useFetchSingleArticle = (articleId) => {
+  return useQuery(
+    ["articles", articleId],
+    () => {
+      return axios
+        .get(customAPI + articleId)
+        .then((response) => response.data)
+        .catch((err) => {
+          throw new Error(err);
+        });
+    },
+    {
+      // отмена повторной отправки fetch-запроса при переключении вкладок
+      refetchOnWindowFocus: false,
+    }
+  );
+};
+
 export const useLikeArticle = () => {
   return useMutation((editedArticle) => {
     return axios
