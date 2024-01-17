@@ -25,7 +25,6 @@ export const ArticlesPage = ({ isOwner }) => {
     isError,
     error,
   } = useFetchArticles();
-  // 11:34
 
   console.log(useFetchArticles());
 
@@ -38,16 +37,10 @@ export const ArticlesPage = ({ isOwner }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [articlesPerPage] = useState(3);
 
+  // в случае ошибки получения данных сообщаем о ней пользователю
+  if (isError) return <h1>{error.message}</h1>;
   // сообщаем о загрузке данных, пока они не пришли с сервера
-  if (isLoading) {
-    return (
-      <>
-        <h1>Loading...</h1>
-      </>
-    );
-  }
-
-  const articlesOpacity = isFetching ? 0.5 : 1;
+  if (isLoading) return <h1>Loading...</h1>;
 
   const lastArticleIndex = currentPage * articlesPerPage;
   const firstArticleIndex = lastArticleIndex - articlesPerPage;
@@ -219,6 +212,8 @@ export const ArticlesPage = ({ isOwner }) => {
       </React.Fragment>
     );
   });
+
+  const articlesOpacity = isFetching ? 0.5 : 1;
 
   const handlePaginate = (newPaginate) => {
     setCurrentPage(newPaginate);
