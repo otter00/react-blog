@@ -13,9 +13,15 @@ import NavigateBeforeIcon from "@mui/icons-material/NavigateBefore";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import FeaterIcon from "../../icons/feather-icon.png";
 import { Link } from "react-router-dom";
-import { useFetchArticles } from "../../utils/getQueries";
+import {
+  useAddArticle,
+  useDeleteArticle,
+  useEditArticle,
+  useFetchArticles,
+  useLikeArticle,
+} from "../../utils/getQueries";
 
-let source;
+//let source;
 
 export const ArticlesPage = ({ isOwner }) => {
   const {
@@ -24,13 +30,19 @@ export const ArticlesPage = ({ isOwner }) => {
     isFetching,
     isError,
     error,
+    refetch,
   } = useFetchArticles();
+
+  const likeArticleMutation = useLikeArticle();
+  const deleteArticleMutation = useDeleteArticle();
+  const editArticleMutation = useEditArticle();
+  const addArticleMutation = useAddArticle();
 
   console.log(useFetchArticles());
 
   const [showAddForm, setShowAddForm] = useState(false);
   const [showEditForm, setShowEditForm] = useState(false);
-  const [blogArray, setBlogArray] = useState([]);
+  //const [blogArray, setBlogArray] = useState([]);
   //const [isLoading, setIsLoading] = useState(false);
   const [selectedArticle, setSelectedArticle] = useState([]);
 
@@ -45,6 +57,7 @@ export const ArticlesPage = ({ isOwner }) => {
   const lastArticleIndex = currentPage * articlesPerPage;
   const firstArticleIndex = lastArticleIndex - articlesPerPage;
   const currentArticle = articles.slice(firstArticleIndex, lastArticleIndex);
+  console.log(articles.length);
 
   const nextPaginate = () => {
     setCurrentPage((prev) => prev + 1);
@@ -54,25 +67,25 @@ export const ArticlesPage = ({ isOwner }) => {
     setCurrentPage((prev) => prev - 1);
   };
 
-  // получаем данные с сервера
-  const fetchArticles = () => {
-    // запрос ушел, в переменную записывается токен отмены
-    source = axios.CancelToken.source();
-    let config = { canselToken: source.token };
-    // получаем данные с API
-    axios
-      .get(customAPI, config)
-      .then((response) => {
-        console.log(response.data);
-        // вносим данные в массив
-        // переключаем индикатор загрузки в false, так как загрузка завершена
-        setBlogArray(response.data);
-        //setIsLoading(false);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
+  // // получаем данные с сервера
+  // const fetchArticles = () => {
+  //   // запрос ушел, в переменную записывается токен отмены
+  //   source = axios.CancelToken.source();
+  //   let config = { canselToken: source.token };
+  //   // получаем данные с API
+  //   axios
+  //     .get(customAPI, config)
+  //     .then((response) => {
+  //       console.log(response.data);
+  //       // вносим данные в массив
+  //       // переключаем индикатор загрузки в false, так как загрузка завершена
+  //       setBlogArray(response.data);
+  //       //setIsLoading(false);
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // };
 
   // // side effect - помещаются в данном этапе ЖЦ на первичной отрисовке
   // useEffect(() => {
@@ -101,40 +114,92 @@ export const ArticlesPage = ({ isOwner }) => {
 
   const likePost = (article) => {
     const tmp = { ...article };
-
     handleLikeCount(tmp);
-
     tmp.liked = !tmp.liked;
-    console.log(article.id);
 
-    axios
-      .put(`${customAPI}${article.id}`, tmp)
-      .then((response) => {
-        console.log("edited ", response.data);
-        fetchArticles();
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    likeArticleMutation
+      .mutateAsync(tmp)
+      .then(refetch)
+      .catch((err) => console.log(err));
+
+    // axios
+    //   .put(`${customAPI}${article.id}`, tmp)
+    //   .then((response) => {
+    //     console.log("edited ", response.data);
+    //     //fetchArticles();
+    //   })
+    //   .catch((err) => {
+    //     console.log(err);
+    //   });
   };
 
   const handleDeleteArticle = (article) => {
     // вызываем пользовательское модальное окно перед удалением
     if (window.confirm(`Удалить ${article.title}?`)) {
       //setIsLoading(true);
-      axios
-        // удаляем определённый пост по его id
-        .delete(`${customAPI}${article.id}`)
-        .then((response) => {
-          // вызываем отрисовку массива после обновления данных на сервере
-          console.log(`delete `, response.data);
-          fetchArticles();
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+      deleteArticleMutation
+        .mutateAsync(article)
+        .then(refetch)
+        .catch((err) => console.log(err));
+      // axios
+      //   // удаляем определённый пост по его id
+      //   .delete(`${customAPI}${article.id}`)
+      //   .then((response) => {
+      //     // вызываем отрисовку массива после обновления данных на сервере
+      //     console.log(`delete `, response.data);
+      //     //fetchArticles();
+      //   })
+      //   .catch((err) => {
+      //     console.log(err);
+      //   });
     }
   };
+
+  const handleAddArticle = (article) => {
+    //setIsLoading(true);
+
+    addArticleMutation
+      .mutateAsync(article)
+      .then(refetch)
+      .catch((err) => console.log(err));
+
+    // axios
+    //   .post(customAPI, article)
+    //   .then((response) => {
+    //     console.log("article added ", response.data);
+    //     // вызываем отрисовку массива после обновления данных на сервере
+    //     //fetchArticles();
+    //   })
+    //   .catch((err) => {
+    //     console.log(err);
+    //   });
+  };
+
+  const handleEditArticle = (editedArticle) => {
+    //setIsLoading(true);
+    editArticleMutation
+      .mutateAsync(editedArticle)
+      .then(refetch)
+      .catch((err) => console.log(err));
+
+    // axios
+    //   .put(`${customAPI}${editedArticle.id}`, editedArticle)
+    //   .then((response) => {
+    //     console.log("article edited ", response.data);
+    //     // вызываем отрисовку массива после обновления данных на сервере
+    //     //fetchArticles();
+    //   })
+    //   .catch((err) => {
+    //     console.log(err);
+    //   });
+  };
+
+  const handleSelectArticle = (article) => {
+    setSelectedArticle(article);
+  };
+
+  console.log(selectedArticle);
+  console.log(isOwner);
 
   const handleShowAddForm = () => {
     setShowAddForm(true);
@@ -151,43 +216,6 @@ export const ArticlesPage = ({ isOwner }) => {
   const handleHideEditForm = () => {
     setShowEditForm(false);
   };
-
-  const handleAddArticle = (article) => {
-    //setIsLoading(true);
-
-    axios
-      .post(customAPI, article)
-      .then((response) => {
-        console.log("article added ", response.data);
-        // вызываем отрисовку массива после обновления данных на сервере
-        fetchArticles();
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-
-  const handleEditArticle = (editedArticle) => {
-    //setIsLoading(true);
-
-    axios
-      .put(`${customAPI}${editedArticle.id}`, editedArticle)
-      .then((response) => {
-        console.log("article edited ", response.data);
-        // вызываем отрисовку массива после обновления данных на сервере
-        fetchArticles();
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-
-  const handleSelectArticle = (article) => {
-    setSelectedArticle(article);
-  };
-
-  console.log(selectedArticle);
-  console.log(isOwner);
 
   // проходимся по массиву постов и "кладём" их в компонент,
   // складываем все полученные посты в массив
@@ -223,7 +251,7 @@ export const ArticlesPage = ({ isOwner }) => {
     <div className="articles__container">
       {showAddForm && (
         <AddArticleForm
-          blogArray={blogArray}
+          blogArray={articles}
           handleAddArticle={handleAddArticle}
           handleHideAddForm={handleHideAddForm}
         />
@@ -251,7 +279,7 @@ export const ArticlesPage = ({ isOwner }) => {
           />
         )}
 
-        {isLoading && (
+        {isFetching && (
           <LinearProgress style={{ zIndex: 2 }} className="posts__loader" />
         )}
 
