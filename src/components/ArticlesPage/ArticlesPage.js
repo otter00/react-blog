@@ -230,6 +230,7 @@ export const ArticlesPage = ({ isOwner }) => {
           avatarURL={item.avatarURL}
           liked={item.liked}
           likeCount={item.likeCount}
+          publishDate={item.publishDate}
           likePost={() => likePost(item)}
           handleDeleteArticle={() => handleDeleteArticle(item)}
           handleEditArticle={handleShowEditForm}

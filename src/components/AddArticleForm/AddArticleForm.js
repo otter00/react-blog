@@ -15,6 +15,13 @@ export const AddArticleForm = (props) => {
     setArticleDescription(e.target.value);
   };
 
+  let currentDate = new Date();
+  // Извлечение компонентов даты
+  let hours = currentDate.getHours();
+  let minutes = currentDate.getMinutes();
+  // Формирование строки в нужном формате
+  let publishDate = `${currentDate.toDateString()} ${hours}:${minutes}`;
+
   const handleCreateArticle = (e) => {
     // отмена события по умолчанию (отправки формы и перезагрузки страницы)
     e.preventDefault();
@@ -22,6 +29,7 @@ export const AddArticleForm = (props) => {
       title: articleTitle,
       description: articleDescription,
       liked: false,
+      publishDate: publishDate,
       likeCount: 0,
       avatarURL: `https://api.dicebear.com/7.x/pixel-art/svg?seed=${
         props.blogArray.length + 1
@@ -32,14 +40,6 @@ export const AddArticleForm = (props) => {
     props.handleAddArticle(article);
     props.handleHideAddForm();
   };
-
-  /* ЭТАПЫ ЖИЗНЕННОГО ЦИКЛА КОМПОНЕНТА */
-  // ДЗ : обработать добавление поста на нажатие на enter
-  // регистрация всех изменений состояний
-  // даже при вводе символов в инпут
-  // componentDidUpdate() {
-  //   console.log('Form was updated')
-  // }
 
   useEffect(() => {
     const handleFormEscape = (event) => {
@@ -56,8 +56,6 @@ export const AddArticleForm = (props) => {
     return () => window.removeEventListener("keyup", handleFormEscape);
   }, [props]);
 
-  // отрисовка, и только после - методы ЖЦ компонента формы
-  // срабатывает при каждом обновлении
   return (
     <>
       <form onSubmit={handleCreateArticle} className="addArticleForm">
@@ -87,7 +85,6 @@ export const AddArticleForm = (props) => {
         </div>
         <div>
           <CustomButton
-            //onClick={this.handleCreateArticle}
             type={"submit"}
             className={"CustomButtonStyle"}
             name={"Опубликовать пост"}

@@ -12,6 +12,7 @@ export const ArticleItem = ({
   avatarURL,
   liked,
   likePost,
+  publishDate,
   likeCount,
   handleDeleteArticle,
   handleEditArticle,
@@ -24,19 +25,6 @@ export const ArticleItem = ({
   };
 
   console.log(id);
-
-  let currentDate = new Date();
-  // Извлечение компонентов даты
-  // let day = currentDate.getDate();
-  // let month = currentDate.toLocaleString("en-US", { month: "short" });
-  // let year = currentDate.getFullYear();
-  let hours = currentDate.getHours();
-  let minutes = currentDate.getMinutes();
-
-  // Формирование строки в нужном формате
-  let formattedDate = `${currentDate.toDateString()} ${hours}:${minutes}`;
-
-  console.log(formattedDate);
 
   const [isDescriptionExpanded, setIsDescriptionExpanded] = useState(false);
 
@@ -80,7 +68,7 @@ export const ArticleItem = ({
 
       {isOwner && (
         <section className="post__attributes">
-          <span className="publish__date">{`${formattedDate}`}</span>
+          <span className="publish__date">{publishDate}</span>
 
           <div className="functional__btns">
             <button className="edit__btn" onClick={showEditForm}>

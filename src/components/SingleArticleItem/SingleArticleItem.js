@@ -233,21 +233,25 @@ export const SingleArticleItem = ({ isOwner }) => {
         </div>
 
         {isOwner && (
-          <div className="functional__btns">
-            <button
-              className="edit__btn"
-              onClick={() => handleShowEditForm(singlePost)}
-            >
-              <EditIcon />
-            </button>
+          <section className="post__attributes">
+            <span className="publish__date">{singlePost.publishDate}</span>
 
-            <button
-              className="delete__btn"
-              onClick={() => handleDeleteArticle(singlePost)}
-            >
-              <DeleteIcon />
-            </button>
-          </div>
+            <div className="functional__btns">
+              <button
+                className="edit__btn"
+                onClick={() => handleShowEditForm(singlePost)}
+              >
+                <EditIcon />
+              </button>
+
+              <button
+                className="delete__btn"
+                onClick={() => handleDeleteArticle(singlePost)}
+              >
+                <DeleteIcon />
+              </button>
+            </div>
+          </section>
         )}
       </div>
 
