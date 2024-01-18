@@ -66,11 +66,21 @@ h2 {
     gap: 5px;
   }
 
-  .functional__btns {
-    display: inline-flex;
-    height: 80px;
+  .post__attributes {
+    display: flex;
+    flex-direction: column;
 
-    // flex-direction: column;
-    // justify-content: space-between;
+    .publish__date {
+      @include flex_center;
+    }
+
+    .functional__btns {
+      display: inline-flex;
+      justify-content: end;
+      height: 80px;
+
+      // flex-direction: column;
+      // justify-content: space-between;
+    }
   }
 }

@@ -25,6 +25,19 @@ export const ArticleItem = ({
 
   console.log(id);
 
+  let currentDate = new Date();
+  // Извлечение компонентов даты
+  // let day = currentDate.getDate();
+  // let month = currentDate.toLocaleString("en-US", { month: "short" });
+  // let year = currentDate.getFullYear();
+  let hours = currentDate.getHours();
+  let minutes = currentDate.getMinutes();
+
+  // Формирование строки в нужном формате
+  let formattedDate = `${currentDate.toDateString()} ${hours}:${minutes}`;
+
+  console.log(formattedDate);
+
   const [isDescriptionExpanded, setIsDescriptionExpanded] = useState(false);
 
   const toggleDescription = () => {
@@ -66,15 +79,19 @@ export const ArticleItem = ({
       </div>
 
       {isOwner && (
-        <div className="functional__btns">
-          <button className="edit__btn" onClick={showEditForm}>
-            <EditIcon />
-          </button>
+        <section className="post__attributes">
+          <span className="publish__date">{`${formattedDate}`}</span>
 
-          <button className="delete__btn" onClick={handleDeleteArticle}>
-            <DeleteIcon />
-          </button>
-        </div>
+          <div className="functional__btns">
+            <button className="edit__btn" onClick={showEditForm}>
+              <EditIcon />
+            </button>
+
+            <button className="delete__btn" onClick={handleDeleteArticle}>
+              <DeleteIcon />
+            </button>
+          </div>
+        </section>
       )}
     </div>
   );

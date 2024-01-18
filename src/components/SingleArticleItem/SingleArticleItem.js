@@ -84,7 +84,7 @@ export const SingleArticleItem = ({ isOwner }) => {
     }
   };
 
-  const likePost = () => {
+  const likePost = (singlePost) => {
     const tmp = { ...singlePost };
 
     handleLikeCount(tmp);
@@ -108,7 +108,7 @@ export const SingleArticleItem = ({ isOwner }) => {
     //   });
   };
 
-  const handleDeleteArticle = () => {
+  const handleDeleteArticle = (singlePost) => {
     // вызываем пользовательское модальное окно перед удалением
     if (window.confirm(`Удалить ${singlePost.title}?`)) {
       //setIsLoading(true);
@@ -221,7 +221,10 @@ export const SingleArticleItem = ({ isOwner }) => {
           <p className="single-post__description">{singlePost.description}</p>
 
           <div>
-            <button className="like-post__btn" onClick={likePost}>
+            <button
+              className="like-post__btn"
+              onClick={() => likePost(singlePost)}
+            >
               <FavoriteIcon style={{ fill: isLiked }} />
               {singlePost.likeCount}
             </button>
@@ -238,7 +241,10 @@ export const SingleArticleItem = ({ isOwner }) => {
               <EditIcon />
             </button>
 
-            <button className="delete__btn" onClick={handleDeleteArticle}>
+            <button
+              className="delete__btn"
+              onClick={() => handleDeleteArticle(singlePost)}
+            >
               <DeleteIcon />
             </button>
           </div>
