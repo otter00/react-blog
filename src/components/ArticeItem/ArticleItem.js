@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import "./ArticleItem.scss";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -25,14 +25,6 @@ export const ArticleItem = ({
   };
 
   console.log(id);
-
-  const [isDescriptionExpanded, setIsDescriptionExpanded] = useState(false);
-
-  const toggleDescription = () => {
-    setIsDescriptionExpanded(!isDescriptionExpanded);
-  };
-
-  const descriptionClass = isDescriptionExpanded ? "expanded" : "collapsed";
 
   // console.log(isOwner);
 

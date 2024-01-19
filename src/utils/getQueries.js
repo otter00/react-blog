@@ -1,6 +1,7 @@
-import { useMutation, useQuery } from "react-query";
+import { useMutation, useQuery, useQueryClient } from "react-query";
 import axios from "axios";
 import { customAPI } from "../mocks/articlesData";
+import { useLocation, useNavigate } from "react-router-dom";
 
 export const useFetchArticles = () => {
   return useQuery(
@@ -39,45 +40,102 @@ export const useFetchSingleArticle = (articleId) => {
 };
 
 export const useLikeArticle = () => {
-  return useMutation((editedArticle) => {
-    return axios
-      .put(`${customAPI}${editedArticle.id}`, editedArticle)
-      .then((response) => response.data)
-      .catch((err) => {
-        throw new Error(err);
-      });
-  });
+  const queryClient = useQueryClient();
+  return useMutation(
+    (editedArticle) => {
+      return axios
+        .put(`${customAPI}${editedArticle.id}`, editedArticle)
+        .then((response) => response.data)
+        .catch((err) => {
+          throw new Error(err);
+        });
+    },
+    {
+      onSuccess: (data) => {
+        console.log("success", data);
+        // подать запрос на refetch измененных данных
+        queryClient.invalidateQueries("articles");
+      },
+      onError: (error) => {
+        console.log("error", error);
+      },
+    }
+  );
 };
 
 export const useDeleteArticle = () => {
-  return useMutation((article) => {
-    return axios
-      .delete(`${customAPI}${article.id}`)
-      .then((response) => response.data)
-      .catch((err) => {
-        throw new Error(err);
-      });
-  });
+  const queryClient = useQueryClient();
+  const navigate = useNavigate();
+  const location = useLocation();
+  return useMutation(
+    (article) => {
+      return axios
+        .delete(`${customAPI}${article.id}`)
+        .then((response) => response.data)
+        .catch((err) => {
+          throw new Error(err);
+        });
+    },
+    {
+      onSuccess: (data) => {
+        console.log("success", data);
+        // подать запрос на refetch измененных данных
+        queryClient.invalidateQueries("articles");
+        if (location !== "/blog") {
+          navigate("/blog");
+        }
+      },
+      onError: (error) => {
+        console.log("error", error);
+      },
+    }
+  );
 };
 
 export const useEditArticle = () => {
-  return useMutation((updatedArticle) => {
-    return axios
-      .put(`${customAPI}${updatedArticle.id}`, updatedArticle)
-      .then((response) => response.data)
-      .catch((err) => {
-        throw new Error(err);
-      });
-  });
+  const queryClient = useQueryClient();
+  return useMutation(
+    (updatedArticle) => {
+      return axios
+        .put(`${customAPI}${updatedArticle.id}`, updatedArticle)
+        .then((response) => response.data)
+        .catch((err) => {
+          throw new Error(err);
+        });
+    },
+    {
+      onSuccess: (data) => {
+        console.log("success", data);
+        // подать запрос на refetch измененных данных
+        queryClient.invalidateQueries("articles");
+      },
+      onError: (error) => {
+        console.log("error", error);
+      },
+    }
+  );
 };
 
 export const useAddArticle = () => {
-  return useMutation((article) => {
-    return axios
-      .post(customAPI, article)
-      .then((response) => response.data)
-      .catch((err) => {
-        throw new Error(err);
-      });
-  });
+  const queryClient = useQueryClient();
+  return useMutation(
+    (article) => {
+      return axios
+        .post(customAPI, article)
+        .then((response) => response.data)
+        .catch((err) => {
+          throw new Error(err);
+        });
+    },
+    {
+      onSuccess: (data) => {
+        console.log("success", data);
+        // подать запрос на refetch измененных данных
+        queryClient.invalidateQueries("articles");
+      },
+      onError: (error) => {
+        console.log("error", error);
+      },
+    }
+  );
 };
