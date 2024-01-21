@@ -48,6 +48,8 @@
 
   .processing__agreement {
     display: flex;
+    align-items: center;
+    justify-content: center;
     gap: 5px;
     margin: 10px;
 
@@ -58,6 +60,7 @@
     label {
       font-size: 18px;
       font-weight: 300;
+      width: fit-content;
     }
   }
 }
