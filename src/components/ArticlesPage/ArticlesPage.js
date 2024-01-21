@@ -9,7 +9,7 @@ import Pagination from "../PaginationComponent/Pagination";
 import IconButton from "@mui/material/IconButton";
 import NavigateBeforeIcon from "@mui/icons-material/NavigateBefore";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
-import FeaterIcon from "../../icons/feather-icon.png";
+import FeaterIcon from "../../icons/feather-icon.svg";
 import { Link } from "react-router-dom";
 import {
   useAddArticle,
@@ -47,7 +47,7 @@ export const ArticlesPage = ({ isOwner }) => {
   // в случае ошибки получения данных сообщаем о ней пользователю
   if (isError) return <h1>{error.message}</h1>;
   // сообщаем о загрузке данных, пока они не пришли с сервера
-  if (isLoading) return <h1>Loading...</h1>;
+  if (isLoading) return <h1 className="loader__message">Loading...</h1>;
 
   const lastArticleIndex = currentPage * articlesPerPage;
   const firstArticleIndex = lastArticleIndex - articlesPerPage;
@@ -172,7 +172,7 @@ export const ArticlesPage = ({ isOwner }) => {
       <>
         <h1 className="articles-blog__title">
           <img src={FeaterIcon} alt="write-icon" className="feater-icon" />
-          Custom Blog
+          My own Book Review blog
         </h1>
 
         {isOwner && (

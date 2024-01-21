@@ -14,6 +14,7 @@
     margin: 0;
     margin-bottom: 10px;
     color: $black-color;
+    text-shadow: $custom-text-shadow;
   }
 
   div + div {
@@ -53,14 +54,27 @@
     gap: 5px;
     margin: 10px;
 
-    input {
+    input[type="checkbox"] {
       width: min-content;
+      &:hover {
+        cursor: pointer;
+      }
+
+      &:checked {
+        background: $white-color;
+      }
     }
 
     label {
       font-size: 18px;
       font-weight: 300;
       width: fit-content;
+      color: $white-color;
+
+      &:hover {
+        text-decoration: underline;
+        cursor: pointer;
+      }
     }
   }
 }

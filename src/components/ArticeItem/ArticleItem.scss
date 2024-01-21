@@ -5,7 +5,7 @@
 @import "../../styles/fonts.scss";
 
 :root {
-  --article-title-color: #1890ff;
+  --article-title-color: #2a6913;
   --post-margin-bottom: 3vh;
   --post-paddings: 10px 30px;
 }
@@ -64,6 +64,17 @@ h2 {
     display: inline-flex;
     align-items: center;
     gap: 5px;
+
+    a {
+      &:hover {
+        text-decoration: underline;
+      }
+
+      &:visited {
+        color: black;
+        text-decoration: none;
+      }
+    }
   }
 
   .post__attributes {

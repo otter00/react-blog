@@ -3,8 +3,11 @@ $white-color: #fff;
 $black-color: #000;
 $unset-param: unset;
 $button-main-color: #393939;
-$button-hover-color: #1890ff;
+$button-hover-color: #2a6913;
 $pagination-color: lightgrey;
+$custom-text-shadow: -1px 1px 5px #ffffff;
+$custom-box-shadow: 0px -2px 7px 1px rgba(255, 255, 255, 0.962);
+$pagination-box-shadow: -2px -2px 26px 1px rgba(48, 123, 39, 0.7);
 
 @mixin flex_between {
   display: flex;
@@ -30,6 +33,7 @@ $pagination-color: lightgrey;
   transition-duration: 200ms;
   transition-timing-function: ease-out;
   text-align: center;
+  box-shadow: $custom-box-shadow;
 
   &:hover {
     background-color: $button-hover-color;

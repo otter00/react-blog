@@ -24,6 +24,7 @@ body {
   font-family: "Nunito", sans-serif;
   background-color: $background-app-color;
   overflow-y: hidden;
+  background-image: url("../assets/leaves-background.jpg");
 }
 
 a {
@@ -63,6 +64,11 @@ input,
 textarea {
   outline: $unset-param;
   border: 0;
+  opacity: 0.8;
+
+  &::placeholder {
+    color: black;
+  }
 }
 
 .CustomButtonStyle {

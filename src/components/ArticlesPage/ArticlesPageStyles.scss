@@ -5,7 +5,7 @@
 @import "../../styles/fonts.scss";
 
 :root {
-  --title-font-size: 38px;
+  --title-font-size: 42px;
 }
 
 .showArticlesButton {
@@ -37,12 +37,17 @@
 
 .articles__container {
   .articles-blog__title {
+    @include flex-center;
+    align-items: center;
+    text-shadow: -2px 0px 6px #ffffff;
     font-family: "Dancing Script", cursive;
     font-size: var(--title-font-size);
     margin: 15px 0;
+    color: black;
 
     .feater-icon {
       margin: 0 7px;
+      //opacity: 0.7;
     }
   }
 

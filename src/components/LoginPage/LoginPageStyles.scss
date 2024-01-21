@@ -14,6 +14,7 @@
     margin: 0;
     margin-bottom: 10px;
     color: $black-color;
+    text-shadow: $custom-text-shadow;
   }
 
   div + div {
@@ -48,12 +49,13 @@
 }
 
 .sign-up__link {
-  font-size: 18px;
-  font-weight: 300;
+  font-size: 21px;
+  font-weight: 600;
   @include flex_center;
+  text-shadow: $custom-text-shadow;
+  color: black;
 
   a {
-    font-weight: 600;
     margin-left: 3px;
 
     &:visited {
