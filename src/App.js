@@ -16,6 +16,7 @@ import { PrivateRoute } from "./components/PrivateRoutes/PrivateRoutes";
 import { PublicRoute } from "./components/PublicRoutes/PublicRoutes";
 import { useAuth } from "./hooks/UseAuth";
 import { SingleArticleItem } from "./components/SingleArticleItem/SingleArticleItem";
+import { SignUpPage } from "./components/SignUpPage/SignUpPage";
 
 export function App() {
   const isAuth = useAuth();
@@ -74,6 +75,21 @@ export function App() {
               }
             />
 
+            <Route
+              exact
+              path="/signup"
+              element={
+                <PublicRoute>
+                  <SignUpPageElement
+                  //isLoggedIn={isLoggedIn}
+                  // setIsLoggedIn={setIsLoggedIn}
+                  // setUserName={setUserName}
+                  // setIsOwner={setIsOwner}
+                  />
+                </PublicRoute>
+              }
+            />
+
             {/* Пост в отдельной странице;
             добавляем к пути динамический id, запрошенный пользователем */}
             <Route
@@ -119,6 +135,10 @@ function HeaderElement(props) {
 
 function LoginPageElement(props) {
   return <LoginPage {...props} />;
+}
+
+function SignUpPageElement(props) {
+  return <SignUpPage {...props} />;
 }
 
 function ArticlesPageElement(props) {

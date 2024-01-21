@@ -52,7 +52,7 @@ export const LoginPage = ({
             autoComplete="off"
             type="text"
             className="login-form__input"
-            placeholder="Login"
+            placeholder="Enter your name"
             name="formLogin"
             onChange={handleLogInChange}
             required
@@ -64,7 +64,7 @@ export const LoginPage = ({
             autoComplete="off"
             type="password"
             className="login-form__input"
-            placeholder="Password"
+            placeholder="Enter your password"
             name="formPassword"
             onChange={handlePasswordChange}
             required
@@ -73,6 +73,10 @@ export const LoginPage = ({
 
         <CustomButton className={"CustomButtonStyle"} name={"Войти"} />
       </form>
+
+      <span className="sign-up__link">
+        Not a member yet? <a href="/signup"> Sign Up</a>
+      </span>
     </h1>
   );
 };
