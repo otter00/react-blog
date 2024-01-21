@@ -67,6 +67,18 @@ export const SignUpPage = (
         <div>
           <input
             autoComplete="off"
+            type="email"
+            className="signup-form__input"
+            placeholder="Enter your email"
+            name="formEmail"
+            //onChange={handleLogInChange}
+            required
+          />
+        </div>
+
+        <div>
+          <input
+            autoComplete="off"
             type="password"
             className="signup-form__input"
             placeholder="Enter your password"

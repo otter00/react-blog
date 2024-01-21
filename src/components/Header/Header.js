@@ -2,6 +2,7 @@ import React from "react";
 import "./HeaderStyles.scss";
 import { NavLink } from "react-router-dom";
 import LogoutIcon from "@mui/icons-material/Logout";
+import { Spa } from "@mui/icons-material";
 
 export const Header = ({
   isLoggedIn,
@@ -42,7 +43,7 @@ export const Header = ({
           </NavLink>
         </nav>
       ) : (
-        "Hello, stranger!"
+        <span className="greeting__unauthorized">Hello, stranger!</span>
       )}
     </header>
   );
