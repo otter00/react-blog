@@ -45,4 +45,19 @@
       transition-timing-function: ease-out;
     }
   }
+
+  .processing__agreement {
+    display: flex;
+    gap: 5px;
+    margin: 10px;
+
+    input {
+      width: min-content;
+    }
+
+    label {
+      font-size: 18px;
+      font-weight: 300;
+    }
+  }
 }

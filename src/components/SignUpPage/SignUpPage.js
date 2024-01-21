@@ -100,6 +100,20 @@ export const SignUpPage = (
           />
         </div>
 
+        <div className="processing__agreement">
+          <input
+            type="checkbox"
+            name="formProcessingAgreement"
+            id="formProcessingAgreement"
+            //onChange={handlePasswordChange}
+            required
+          />
+
+          <label for="formProcessingAgreement">
+            I agree to the processing of my personal information
+          </label>
+        </div>
+
         <CustomButton
           className={"CustomButtonStyle"}
           name={"Зарегистрироваться"}
