@@ -3,54 +3,49 @@ import { useNavigate } from "react-router-dom";
 import { CustomButton } from "../../UI/CustomButton/CustomButton";
 import { useState } from "react";
 
-export const SignUpPage = (
-  {
-    //   isLoggedIn,
-    //   setIsLoggedIn,
-    //   setUserName,
-    //   setIsOwner,
-  }
-) => {
+export const SignUpPage = ({
+  isLoggedIn,
+  setIsLoggedIn,
+  //   setUserName,
+  //   setIsOwner,
+}) => {
   let navigate = useNavigate();
-  // console.log(isLoggedIn);
+  console.log(isLoggedIn);
 
-  //   const [logIn, setLogIn] = useState("");
+  //const [logIn, setLogIn] = useState("");
   //   const [password, setPassword] = useState("");
 
-  //   const handleLogInChange = (e) => {
-  //     setLogIn(e.target.value);
-  //   };
+  // const handleLogInChange = (e) => {
+  //   setLogIn(e.target.value);
+  // };
 
   //   const handlePasswordChange = (e) => {
   //     setPassword(e.target.value);
   //   };
 
-  //   const handleLogin = (e) => {
-  //     e.preventDefault();
+  const handleSignUp = (e) => {
+    e.preventDefault();
 
-  //     if (logIn === "Anastasia Ivleva") {
-  //       if (password === "12345") setIsOwner(true);
-  //       else {
-  //         alert("wrong");
-  //         return false;
-  //       }
-  //     }
+    // if (logIn === "Anastasia Ivleva") {
+    //   if (password === "12345") setIsOwner(true);
+    //   else {
+    //     alert("wrong");
+    //     return false;
+    //   }
+    // }
 
-  //     localStorage.setItem("isLoggedIn", true);
-  //     localStorage.setItem("userName", logIn);
+    localStorage.setItem("isLoggedIn", true);
+    // localStorage.setItem("userName", logIn);
 
-  //     setUserName(logIn);
-  //     //console.log("hello");
-  //     setIsLoggedIn(true);
-  //     navigate("/");
-  //   };
+    //setUserName(logIn);
+    // //console.log("hello");
+    setIsLoggedIn(true);
+    navigate("/");
+  };
 
   return (
     <h1>
-      <form
-        className="signup__form"
-        //onSubmit={handleLogin}
-      >
+      <form className="signup__form" onSubmit={handleSignUp}>
         <h2>Регистрация</h2>
         <div>
           <input

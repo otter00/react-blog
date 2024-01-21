@@ -81,8 +81,8 @@ export function App() {
               element={
                 <PublicRoute>
                   <SignUpPageElement
-                  // isLoggedIn={isLoggedIn}
-                  // setIsLoggedIn={setIsLoggedIn}
+                    isLoggedIn={isLoggedIn}
+                    setIsLoggedIn={setIsLoggedIn}
                   // setUserName={setUserName}
                   // setIsOwner={setIsOwner}
                   />
