@@ -11,6 +11,7 @@ import NavigateBeforeIcon from "@mui/icons-material/NavigateBefore";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import FeaterIcon from "../../icons/feather-icon.svg";
 import { Link } from "react-router-dom";
+import MenuBookIcon from "@mui/icons-material/MenuBook";
 import {
   useAddArticle,
   useDeleteArticle,
@@ -47,7 +48,12 @@ export const ArticlesPage = ({ isOwner }) => {
   // в случае ошибки получения данных сообщаем о ней пользователю
   if (isError) return <h1>{error.message}</h1>;
   // сообщаем о загрузке данных, пока они не пришли с сервера
-  if (isLoading) return <h1 className="loader__message">Loading...</h1>;
+  if (isLoading)
+    return (
+      <h1 style={{ color: `#FFFFFF` }}>
+        <MenuBookIcon /> Loading...
+      </h1>
+    );
 
   const lastArticleIndex = currentPage * articlesPerPage;
   const firstArticleIndex = lastArticleIndex - articlesPerPage;

@@ -8,6 +8,7 @@ import { useParams } from "react-router-dom";
 import LinearProgress from "@mui/material/LinearProgress";
 import { CustomButton } from "../../UI/CustomButton/CustomButton";
 import { EditArticleForm } from "../EditArticleForm/EditArticleForm";
+import MenuBookIcon from "@mui/icons-material/MenuBook";
 import {
   useDeleteArticle,
   useEditArticle,
@@ -38,7 +39,13 @@ export const SingleArticleItem = ({ isOwner }) => {
   // в случае ошибки получения данных сообщаем о ней пользователю
   if (isError) return <h1>{error.message}</h1>;
   // сообщаем о загрузке данных, пока они не пришли с сервера
-  if (isLoading) return <h1>Loading...</h1>;
+  if (isLoading)
+    return (
+      <h1 style={{ color: `#FFFFFF` }}>
+        <MenuBookIcon />
+        Loading...
+      </h1>
+    );
 
   const backToBlog = () => {
     navigate("/blog");

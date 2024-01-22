@@ -2,6 +2,8 @@ import "./SignUpPageStyles.scss";
 import { useNavigate } from "react-router-dom";
 import { CustomButton } from "../../UI/CustomButton/CustomButton";
 import { useState } from "react";
+import Checkbox from "@mui/material/Checkbox";
+import FormControlLabel from "@mui/material/FormControlLabel";
 
 export const SignUpPage = () => {
   let navigate = useNavigate();
@@ -10,6 +12,12 @@ export const SignUpPage = () => {
   const [registerEmail, setRegisterEmail] = useState("");
   const [registerPassword, setRegisterPassword] = useState("");
   const [repeatedPassword, setRepeatedPassword] = useState("");
+
+  const [checked, setChecked] = useState(true);
+
+  const handleChecked = (e) => {
+    setChecked(e.target.checked);
+  };
 
   const handleRegisterUsername = (e) => {
     setRegisterUsername(e.target.value);
@@ -106,16 +114,17 @@ export const SignUpPage = () => {
         </div>
 
         <div className="processing__agreement">
-          <input
-            type="checkbox"
-            name="formProcessingAgreement"
-            id="formProcessingAgreement"
-            required
+          <FormControlLabel
+            control={
+              <Checkbox
+                required
+                color="success"
+                checked={checked}
+                onChange={handleChecked}
+              />
+            }
+            label="I agree to the processing of my personal information"
           />
-
-          <label for="formProcessingAgreement">
-            I agree to the processing of my personal information
-          </label>
         </div>
 
         <CustomButton
@@ -126,3 +135,16 @@ export const SignUpPage = () => {
     </h1>
   );
 };
+
+{
+  /* <input
+            type="checkbox"
+            name="formProcessingAgreement"
+            id="formProcessingAgreement"
+            required
+          />
+
+          <label for="formProcessingAgreement">
+            I agree to the processing of my personal information
+          </label> */
+}
