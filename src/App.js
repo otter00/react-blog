@@ -80,12 +80,7 @@ export function App() {
               path="/signup"
               element={
                 <PublicRoute>
-                  <SignUpPageElement
-                    isLoggedIn={isLoggedIn}
-                    setIsLoggedIn={setIsLoggedIn}
-                  // setUserName={setUserName}
-                  // setIsOwner={setIsOwner}
-                  />
+                  <SignUpPageElement />
                 </PublicRoute>
               }
             />

@@ -3,25 +3,29 @@ import { useNavigate } from "react-router-dom";
 import { CustomButton } from "../../UI/CustomButton/CustomButton";
 import { useState } from "react";
 
-export const SignUpPage = ({
-  isLoggedIn,
-  setIsLoggedIn,
-  //   setUserName,
-  //   setIsOwner,
-}) => {
+export const SignUpPage = () => {
   let navigate = useNavigate();
-  console.log(isLoggedIn);
 
-  //const [logIn, setLogIn] = useState("");
-  //   const [password, setPassword] = useState("");
+  const [registerUsername, setRegisterUsername] = useState("");
+  const [registerEmail, setRegisterEmail] = useState("");
+  const [registerPassword, setRegisterPassword] = useState("");
+  const [repeatedPassword, setRepeatedPassword] = useState("");
 
-  // const handleLogInChange = (e) => {
-  //   setLogIn(e.target.value);
-  // };
+  const handleRegisterUsername = (e) => {
+    setRegisterUsername(e.target.value);
+  };
 
-  //   const handlePasswordChange = (e) => {
-  //     setPassword(e.target.value);
-  //   };
+  const handleRegisterEmail = (e) => {
+    setRegisterEmail(e.target.value);
+  };
+
+  const handleRegisterPassword = (e) => {
+    setRegisterPassword(e.target.value);
+  };
+
+  const handleRepeatPassword = (e) => {
+    setRepeatedPassword(e.target.value);
+  };
 
   const handleSignUp = (e) => {
     e.preventDefault();
@@ -34,13 +38,27 @@ export const SignUpPage = ({
     //   }
     // }
 
-    localStorage.setItem("isLoggedIn", true);
-    // localStorage.setItem("userName", logIn);
+    if (registerPassword === repeatedPassword) {
+      console.log("yes");
+      console.log(`user: ${registerUsername}, email: ${registerEmail}, 
+      pass: ${registerPassword}, repeated pass: ${repeatedPassword}`);
 
-    //setUserName(logIn);
-    // //console.log("hello");
-    setIsLoggedIn(true);
-    navigate("/");
+      if (!localStorage.getItem(`${registerUsername + registerPassword}`)) {
+        alert("not exist");
+        localStorage.setItem(
+          `${registerUsername + registerPassword}`,
+          registerUsername + registerPassword
+        );
+
+        navigate("/login");
+      } else alert("user exists");
+    } else {
+      console.log("not");
+      console.log(`user: ${registerUsername}, email: ${registerEmail}, 
+      pass: ${registerPassword}, repeated pass: ${repeatedPassword}`);
+
+      navigate("/signup");
+    }
   };
 
   return (
@@ -54,7 +72,7 @@ export const SignUpPage = ({
             className="signup-form__input"
             placeholder="Enter your name"
             name="formSignup"
-            //onChange={handleLogInChange}
+            onChange={handleRegisterUsername}
             required
           />
         </div>
@@ -66,7 +84,7 @@ export const SignUpPage = ({
             className="signup-form__input"
             placeholder="Enter your email"
             name="formEmail"
-            //onChange={handleLogInChange}
+            onChange={handleRegisterEmail}
             required
           />
         </div>
@@ -78,7 +96,7 @@ export const SignUpPage = ({
             className="signup-form__input"
             placeholder="Enter your password"
             name="formPassword"
-            //onChange={handlePasswordChange}
+            onChange={handleRegisterPassword}
             required
           />
         </div>
@@ -90,7 +108,7 @@ export const SignUpPage = ({
             className="signup-form__input"
             placeholder="Repeat your password"
             name="formPassword"
-            //onChange={handlePasswordChange}
+            onChange={handleRepeatPassword}
             required
           />
         </div>

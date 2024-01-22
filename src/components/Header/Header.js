@@ -12,7 +12,7 @@ export const Header = ({
   isOwner,
 }) => {
   //console.log(isLoggedIn);
-  console.log(isOwner);
+  console.log(`isOwner flag now: ${isOwner}`);
 
   const handeLogOut = () => {
     localStorage.removeItem("isLoggedIn");
