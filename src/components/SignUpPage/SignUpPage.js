@@ -30,30 +30,22 @@ export const SignUpPage = () => {
   const handleSignUp = (e) => {
     e.preventDefault();
 
-    // if (logIn === "Anastasia Ivleva") {
-    //   if (password === "12345") setIsOwner(true);
-    //   else {
-    //     alert("wrong");
-    //     return false;
-    //   }
-    // }
-
     if (registerPassword === repeatedPassword) {
-      console.log("yes");
+      console.log("passes are equal");
       console.log(`user: ${registerUsername}, email: ${registerEmail}, 
       pass: ${registerPassword}, repeated pass: ${repeatedPassword}`);
 
       if (!localStorage.getItem(`${registerUsername + registerPassword}`)) {
-        alert("not exist");
+        console.log("not exist");
         localStorage.setItem(
           `${registerUsername + registerPassword}`,
           registerUsername + registerPassword
         );
 
         navigate("/login");
-      } else alert("user exists");
+      } else console.log("user exists");
     } else {
-      console.log("not");
+      console.log("passes aren't equal");
       console.log(`user: ${registerUsername}, email: ${registerEmail}, 
       pass: ${registerPassword}, repeated pass: ${repeatedPassword}`);
 
@@ -118,7 +110,6 @@ export const SignUpPage = () => {
             type="checkbox"
             name="formProcessingAgreement"
             id="formProcessingAgreement"
-            //onChange={handlePasswordChange}
             required
           />
 

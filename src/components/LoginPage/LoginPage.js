@@ -34,13 +34,16 @@ export const LoginPage = ({
       }
     }
 
-    localStorage.setItem("isLoggedIn", true);
-    localStorage.setItem("userName", logIn);
+    if (localStorage.getItem(`${logIn + password}`)) {
+      localStorage.setItem("isLoggedIn", true);
+      localStorage.setItem("userName", logIn);
 
-    setUserName(logIn);
-    //console.log("hello");
-    setIsLoggedIn(true);
-    navigate("/");
+      setUserName(logIn);
+      setIsLoggedIn(true);
+      navigate("/");
+    } else {
+      alert("wrong input, try again");
+    }
   };
 
   return (

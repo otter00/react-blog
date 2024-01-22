@@ -2,7 +2,6 @@ import React from "react";
 import "./HeaderStyles.scss";
 import { NavLink } from "react-router-dom";
 import LogoutIcon from "@mui/icons-material/Logout";
-import { Spa } from "@mui/icons-material";
 
 export const Header = ({
   isLoggedIn,
