@@ -23,7 +23,7 @@ export const useFetchArticles = () => {
 
 export const useFetchSingleArticle = (articleId) => {
   return useQuery(
-    ["articles", articleId],
+    ["article", articleId],
     () => {
       return axios
         .get(customAPI + articleId)
@@ -55,6 +55,7 @@ export const useLikeArticle = () => {
         console.log("success", data);
         // подать запрос на refetch измененных данных
         queryClient.invalidateQueries("articles");
+        queryClient.invalidateQueries(["article", data.id]);
       },
       onError: (error) => {
         console.log("error", error);
@@ -80,7 +81,7 @@ export const useDeleteArticle = () => {
       onSuccess: (data) => {
         console.log("success", data);
         // подать запрос на refetch измененных данных
-        queryClient.invalidateQueries("articles");
+        queryClient.invalidateQueries("articles", { exact: true });
         if (location !== "/blog") {
           navigate("/blog");
         }
@@ -108,6 +109,7 @@ export const useEditArticle = () => {
         console.log("success", data);
         // подать запрос на refetch измененных данных
         queryClient.invalidateQueries("articles");
+        queryClient.invalidateQueries(["article", data.id]);
       },
       onError: (error) => {
         console.log("error", error);

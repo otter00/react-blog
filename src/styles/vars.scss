@@ -25,6 +25,7 @@ $pagination-box-shadow: -2px -2px 26px 1px rgba(48, 123, 39, 0.7);
 }
 
 @mixin general_button_styles {
+  width: max-content;
   font-size: 16px;
   color: $white-color;
   background-color: $button-main-color;
