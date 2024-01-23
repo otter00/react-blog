@@ -41,8 +41,8 @@ export const SingleArticleItem = ({ isOwner }) => {
   // сообщаем о загрузке данных, пока они не пришли с сервера
   if (isLoading)
     return (
-      <h1 style={{ color: `#FFFFFF` }}>
-        <MenuBookIcon />
+      <h1 style={{ textShadow: `-2px 0px 6px #ffffff` }}>
+        <MenuBookIcon style={{ color: `#ffffff`, opacity: 0.5 }} />
         Loading...
       </h1>
     );

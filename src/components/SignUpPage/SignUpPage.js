@@ -13,7 +13,7 @@ export const SignUpPage = () => {
   const [registerPassword, setRegisterPassword] = useState("");
   const [repeatedPassword, setRepeatedPassword] = useState("");
 
-  const [checked, setChecked] = useState(true);
+  const [checked, setChecked] = useState(false);
 
   const handleChecked = (e) => {
     setChecked(e.target.checked);
@@ -44,16 +44,18 @@ export const SignUpPage = () => {
       pass: ${registerPassword}, repeated pass: ${repeatedPassword}`);
 
       if (!localStorage.getItem(`${registerUsername + registerPassword}`)) {
-        console.log("not exist");
+        alert("not exist");
         localStorage.setItem(
           `${registerUsername + registerPassword}`,
           registerUsername + registerPassword
         );
 
         navigate("/login");
-      } else console.log("user exists");
+      } else {
+        alert("user exists");
+      }
     } else {
-      console.log("passes aren't equal");
+      alert("passes aren't equal");
       console.log(`user: ${registerUsername}, email: ${registerEmail}, 
       pass: ${registerPassword}, repeated pass: ${repeatedPassword}`);
 
