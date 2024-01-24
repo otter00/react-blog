@@ -16,7 +16,7 @@ export const useFetchArticles = () => {
     },
     {
       // отмена повторной отправки fetch-запроса при переключении вкладок
-      refetchOnWindowFocus: false,
+      //refetchOnWindowFocus: false,
     }
   );
 };
@@ -34,7 +34,7 @@ export const useFetchSingleArticle = (articleId) => {
     },
     {
       // отмена повторной отправки fetch-запроса при переключении вкладок
-      refetchOnWindowFocus: false,
+      // refetchOnWindowFocus: false,
     }
   );
 };

@@ -3,14 +3,23 @@ import ReactDOM from "react-dom/client";
 import { App } from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { QueryClient, QueryClientProvider } from "react-query";
+import { ReactQueryDevtools } from "react-query/devtools";
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    // отмена повторной отправки fetch-запроса при переключении вкладок
+    queries: {
+      refetchOnWindowFocus: false,
+    },
+  },
+});
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
       <App />
+      <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
   </React.StrictMode>
 );
