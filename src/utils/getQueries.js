@@ -55,7 +55,9 @@ export const useLikeArticle = () => {
         console.log("success", data);
         // подать запрос на refetch измененных данных
         queryClient.invalidateQueries("articles");
-        queryClient.invalidateQueries(["article", data.id]);
+        // queryClient.invalidateQueries(["article", data.id]);
+        // точечное изменение одной записи без лишнего put запроса
+        queryClient.setQueryData(["article", data.id], data);
       },
       onError: (error) => {
         console.log("error", error);
@@ -109,7 +111,8 @@ export const useEditArticle = () => {
         console.log("success", data);
         // подать запрос на refetch измененных данных
         queryClient.invalidateQueries("articles");
-        queryClient.invalidateQueries(["article", data.id]);
+        // queryClient.invalidateQueries(["article", data.id]);
+        queryClient.setQueryData(["article", data.id], data);
       },
       onError: (error) => {
         console.log("error", error);
