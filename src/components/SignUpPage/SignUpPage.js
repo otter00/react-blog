@@ -4,6 +4,7 @@ import { CustomButton } from "../../UI/CustomButton/CustomButton";
 import { useState } from "react";
 import Checkbox from "@mui/material/Checkbox";
 import FormControlLabel from "@mui/material/FormControlLabel";
+import { customHash } from "../../utils/getHash";
 
 export const SignUpPage = () => {
   let navigate = useNavigate();
@@ -35,19 +36,24 @@ export const SignUpPage = () => {
     setRepeatedPassword(e.target.value);
   };
 
+  //console.log("Хеш пароля:", hashedValue);
+
   const handleSignUp = (e) => {
     e.preventDefault();
+  
+    const inputString = registerPassword;
+    const hashedPass = customHash(inputString);
 
     if (registerPassword === repeatedPassword) {
       console.log("passes are equal");
       console.log(`user: ${registerUsername}, email: ${registerEmail}, 
       pass: ${registerPassword}, repeated pass: ${repeatedPassword}`);
 
-      if (!localStorage.getItem(`${registerUsername + registerPassword}`)) {
-        alert("not exist");
+      if (!localStorage.getItem(`${registerUsername + hashedPass}`)) {
+        // alert("not exist");
         localStorage.setItem(
-          `${registerUsername + registerPassword}`,
-          registerUsername + registerPassword
+          `${registerUsername + hashedPass}`,
+          registerUsername + hashedPass
         );
 
         navigate("/login");

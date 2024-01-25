@@ -2,6 +2,7 @@ import "./LoginPageStyles.scss";
 import { useNavigate } from "react-router-dom";
 import { CustomButton } from "../../UI/CustomButton/CustomButton";
 import { useState } from "react";
+import { customHash } from "../../utils/getHash";
 
 export const LoginPage = ({
   isLoggedIn,
@@ -26,6 +27,9 @@ export const LoginPage = ({
   const handleLogin = (e) => {
     e.preventDefault();
 
+    const inputString = password;
+    const hashedPass = customHash(inputString);
+
     if (logIn === "Anastasia Ivleva") {
       if (password === "12345") setIsOwner(true);
       else {
@@ -34,7 +38,7 @@ export const LoginPage = ({
       }
     }
 
-    if (localStorage.getItem(`${logIn + password}`)) {
+    if (localStorage.getItem(`${logIn + hashedPass}`)) {
       localStorage.setItem("isLoggedIn", true);
       localStorage.setItem("userName", logIn);
 
@@ -42,9 +46,9 @@ export const LoginPage = ({
       setIsLoggedIn(true);
       navigate("/");
     } else if (
-      !localStorage.getItem(`${logIn + password}`) &&
+      !localStorage.getItem(`${logIn + hashedPass}`) &&
       localStorage.getItem(`${logIn}`) !== " " &&
-      localStorage.getItem(`${password}`) !== " "
+      localStorage.getItem(`${hashedPass}`) !== " "
     ) {
       alert("wrong input, try again");
     }
