@@ -41,7 +41,11 @@ export const LoginPage = ({
       setUserName(logIn);
       setIsLoggedIn(true);
       navigate("/");
-    } else {
+    } else if (
+      !localStorage.getItem(`${logIn + password}`) &&
+      localStorage.getItem(`${logIn}`) !== " " &&
+      localStorage.getItem(`${password}`) !== " "
+    ) {
       alert("wrong input, try again");
     }
   };
