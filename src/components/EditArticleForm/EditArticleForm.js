@@ -15,6 +15,7 @@ export const EditArticleForm = (props) => {
 
   // FUNCTIONAL COMPONENT
   const [articleTitle, setArticleTitle] = useState(props.selectedArticle.title);
+  const [articleTags, setArticleTags] = useState(props.selectedArticle.tags);
   const [articleDescription, setArticleDescription] = useState(
     props.selectedArticle.description
   );
@@ -28,6 +29,15 @@ export const EditArticleForm = (props) => {
 
     // FUNCTIONAL COMPONENT
     setArticleTitle(e.target.value);
+  };
+
+  const onChangeTags = (e) => {
+    // this.setState({
+    //   articleDescription: event.target.value,
+    // });
+    // console.log(event.target.value);
+
+    setArticleTags(e.target.value);
   };
 
   const onChangeDescription = (e) => {
@@ -46,6 +56,7 @@ export const EditArticleForm = (props) => {
       id: props.selectedArticle.id,
       title: articleTitle,
       description: articleDescription,
+      tags: articleTags,
       liked: props.selectedArticle.liked,
     };
 
@@ -91,6 +102,16 @@ export const EditArticleForm = (props) => {
             placeholder="Заголовок поста"
             value={articleTitle}
             onChange={onChangeTitle}
+            required
+          />
+        </div>
+        <div>
+          <input
+            type="text"
+            name="articleTags"
+            placeholder="Теги поста"
+            value={articleTags}
+            onChange={onChangeTags}
             required
           />
         </div>

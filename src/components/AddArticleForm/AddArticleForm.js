@@ -5,10 +5,15 @@ import CloseIcon from "@mui/icons-material/Close";
 
 export const AddArticleForm = (props) => {
   const [articleTitle, setArticleTitle] = useState("");
+  const [articleTags, setArticleTags] = useState("");
   const [articleDescription, setArticleDescription] = useState("");
 
   const onChangeTitle = (e) => {
     setArticleTitle(e.target.value);
+  };
+
+  const onChangeTags = (e) => {
+    setArticleTags(e.target.value);
   };
 
   const onChangeDescription = (e) => {
@@ -28,6 +33,7 @@ export const AddArticleForm = (props) => {
     const article = {
       title: articleTitle,
       description: articleDescription,
+      tags: articleTags,
       liked: false,
       publishDate: publishDate,
       likeCount: 0,
@@ -70,6 +76,16 @@ export const AddArticleForm = (props) => {
             placeholder="Заголовок поста"
             value={articleTitle}
             onChange={onChangeTitle}
+            required
+          />
+        </div>
+        <div>
+          <input
+            type="text"
+            name="articleTags"
+            placeholder="Теги поста"
+            value={articleTags}
+            onChange={onChangeTags}
             required
           />
         </div>

@@ -135,6 +135,7 @@ export const ArticlesPage = ({ isOwner }) => {
         <ArticleItem
           id={item.id} // id makes uniq avatar for each post
           title={item.title}
+          tags={item.tags}
           description={item.description}
           avatarURL={item.avatarURL}
           liked={item.liked}

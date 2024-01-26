@@ -123,6 +123,7 @@ export const SingleArticleItem = ({ isOwner }) => {
           <div className="single-post__header">
             <img src={singlePost.avatarURL} alt="avatar" />
             <h2 className="single-post__title">{singlePost.title}</h2>
+            <span className="single-post__tags">{singlePost.tags}</span>
           </div>
 
           <p className="single-post__description">{singlePost.description}</p>

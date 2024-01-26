@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 export const ArticleItem = ({
   id,
   title,
+  tags,
   description,
   avatarURL,
   liked,
@@ -37,6 +38,7 @@ export const ArticleItem = ({
         <div className="post__header">
           <img src={avatarURL} alt="avatar" />
           <h2 className="post__title">{title}</h2>
+          <span className="post__tags">{tags}</span>
         </div>
 
         <p
