@@ -1,8 +1,8 @@
 import "./LoginPageStyles.scss";
 import { useNavigate } from "react-router-dom";
-import { CustomButton } from "../../UI/CustomButton/CustomButton";
+import { CustomButton } from "../../../UI/CustomButton/CustomButton";
 import { useState } from "react";
-import { customHash } from "../../utils/getHash";
+import { customHash } from "../../../utils/getHash";
 
 export const LoginPage = ({
   isLoggedIn,

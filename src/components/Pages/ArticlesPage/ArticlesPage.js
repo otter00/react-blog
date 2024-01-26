@@ -1,15 +1,15 @@
 import React, { useState } from "react";
 import "./ArticlesPageStyles.scss";
-import { CustomButton } from "../../UI/CustomButton/CustomButton";
-import { ArticleItem } from "../ArticeItem/ArticleItem";
-import { AddArticleForm } from "../AddArticleForm/AddArticleForm";
+import { CustomButton } from "../../../UI/CustomButton/CustomButton";
+import { ArticleItem } from "../../ArticeItem/ArticleItem";
+import { AddArticleForm } from "../../AddArticleForm/AddArticleForm";
 import LinearProgress from "@mui/material/LinearProgress";
-import { EditArticleForm } from "../EditArticleForm/EditArticleForm";
-import Pagination from "../PaginationComponent/Pagination";
+import { EditArticleForm } from "../../EditArticleForm/EditArticleForm";
+import Pagination from "../../PaginationComponent/Pagination";
 import IconButton from "@mui/material/IconButton";
 import NavigateBeforeIcon from "@mui/icons-material/NavigateBefore";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
-import FeaterIcon from "../../icons/feather-icon.svg";
+import FeaterIcon from "../../../icons/feather-icon.svg";
 import { Link } from "react-router-dom";
 import MenuBookIcon from "@mui/icons-material/MenuBook";
 import {
@@ -18,7 +18,7 @@ import {
   useEditArticle,
   useFetchArticles,
   useLikeArticle,
-} from "../../utils/getQueries";
+} from "../../../utils/getQueries";
 
 export const ArticlesPage = ({ isOwner }) => {
   const {

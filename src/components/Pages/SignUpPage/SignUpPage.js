@@ -1,10 +1,10 @@
 import "./SignUpPageStyles.scss";
 import { useNavigate } from "react-router-dom";
-import { CustomButton } from "../../UI/CustomButton/CustomButton";
+import { CustomButton } from "../../../UI/CustomButton/CustomButton";
 import { useState } from "react";
 import Checkbox from "@mui/material/Checkbox";
 import FormControlLabel from "@mui/material/FormControlLabel";
-import { customHash } from "../../utils/getHash";
+import { customHash } from "../../../utils/getHash";
 
 export const SignUpPage = () => {
   let navigate = useNavigate();
@@ -40,7 +40,7 @@ export const SignUpPage = () => {
 
   const handleSignUp = (e) => {
     e.preventDefault();
-  
+
     const inputString = registerPassword;
     const hashedPass = customHash(inputString);
 

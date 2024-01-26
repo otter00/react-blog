@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Header } from "./components/Header/Header";
 import "./styles/App.scss";
-import { ArticlesPage } from "./components/ArticlesPage/ArticlesPage";
+import { ArticlesPage } from "./components/Pages/ArticlesPage/ArticlesPage";
 import { Footer } from "./components/Footer/Footer";
 import { PageNotFound } from "./UI/404NotFound/PageNotFound";
 import {
@@ -11,12 +11,12 @@ import {
   Navigate,
   useLocation,
 } from "react-router-dom";
-import { LoginPage } from "./components/LoginPage/LoginPage";
+import { LoginPage } from "./components/Pages/LoginPage/LoginPage";
 import { PrivateRoute } from "./components/PrivateRoutes/PrivateRoutes";
 import { PublicRoute } from "./components/PublicRoutes/PublicRoutes";
 import { useAuth } from "./hooks/UseAuth";
 import { SingleArticleItem } from "./components/SingleArticleItem/SingleArticleItem";
-import { SignUpPage } from "./components/SignUpPage/SignUpPage";
+import { SignUpPage } from "./components/Pages/SignUpPage/SignUpPage";
 
 export function App() {
   const isAuth = useAuth();
