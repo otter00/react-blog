@@ -30,7 +30,9 @@ export const LoginPage = ({
     const inputString = password;
     const hashedPass = customHash(inputString);
 
+    // проверка имени владельца
     if (logIn === "Anastasia Ivleva") {
+      // проверка на совпадение имя+хэш пароля с парой имя+хэш из локального хранилища
       if (
         logIn + customHash(password) ===
         localStorage.getItem(`${logIn + hashedPass}`)
