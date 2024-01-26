@@ -31,7 +31,11 @@ export const LoginPage = ({
     const hashedPass = customHash(inputString);
 
     if (logIn === "Anastasia Ivleva") {
-      if (password === "12345") setIsOwner(true);
+      if (
+        logIn + customHash(password) ===
+        localStorage.getItem(`${logIn + hashedPass}`)
+      )
+        setIsOwner(true);
       else {
         alert("wrong");
         return false;
