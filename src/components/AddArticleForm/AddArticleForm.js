@@ -7,6 +7,7 @@ export const AddArticleForm = (props) => {
   const [articleTitle, setArticleTitle] = useState("");
   const [articleTags, setArticleTags] = useState("");
   const [articleDescription, setArticleDescription] = useState("");
+  const [articleText, setArticleText] = useState("");
 
   const onChangeTitle = (e) => {
     setArticleTitle(e.target.value);
@@ -18,6 +19,10 @@ export const AddArticleForm = (props) => {
 
   const onChangeDescription = (e) => {
     setArticleDescription(e.target.value);
+  };
+
+  const onChangeText = (e) => {
+    setArticleText(e.target.value);
   };
 
   let currentDate = new Date();
@@ -34,6 +39,7 @@ export const AddArticleForm = (props) => {
       title: articleTitle,
       description: articleDescription,
       tags: articleTags,
+      articleText: articleText,
       liked: false,
       publishDate: publishDate,
       likeCount: 0,
@@ -92,10 +98,20 @@ export const AddArticleForm = (props) => {
         <div>
           <textarea
             name="articleDescription"
-            placeholder="Ваш текст"
-            rows={7}
+            placeholder="Краткое описание"
+            rows={3}
             value={articleDescription}
             onChange={onChangeDescription}
+            required
+          />
+        </div>
+        <div>
+          <textarea
+            name="articleText"
+            placeholder="Ваш текст"
+            rows={7}
+            value={articleText}
+            onChange={onChangeText}
             required
           />
         </div>

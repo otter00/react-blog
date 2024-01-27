@@ -11,6 +11,9 @@ export const EditArticleForm = (props) => {
   const [articleDescription, setArticleDescription] = useState(
     props.selectedArticle.description
   );
+  const [articleText, setArticleText] = useState(
+    props.selectedArticle.articleText
+  );
 
   const onChangeTitle = (e) => {
     setArticleTitle(e.target.value);
@@ -24,6 +27,10 @@ export const EditArticleForm = (props) => {
     setArticleDescription(e.target.value);
   };
 
+  const onChangeText = (e) => {
+    setArticleText(e.target.value);
+  };
+
   const handleEditArticle = (e) => {
     // отмена события по умолчанию (отправки формы и перезагрузки страницы)
     e.preventDefault();
@@ -31,6 +38,7 @@ export const EditArticleForm = (props) => {
       id: props.selectedArticle.id,
       title: articleTitle,
       description: articleDescription,
+      articleText: articleText,
       tags: articleTags,
       liked: props.selectedArticle.liked,
     };
@@ -84,10 +92,20 @@ export const EditArticleForm = (props) => {
         <div>
           <textarea
             name="articleDescription"
-            placeholder="Ваш текст"
-            rows={7}
+            placeholder="Краткое описание"
+            rows={3}
             value={articleDescription}
             onChange={onChangeDescription}
+            required
+          />
+        </div>
+        <div>
+          <textarea
+            name="articleText"
+            placeholder="Ваш текст"
+            rows={7}
+            value={articleText}
+            onChange={onChangeText}
             required
           />
         </div>

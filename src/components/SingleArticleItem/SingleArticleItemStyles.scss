@@ -17,7 +17,7 @@ h2 {
 .single__post {
   @include flex_between;
   align-items: center;
-  margin-top: 150px;
+  margin-top: 100px;
 
   font-family: "Bad Script", cursive;
 
@@ -48,7 +48,17 @@ h2 {
     }
   }
 
+  .single-post__tags {
+    color: rgba(94, 94, 94, 0.718);
+  }
+
   .single-post__description {
+    font-size: 21px;
+    margin: 15px 5px;
+    color: rgba(94, 94, 94, 0.718);
+  }
+
+  .single-post__text {
     font-size: 26px;
     margin: 15px 5px;
   }

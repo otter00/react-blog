@@ -128,6 +128,8 @@ export const SingleArticleItem = ({ isOwner }) => {
 
           <p className="single-post__description">{singlePost.description}</p>
 
+          <p className="single-post__text">{singlePost.articleText}</p>
+
           <div>
             <button
               className="like-post__btn"

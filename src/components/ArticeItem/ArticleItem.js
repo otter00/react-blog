@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./ArticleItem.scss";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -10,6 +10,7 @@ export const ArticleItem = ({
   title,
   tags,
   description,
+  articleText,
   avatarURL,
   liked,
   likePost,
@@ -23,6 +24,14 @@ export const ArticleItem = ({
   const showEditForm = () => {
     handleSelectArticle();
     handleEditArticle();
+  };
+
+  const [isDescriptionExpanded, setIsDescriptionExpanded] = useState(false);
+
+  const descriptionClass = isDescriptionExpanded ? "expanded" : "collapsed";
+
+  const toggleDescription = () => {
+    setIsDescriptionExpanded(!isDescriptionExpanded);
   };
 
   console.log(id);
@@ -42,12 +51,14 @@ export const ArticleItem = ({
         </div>
 
         <p
-          // className={`post__description ${descriptionClass}`}
-          // onClick={toggleDescription}
-          className="post__description"
+          className={`post__description ${descriptionClass}`}
+          onClick={toggleDescription}
+          //className="post__description"
         >
           {description}
         </p>
+
+        {/* <p className="post__text">{articleText}</p> */}
 
         <div className="subdescription__section">
           <button className="like-post__btn" onClick={likePost}>

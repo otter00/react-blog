@@ -47,6 +47,15 @@ h2 {
     }
   }
 
+  .post__tags {
+    color: rgba(94, 94, 94, 0.718);
+  }
+
+  // .post__text {
+  //   max-height: 2em;
+  //   font-size: 20px;
+  // }
+
   .post__description {
     font-size: 20px;
     padding: 3px 3px 0 3px;
@@ -56,9 +65,9 @@ h2 {
     transition: max-height 0.3s ease-in-out;
   }
 
-  // .post__description.expanded {
-  //   max-height: none;
-  // }
+  .post__description.expanded {
+    max-height: none;
+  }
 
   .subdescription__section {
     display: inline-flex;

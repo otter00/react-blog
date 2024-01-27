@@ -137,6 +137,7 @@ export const ArticlesPage = ({ isOwner }) => {
           title={item.title}
           tags={item.tags}
           description={item.description}
+          articleText={item.articleText}
           avatarURL={item.avatarURL}
           liked={item.liked}
           likeCount={item.likeCount}
