@@ -82,6 +82,7 @@ export const AddArticleForm = (props) => {
             placeholder="Заголовок поста"
             value={articleTitle}
             onChange={onChangeTitle}
+            minlength="3"
             required
           />
         </div>

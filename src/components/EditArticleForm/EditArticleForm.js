@@ -76,6 +76,7 @@ export const EditArticleForm = (props) => {
             placeholder="Заголовок поста"
             value={articleTitle}
             onChange={onChangeTitle}
+            minlength="3"
             required
           />
         </div>

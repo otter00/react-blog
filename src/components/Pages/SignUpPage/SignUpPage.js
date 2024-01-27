@@ -81,6 +81,8 @@ export const SignUpPage = () => {
             placeholder="Enter your name"
             name="formSignup"
             onChange={handleRegisterUsername}
+            minlength="3"
+            maxlength="25"
             required
           />
         </div>
@@ -105,6 +107,8 @@ export const SignUpPage = () => {
             placeholder="Enter your password"
             name="formPassword"
             onChange={handleRegisterPassword}
+            minlength="5"
+            maxlength="15"
             required
           />
         </div>
