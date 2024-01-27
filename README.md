@@ -6,7 +6,7 @@ Sign-up/sign-in opportunity implemented with access rights check in order to pro
 
 ## Technologies used
 * Axios to simplify requests
-* React-router-dom to set up routing between pages
+* React-router-dom v.6 to set up routing between pages
 * Sass/Scss (CSS preprocessrs)
 * React-query to move requests as a separate file (useQueries.js)
 * Antd library for forms and pages styles
@@ -37,3 +37,9 @@ The styles for each component are therefore located in their corresponding <comp
 ## BEM convention
 
 The components try to follow a BEM naming convention (Block Element Modifier). Hence, you can leverage the & (ampersand) operator in SASS to reference the parent component in a concise way.
+
+## Deployment
+
+The `auth-branch` is the main branch
+
+To be continued...
