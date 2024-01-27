@@ -12,8 +12,8 @@ import {
   useLocation,
 } from "react-router-dom";
 import { LoginPage } from "./components/Pages/LoginPage/LoginPage";
-import { PrivateRoute } from "./components/PrivateRoutes/PrivateRoutes";
-import { PublicRoute } from "./components/PublicRoutes/PublicRoutes";
+import { PrivateRoute } from "./components/Routes/PrivateRoutes/PrivateRoutes";
+import { PublicRoute } from "./components/Routes/PublicRoutes/PublicRoutes";
 import { useAuth } from "./hooks/UseAuth";
 import { SingleArticleItem } from "./components/SingleArticleItem/SingleArticleItem";
 import { SignUpPage } from "./components/Pages/SignUpPage/SignUpPage";

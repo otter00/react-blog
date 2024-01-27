@@ -6,14 +6,6 @@ import "../AddArticleForm/AddArticleFormStyles.scss";
 export const EditArticleForm = (props) => {
   // в зависимости от того, какой пост редактируем, получаем
   // начальные данные этого поста и отображаем на форме
-
-  // CLASS COMPONENT
-  // state = {
-  //   articleTitle: this.props.selectedArticle.title,
-  //   articleDescription: this.props.selectedArticle.description,
-  // };
-
-  // FUNCTIONAL COMPONENT
   const [articleTitle, setArticleTitle] = useState(props.selectedArticle.title);
   const [articleTags, setArticleTags] = useState(props.selectedArticle.tags);
   const [articleDescription, setArticleDescription] = useState(
@@ -21,31 +13,14 @@ export const EditArticleForm = (props) => {
   );
 
   const onChangeTitle = (e) => {
-    // CLASS COMPONENT
-    // this.setState({
-    //   articleTitle: event.target.value,
-    // });
-    // console.log(event.target.value);
-
-    // FUNCTIONAL COMPONENT
     setArticleTitle(e.target.value);
   };
 
   const onChangeTags = (e) => {
-    // this.setState({
-    //   articleDescription: event.target.value,
-    // });
-    // console.log(event.target.value);
-
     setArticleTags(e.target.value);
   };
 
   const onChangeDescription = (e) => {
-    // this.setState({
-    //   articleDescription: event.target.value,
-    // });
-    // console.log(event.target.value);
-
     setArticleDescription(e.target.value);
   };
 
@@ -64,15 +39,6 @@ export const EditArticleForm = (props) => {
     props.handleEditArticle(article);
     props.handleHideEditForm();
   };
-
-  // CLASS COMPONENT LIFECYCLE METHOD
-  // componentDidMount() {
-  //   window.addEventListener("keyup", this.handleFormEscape);
-  // }
-
-  // componentWillUnmount() {
-  //   window.removeEventListener("keyup", this.handleFormEscape);
-  // }
 
   // FUNCTIONAL COMPONENT LIFECYCLE METHOD
   useEffect(() => {
