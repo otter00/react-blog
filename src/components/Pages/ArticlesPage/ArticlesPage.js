@@ -179,7 +179,7 @@ export const ArticlesPage = ({ isOwner }) => {
       <>
         <h1 className="articles-blog__title">
           <img src={FeaterIcon} alt="write-icon" className="feater-icon" />
-          My own Book Review blog
+          My own Books Review blog
         </h1>
 
         {isOwner && (
