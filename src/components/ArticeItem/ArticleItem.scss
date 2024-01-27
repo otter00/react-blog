@@ -49,6 +49,10 @@ h2 {
 
   .post__tags {
     color: rgba(94, 94, 94, 0.718);
+
+    &:hover {
+      cursor: pointer;
+    }
   }
 
   // .post__text {
