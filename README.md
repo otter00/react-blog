@@ -13,6 +13,7 @@ Sign-up/sign-in opportunity implemented with access rights check in order to pro
 * Mui library for icons/btns/etc.
 * BEM convention
 * Custom react hooks (useAuth to check whether the user is authorized)
+* React-markdown formatting
 
 ## Setup the project
 
