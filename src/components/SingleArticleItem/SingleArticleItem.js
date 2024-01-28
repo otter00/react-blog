@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import ReactMarkdown from "react-markdown";
 import { useNavigate } from "react-router-dom";
 import "./SingleArticleItemStyles.scss";
 import FavoriteIcon from "@mui/icons-material/Favorite";
@@ -126,9 +127,13 @@ export const SingleArticleItem = ({ isOwner }) => {
             <span className="single-post__tags">{singlePost.tags}</span>
           </div>
 
-          <p className="single-post__description">{singlePost.description}</p>
+          <ReactMarkdown className="single-post__description">
+            {singlePost.description}
+          </ReactMarkdown>
 
-          <p className="single-post__text">{singlePost.articleText}</p>
+          <ReactMarkdown className="single-post__text">
+            {singlePost.articleText}
+          </ReactMarkdown>
 
           <div>
             <button

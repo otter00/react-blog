@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import ReactMarkdown from "react-markdown";
 import "./ArticleItem.scss";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -55,7 +56,7 @@ export const ArticleItem = ({
           onClick={toggleDescription}
           //className="post__description"
         >
-          {description}
+          <ReactMarkdown>{description}</ReactMarkdown>
         </p>
 
         {/* <p className="post__text">{articleText}</p> */}

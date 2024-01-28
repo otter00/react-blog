@@ -33,6 +33,10 @@ h2 {
     gap: 5px;
   }
 
+  .single-post__container > div > p {
+    margin: 0;
+  }
+
   .single-post__header {
     display: flex;
     align-items: center;

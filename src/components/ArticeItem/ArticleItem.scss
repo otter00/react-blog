@@ -67,6 +67,10 @@ h2 {
     overflow: hidden;
     max-height: 2em;
     transition: max-height 0.3s ease-in-out;
+
+    * {
+      margin: 0;
+    }
   }
 
   .post__description.expanded {
