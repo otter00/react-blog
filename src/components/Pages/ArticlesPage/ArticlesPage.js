@@ -45,6 +45,12 @@ export const ArticlesPage = ({ isOwner }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [articlesPerPage] = useState(3);
 
+  // получаем имя авторизованного пользователя
+  const getCurrentUser = () => {
+    return localStorage.getItem("userName");
+  };
+  const currentUser = getCurrentUser();
+
   // в случае ошибки получения данных сообщаем о ней пользователю
   if (isError) return <h1>{error.message}</h1>;
   // сообщаем о загрузке данных, пока они не пришли с сервера
@@ -72,11 +78,19 @@ export const ArticlesPage = ({ isOwner }) => {
   // связано с не/закрашенной иконкой
   const handleLikeCount = (tmp) => {
     if (tmp.liked === true && tmp.likeCount > 0) {
+      // if (localStorage.getItem(`${currentUser + tmp.id}`)) {
+      //   localStorage.removeItem(`${currentUser + tmp.id}`);
+      //   tmp.likeCount--;
+      // }
       tmp.likeCount--;
     }
     if (tmp.liked === true && tmp.likeCount === 0) {
       tmp.likeCount = 0;
     } else {
+      // if (!localStorage.getItem(`${currentUser + tmp.id}`)) {
+      //   localStorage.setItem(`${currentUser + tmp.id}`, currentUser + tmp.id);
+      //   tmp.likeCount++;
+      // }
       tmp.likeCount++;
     }
   };
@@ -85,6 +99,12 @@ export const ArticlesPage = ({ isOwner }) => {
     const tmp = { ...article };
     handleLikeCount(tmp);
     tmp.liked = !tmp.liked;
+
+    // если пост лайкнут, заносим в массив имя лайкнувшего пользователя и id поста
+    if (tmp.liked === true) {
+      localStorage.setItem(`${currentUser + tmp.id}`, currentUser + tmp.id);
+    }
+
     likeArticleMutation.mutate(tmp);
   };
 
@@ -137,7 +157,7 @@ export const ArticlesPage = ({ isOwner }) => {
           title={item.title}
           tags={item.tags}
           description={item.description}
-          articleText={item.articleText}
+          // articleText={item.articleText}
           avatarURL={item.avatarURL}
           liked={item.liked}
           likeCount={item.likeCount}

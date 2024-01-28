@@ -6,7 +6,7 @@ import Checkbox from "@mui/material/Checkbox";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import { customHash } from "../../../utils/getHash";
 
-export const SignUpPage = () => {
+export const SignUpPage = ({}) => {
   let navigate = useNavigate();
 
   const [registerUsername, setRegisterUsername] = useState("");

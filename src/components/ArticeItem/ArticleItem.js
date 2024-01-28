@@ -10,7 +10,7 @@ export const ArticleItem = ({
   title,
   tags,
   description,
-  articleText,
+  // articleText,
   avatarURL,
   liked,
   likePost,

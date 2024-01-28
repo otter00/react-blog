@@ -9,6 +9,7 @@ export const LoginPage = ({
   setIsLoggedIn,
   setUserName,
   setIsOwner,
+  setIsNewUser,
 }) => {
   let navigate = useNavigate();
   // console.log(isLoggedIn);
