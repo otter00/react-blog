@@ -127,9 +127,7 @@ export const SingleArticleItem = ({ isOwner }) => {
             <span className="single-post__tags">{singlePost.tags}</span>
           </div>
 
-          <ReactMarkdown className="single-post__description">
-            {singlePost.description}
-          </ReactMarkdown>
+          <p className="single-post__description">{singlePost.description}</p>
 
           <ReactMarkdown className="single-post__text">
             {singlePost.articleText}
