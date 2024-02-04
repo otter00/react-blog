@@ -10,7 +10,6 @@ export const Header = ({
   setIsOwner,
   isOwner,
 }) => {
-  //console.log(isLoggedIn);
   console.log(`isOwner flag now: ${isOwner}`);
 
   const handeLogOut = () => {
@@ -28,15 +27,7 @@ export const Header = ({
             Welcome, <strong>{userName}</strong>
           </span>
           {/* Принцип SPA - переход по ссылкам без обновления страницы */}
-          {/* <NavLink activeClassName="link__active" exact to="/">
-    Diploma Blog
-  </NavLink> */}
-          <NavLink
-            onClick={handeLogOut}
-            //className={({ isActive }) => [isActive ? "link__active" : ""]}
-            exact
-            to="/login"
-          >
+          <NavLink onClick={handeLogOut} exact to="/login">
             LogOut
             <LogoutIcon />
           </NavLink>
