@@ -125,6 +125,7 @@ export const SingleArticleItem = ({ isOwner }) => {
             <img src={singlePost.avatarURL} alt="avatar" />
             <h2 className="single-post__title">{singlePost.title}</h2>
             <span className="single-post__tags">{singlePost.tags}</span>
+            <span className="publish__date">{singlePost.publishDate}</span>
           </div>
 
           <p className="single-post__description">{singlePost.description}</p>
@@ -147,8 +148,6 @@ export const SingleArticleItem = ({ isOwner }) => {
 
         {isOwner && (
           <section className="post__attributes">
-            <span className="publish__date">{singlePost.publishDate}</span>
-
             <div className="functional__btns">
               <button
                 className="edit__btn"

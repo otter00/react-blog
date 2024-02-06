@@ -48,6 +48,7 @@ export const ArticleItem = ({
           <img src={avatarURL} alt="avatar" />
           <h2 className="post__title">{title}</h2>
           <span className="post__tags">{tags}</span>
+          <span className="publish__date">{publishDate}</span>
         </div>
 
         <p
@@ -73,8 +74,6 @@ export const ArticleItem = ({
 
       {isOwner && (
         <section className="post__attributes">
-          <span className="publish__date">{publishDate}</span>
-
           <div className="functional__btns">
             <button className="edit__btn" onClick={showEditForm}>
               <EditIcon />
