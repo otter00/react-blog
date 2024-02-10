@@ -101,8 +101,10 @@ export const ArticlesPage = ({ isOwner }) => {
     tmp.liked = !tmp.liked;
 
     // если пост лайкнут, заносим в массив имя лайкнувшего пользователя и id поста
-    if (tmp.liked === true) {
+    if (tmp.liked) {
       localStorage.setItem(`${currentUser + tmp.id}`, currentUser + tmp.id);
+    } else {
+      localStorage.removeItem(`${currentUser + tmp.id}`, currentUser + tmp.id);
     }
 
     likeArticleMutation.mutate(tmp);
