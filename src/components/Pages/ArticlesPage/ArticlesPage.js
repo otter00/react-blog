@@ -75,8 +75,10 @@ export const ArticlesPage = ({ isOwner }) => {
   };
 
   // отображение количества лайков
-  // связано с не/закрашенной иконкой
+  // связано с не/закрашенной иконкой, НЕ устанавливает bool
   const handleLikeCount = (tmp) => {
+    // после клика - при условии, что лайк уже стоит, и счетик не 0,
+    // уменьшаем счетчик, то есть убираем лайк
     if (tmp.liked === true && tmp.likeCount > 0) {
       // if (localStorage.getItem(`${currentUser + tmp.id}`)) {
       //   localStorage.removeItem(`${currentUser + tmp.id}`);
@@ -84,9 +86,13 @@ export const ArticlesPage = ({ isOwner }) => {
       // }
       tmp.likeCount--;
     }
+    // если лайк уже стоит, а счетчик 0, убираем лайк
+    // и не меняем счетчик (логично, что будет 0, ведь лайка нет)
     if (tmp.liked === true && tmp.likeCount === 0) {
       tmp.likeCount = 0;
-    } else {
+    } // если ни одно из вышестоящих условий не отыграло, тогда лайк и не стоял
+    // увеличиваем счетчик и далее в функции меняем булеву переменную
+    else {
       // if (!localStorage.getItem(`${currentUser + tmp.id}`)) {
       //   localStorage.setItem(`${currentUser + tmp.id}`, currentUser + tmp.id);
       //   tmp.likeCount++;
@@ -95,6 +101,8 @@ export const ArticlesPage = ({ isOwner }) => {
     }
   };
 
+  // функция, СВЯЗАННАЯ с bool
+  // вызывает функцию проверки и установки счетчика
   const likePost = (article) => {
     const tmp = { ...article };
     handleLikeCount(tmp);
