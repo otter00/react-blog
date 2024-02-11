@@ -79,41 +79,69 @@ export const ArticlesPage = ({ isOwner }) => {
   const handleLikeCount = (tmp) => {
     // после клика - при условии, что лайк уже стоит, и счетик не 0,
     // уменьшаем счетчик, то есть убираем лайк
-    if (tmp.liked === true && tmp.likeCount > 0) {
-      // if (localStorage.getItem(`${currentUser + tmp.id}`)) {
-      //   localStorage.removeItem(`${currentUser + tmp.id}`);
-      //   tmp.likeCount--;
-      // }
-      tmp.likeCount--;
-    }
-    // если лайк уже стоит, а счетчик 0, убираем лайк
-    // и не меняем счетчик (логично, что будет 0, ведь лайка нет)
-    if (tmp.liked === true && tmp.likeCount === 0) {
-      tmp.likeCount = 0;
-    } // если ни одно из вышестоящих условий не отыграло, тогда лайк и не стоял
-    // увеличиваем счетчик и далее в функции меняем булеву переменную
-    else {
-      // if (!localStorage.getItem(`${currentUser + tmp.id}`)) {
-      //   localStorage.setItem(`${currentUser + tmp.id}`, currentUser + tmp.id);
-      //   tmp.likeCount++;
-      // }
+    // if (tmp.liked === true && tmp.likeCount > 0) {
+    //   if (localStorage.getItem(`${currentUser + tmp.id}`)) {
+    //     localStorage.removeItem(`${currentUser + tmp.id}`);
+    //     tmp.likeCount--;
+    //   }
+    //   // if (!localStorage.getItem(`${currentUser + tmp.id}`)) {
+    //   //   localStorage.setItem(`${currentUser + tmp.id}`, currentUser + tmp.id);
+    //   //   tmp.likeCount++;
+    //   // }
+    //   //tmp.likeCount--;
+    // }
+    // // если лайк уже стоит, а счетчик 0, убираем лайк
+    // // и не меняем счетчик (логично, что будет 0, ведь лайка нет)
+    // if (tmp.liked === true && tmp.likeCount === 0) {
+    //   tmp.likeCount = 0;
+    // } // если ни одно из вышестоящих условий не отыграло, тогда лайк и не стоял
+    // // увеличиваем счетчик и далее в функции меняем булеву переменную
+    // else {
+    //   if (!localStorage.getItem(`${currentUser + tmp.id}`)) {
+    //     localStorage.setItem(`${currentUser + tmp.id}`, currentUser + tmp.id);
+    //     tmp.likeCount++;
+    //   }
+    //   //tmp.likeCount++;
+    // }
+
+    if (
+      tmp.likeCount === 0 &&
+      !localStorage.getItem(`${currentUser + tmp.id}`)
+    ) {
+      localStorage.setItem(`${currentUser + tmp.id}`, currentUser + tmp.id);
       tmp.likeCount++;
+    } else if (
+      tmp.likeCount > 0 &&
+      !localStorage.getItem(`${currentUser + tmp.id}`)
+    ) {
+      localStorage.setItem(`${currentUser + tmp.id}`, currentUser + tmp.id);
+      tmp.likeCount++;
+    } else if (
+      tmp.likeCount > 0 &&
+      localStorage.getItem(`${currentUser + tmp.id}`)
+    ) {
+      localStorage.removeItem(`${currentUser + tmp.id}`, currentUser + tmp.id);
+      tmp.likeCount--;
     }
   };
 
   // функция, СВЯЗАННАЯ с bool
-  // вызывает функцию проверки и установки счетчика
+  // вызывает функцию проверки счетчика
   const likePost = (article) => {
     const tmp = { ...article };
     handleLikeCount(tmp);
-    tmp.liked = !tmp.liked;
+    //tmp.liked = !tmp.liked;
+
+    if (tmp.likeCount > 0) {
+      tmp.liked = true;
+    } else tmp.liked = false;
 
     // если пост лайкнут, заносим в массив имя лайкнувшего пользователя и id поста
-    if (tmp.liked) {
-      localStorage.setItem(`${currentUser + tmp.id}`, currentUser + tmp.id);
-    } else {
-      localStorage.removeItem(`${currentUser + tmp.id}`, currentUser + tmp.id);
-    }
+    // if (tmp.liked) {
+    //   localStorage.setItem(`${currentUser + tmp.id}`, currentUser + tmp.id);
+    // } else {
+    //   localStorage.removeItem(`${currentUser + tmp.id}`, currentUser + tmp.id);
+    // }
 
     likeArticleMutation.mutate(tmp);
   };
