@@ -52,23 +52,54 @@ export const SingleArticleItem = ({ isOwner }) => {
     navigate("/blog");
   };
 
+  // получаем имя авторизованного пользователя
+  const getCurrentUser = () => {
+    return localStorage.getItem("userName");
+  };
+  const currentUser = getCurrentUser();
+
   // отображение количества лайков
   // связано с не/закрашенной иконкой
   const handleLikeCount = (tmp) => {
-    if (tmp.liked === true && tmp.likeCount > 0) {
-      tmp.likeCount--;
-    }
-    if (tmp.liked === true && tmp.likeCount === 0) {
-      tmp.likeCount = 0;
-    } else {
+    // if (tmp.liked === true && tmp.likeCount > 0) {
+    //   tmp.likeCount--;
+    // }
+    // if (tmp.liked === true && tmp.likeCount === 0) {
+    //   tmp.likeCount = 0;
+    // } else {
+    //   tmp.likeCount++;
+    // }
+
+    if (
+      tmp.likeCount === 0 &&
+      !localStorage.getItem(`${currentUser + tmp.id}`)
+    ) {
+      localStorage.setItem(`${currentUser + tmp.id}`, currentUser + tmp.id);
       tmp.likeCount++;
+    } else if (
+      tmp.likeCount > 0 &&
+      !localStorage.getItem(`${currentUser + tmp.id}`)
+    ) {
+      localStorage.setItem(`${currentUser + tmp.id}`, currentUser + tmp.id);
+      tmp.likeCount++;
+    } else if (
+      tmp.likeCount > 0 &&
+      localStorage.getItem(`${currentUser + tmp.id}`)
+    ) {
+      localStorage.removeItem(`${currentUser + tmp.id}`, currentUser + tmp.id);
+      tmp.likeCount--;
     }
   };
 
   const likePost = (singlePost) => {
     const tmp = { ...singlePost };
     handleLikeCount(tmp);
-    tmp.liked = !tmp.liked;
+    //tmp.liked = !tmp.liked;
+
+    if (tmp.likeCount > 0) {
+      tmp.liked = true;
+    } else tmp.liked = false;
+
     likeArticleMutation.mutate(tmp);
   };
 

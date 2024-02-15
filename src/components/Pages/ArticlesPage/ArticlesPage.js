@@ -79,16 +79,7 @@ export const ArticlesPage = ({ isOwner }) => {
   const handleLikeCount = (tmp) => {
     // после клика - при условии, что лайк уже стоит, и счетик не 0,
     // уменьшаем счетчик, то есть убираем лайк
-    // if (tmp.liked === true && tmp.likeCount > 0) {
-    //   if (localStorage.getItem(`${currentUser + tmp.id}`)) {
-    //     localStorage.removeItem(`${currentUser + tmp.id}`);
-    //     tmp.likeCount--;
-    //   }
-    //   // if (!localStorage.getItem(`${currentUser + tmp.id}`)) {
-    //   //   localStorage.setItem(`${currentUser + tmp.id}`, currentUser + tmp.id);
-    //   //   tmp.likeCount++;
-    //   // }
-    //   //tmp.likeCount--;
+    //   tmp.likeCount--;
     // }
     // // если лайк уже стоит, а счетчик 0, убираем лайк
     // // и не меняем счетчик (логично, что будет 0, ведь лайка нет)
@@ -97,11 +88,7 @@ export const ArticlesPage = ({ isOwner }) => {
     // } // если ни одно из вышестоящих условий не отыграло, тогда лайк и не стоял
     // // увеличиваем счетчик и далее в функции меняем булеву переменную
     // else {
-    //   if (!localStorage.getItem(`${currentUser + tmp.id}`)) {
-    //     localStorage.setItem(`${currentUser + tmp.id}`, currentUser + tmp.id);
-    //     tmp.likeCount++;
-    //   }
-    //   //tmp.likeCount++;
+    //   tmp.likeCount++;
     // }
 
     if (
@@ -145,6 +132,25 @@ export const ArticlesPage = ({ isOwner }) => {
 
     likeArticleMutation.mutate(tmp);
   };
+
+  // я правда не знаю, как этот костыль работает, но тем не менее
+  /* 
+  Проверяем, есть ли в локальном хранилище вообще какие-то записи о том, 
+  что авторизованный юзер лайкал какой-то пост.
+  Если хоть какая-то запись имеется, то у поста (лайкнутого) с этим записанным айдишником 
+  иконка сердечка будет КРАСНОЙ.
+  Если конкретно этот пользователь не лайкал пост с таким-то айдишником (записи нет), то
+  нам глубоко фиолетово, сколько там стояло циферок до нас, иконка сердечка будет СЕРАЯ (мы не лайкали)
+   */
+  for (let i = 0; i < articles.length; i++) {
+    if (localStorage.getItem(`${currentUser + articles[i].id}`)) {
+      console.log("молодец, везде успел");
+      articles[i].liked = true;
+    } else {
+      console.log("фиг вам");
+      articles[i].liked = false;
+    }
+  }
 
   const handleDeleteArticle = (article) => {
     // вызываем пользовательское модальное окно перед удалением
