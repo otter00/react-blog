@@ -103,6 +103,14 @@ export const SingleArticleItem = ({ isOwner }) => {
     likeArticleMutation.mutate(tmp);
   };
 
+  if (localStorage.getItem(`${currentUser + singlePost.id}`)) {
+    console.log("молодец, везде успел");
+    singlePost.liked = true;
+  } else {
+    console.log("фиг вам");
+    singlePost.liked = false;
+  }
+
   const handleDeleteArticle = (singlePost) => {
     // вызываем пользовательское модальное окно перед удалением
     if (window.confirm(`Удалить ${singlePost.title}?`)) {
