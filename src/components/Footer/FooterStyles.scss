@@ -1,0 +1,25 @@
+/* general styles */
+@import "../../styles/vars.scss";
+
+/* fonts */
+@import "../../styles/fonts.scss";
+
+:root {
+  --footer-color: #393939;
+  --footer-font-size: 18px;
+}
+
+footer {
+  height: 50px;
+  background-color: var(--footer-color);
+
+  @include flex_center;
+  align-items: center;
+
+  span {
+    vertical-align: middle;
+    font-weight: 400;
+    font-size: var(--footer-font-size);
+    color: $white-color;
+  }
+}

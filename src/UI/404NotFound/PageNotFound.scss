@@ -1,0 +1,40 @@
+/* fonts */
+@import "../../styles/fonts.scss";
+
+/* general */
+@import "../../styles/vars.scss";
+
+.page_404 {
+  margin: 60px 0;
+  text-shadow: $custom-text-shadow;
+
+  span {
+    display: block;
+    margin: 30px 0;
+  }
+
+  .ant-result-title {
+    font-size: 52px;
+  }
+
+  .ant-result-subtitle {
+    font-size: 36px;
+    color: rgba(0, 0, 0, 0.88);
+  }
+
+  // .info__title {
+  //   font-size: 52px;
+  // }
+  // .info__subtitle {
+  //   font-size: 36px;
+  // }
+
+  button {
+    margin: 15px 0;
+  }
+
+  & > span:hover {
+    text-decoration: underline;
+    cursor: pointer;
+  }
+}

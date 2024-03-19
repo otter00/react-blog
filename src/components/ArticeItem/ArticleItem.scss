@@ -1,0 +1,112 @@
+/* general styles */
+@import "../../styles/vars.scss";
+
+/* fonts */
+@import "../../styles/fonts.scss";
+
+:root {
+  --article-title-color: #2a6913;
+  --post-margin-bottom: 3vh;
+  --post-paddings: 10px 30px;
+}
+
+h2 {
+  color: var(--article-title-color);
+}
+
+.post {
+  @include flex_between;
+  align-items: center;
+
+  font-family: "Bad Script", cursive;
+
+  padding: var(--post-paddings);
+  margin-bottom: var(--post-margin-bottom);
+  background-color: $white-color;
+  box-shadow: 0px 4px 12px 0px #00000026;
+
+  .like-post__btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  .post__header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+
+    img {
+      margin: 15px 0 5px 0;
+      width: 30px;
+      height: 30px;
+    }
+
+    .post__title {
+      margin: 15px 0 5px 0;
+    }
+  }
+
+  .post__tags {
+    color: rgba(94, 94, 94, 0.718);
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  // .post__text {
+  //   max-height: 2em;
+  //   font-size: 20px;
+  // }
+
+  .post__description {
+    font-size: 20px;
+    padding: 3px 0px 5px 3px;
+    margin: 10px 5px;
+    overflow: hidden;
+    max-height: 2em;
+    transition: max-height 0.3s ease-in-out;
+  }
+
+  .post__description.expanded {
+    max-height: none;
+  }
+
+  .subdescription__section {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+
+    a {
+      color: black;
+
+      &:hover {
+        text-decoration: underline;
+      }
+
+      &:visited {
+        color: black;
+        text-decoration: none;
+      }
+    }
+  }
+
+  .post__attributes {
+    display: flex;
+    flex-direction: column;
+
+    .publish__date {
+      @include flex_center;
+    }
+
+    .functional__btns {
+      display: inline-flex;
+      justify-content: end;
+      height: 80px;
+
+      // flex-direction: column;
+      // justify-content: space-between;
+    }
+  }
+}

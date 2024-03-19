@@ -1,0 +1,64 @@
+  state = {
+    showAddForm: false,
+
+    // если в локальном хранилище есть данные, берем их
+    // если данных нет, берем "чистый" массив
+    //blogArray: JSON.parse(localStorage.getItem("blogArticles")) || posts,
+    isLoading: false,
+  };
+
+  handleDeleteArticle = (article) => {
+      //if (window.confirm(`Удалить ${this.state.blogArray[position].title}?`)) {
+      // // копируем массив
+      // const beforeDeleteBlog = [...this.state.blogArray];
+      // beforeDeleteBlog.splice(position, 1);
+      // console.log(beforeDeleteBlog);
+
+      // this.setState({
+      //   blogArray: beforeDeleteBlog,
+      // });
+
+      // // сохраняем изменения в локальное хранилище
+      // localStorage.setItem("blogArticles", JSON.stringify(beforeDeleteBlog));
+  }
+
+  handleAddArticle = (article) => {    
+    // // асинхронный метод с коллбэком вместо объекта
+    // this.setState((state) => {
+    //   const articlesList = [...state.blogArray];
+    //   articlesList.push(article);
+    //   // сохраняем изменения в локальное хранилище
+    //   localStorage.setItem("blogArticles", JSON.stringify(articlesList));
+    //   return {
+    //     blogArray: articlesList,
+    //   };
+    // });
+
+    //this.handleHideAddForm();
+  }
+
+    likePost = (position) => {
+    // // сохраняем копию на массив статей в отдельную переменную
+    // const tmp = [...this.state.blogArray];
+    // // изменяем состояние
+    // tmp[position].liked = !tmp[position].liked;
+    // //console.log(tmp);
+    // // передаем измененный временный массив в переменную для отрисовки
+    // this.setState({
+    //   blogArray: tmp,
+    // });
+    // // сохраняем массив с изменениями в локальное хранилище
+    // localStorage.setItem("blogArticles", JSON.stringify(tmp));
+    }
+
+  // side effect - помещаются в данном этапе ЖЦ на первичной отрисовке
+  // сокрытие формы по клику на ESC
+  componentDidMount() {
+    this.fetchArticles();
+    window.addEventListener("keyup", this.handleFormEscape);
+  }
+  // очищаем обработчик события, использованный на шаге пнрвичной отрисовки
+  // на данном этапе форма скрылась = размонтировалась из разметки DOM
+  componentWillUnmount() {
+     window.removeEventListener("keyup", this.handleFormEscape);
+   }

@@ -1,0 +1,10 @@
+/* general styles */
+@import "../../styles/vars.scss";
+
+/* fonts */
+@import "../../styles/fonts.scss";
+
+button {
+  background-color: $unset-param;
+  font-family: "Bad Script", cursive;
+}

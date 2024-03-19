@@ -1,0 +1,80 @@
+/* reset styles */
+@import "./reset.scss";
+
+/* general styles */
+@import "./vars.scss";
+
+/* fonts */
+@import "./fonts.scss";
+
+/* fonts */
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800;900&display=swap");
+
+:root {
+  --h1-font-size: 32px;
+  --h2-font-size: 24px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Nunito", sans-serif;
+  background-color: $background-app-color;
+  overflow-y: hidden;
+  background-image: url("../assets/leaves-background.jpg");
+}
+
+a {
+  text-decoration: none;
+}
+
+button {
+  outline: $unset-param;
+  border: none;
+  font-family: "Poppins", sans-serif;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+main {
+  padding: 20px 20%;
+  min-height: calc(100vh - 100px);
+}
+
+h1,
+h2 {
+  font-weight: 700;
+}
+
+h1 {
+  text-align: center;
+  font-size: --h1-font-size;
+}
+
+h2 {
+  font-size: --h2-font-size;
+}
+
+input,
+textarea {
+  outline: $unset-param;
+  border: 0;
+  opacity: 0.8;
+
+  &::placeholder {
+    color: black;
+  }
+}
+
+.CustomButtonStyle {
+  @include general_button_styles;
+
+  padding: 5px 20px;
+  height: 35px;
+  line-height: 1.5;
+}
